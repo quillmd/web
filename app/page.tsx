@@ -1,3 +1,5 @@
+import { ModeToggle } from "@/components/ui/toggle-mode";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 export default function Home() {
@@ -5,7 +7,7 @@ export default function Home() {
     <>
       <header className="flex items-center justify-between px-6 py-4">
         <div className="flex items-center">
-          <Image src="/logo1_notari-cropped.svg" alt="Logo" width={150} height={150} className="logo" />
+          <Image src="/logo1_notari-cropped.svg" alt="Logo" width={150} height={150} className="logo" className="logo invert-on-dark" />
         </div>
         <nav>
           <ul className="flex space-x-6">
@@ -14,19 +16,20 @@ export default function Home() {
             <li><button className="text-lg hover:underline">About Us</button></li>
             <li><button className="text-lg hover:underline">News</button></li>
             <li><button className="text-lg hover:underline">Careers</button></li>
+            <li><ModeToggle></ModeToggle></li>
           </ul>
         </nav>
       </header>
-      <main className="flex flex-col items-center justify-center bg-white text-black py-20">
+      <main className="flex flex-col items-center justify-center py-20">
         <div className="flex items-center justify-center max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mr-20">
             <h1 className="text-5xl font-bold mb-8">Your friendly scribe. Fast, capable, affordable and truly reliable.</h1>
-            <div className="bg-gray-100 rounded-lg p-8 mb-12">
+            <div className="rounded-lg p-8 mb-12">
               <p className="text-2xl mb-4">Built by Docs for Docs</p>
               <p className="text-lg mb-6">Time is freedom</p>
-              <button className="bg-blue-500 text-white font-bold py-3 px-6 rounded-full text-lg">
+              <Button variant="outline" className="font-bold py-3 px-6 rounded-full text-lg">
                 Free Yourself with Notari
-              </button>
+              </Button>
             </div>
           </div>
           <div>
@@ -54,7 +57,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="bg-gray-100 py-20">
+      <section className="py-20">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-8">Work with Notari</h2>
           <p className="text-xl mb-8">
@@ -62,10 +65,10 @@ export default function Home() {
             experience across ML, physics, policy, and product. Together, we generate research and create reliable,
             beneficial AI systems.
           </p>
-          <a href="#" className="text-blue-500 hover:underline text-lg">I don't know what this button is for</a>
+          <a href="#" className="hover:underline text-lg">I don't know what this button is for</a>
         </div>
       </section>
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="py-12">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div>
             <Image src="/hippa.svg" alt="HIPAA" width={150} height={150} />
@@ -81,9 +84,9 @@ export default function Home() {
           </div>
           <div>
             <ul className="flex space-x-4">
-              <li><a href="#" className="text-2xl hover:text-gray-300">X</a></li>
-              <li><a href="#" className="text-2xl hover:text-gray-300">LinkedIn</a></li>
-              <li><a href="#" className="text-2xl hover:text-gray-300">Facebook</a></li>
+              <li><a href="#" className="text-2xl hover:underline">X</a></li>
+              <li><a href="#" className="text-2xl hover:underline">LinkedIn</a></li>
+              <li><a href="#" className="text-2xl hover:underline">Facebook</a></li>
             </ul>
           </div>
         </div>
