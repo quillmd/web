@@ -3,20 +3,20 @@ import { ChevronLeft } from "lucide-react";
 import NextLink from "next/link";
 
 export default function NotesLayout({
-	children,
+  children,
 }: Readonly<{
-	children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-	return (
-		<div className="p-5 md:p-10">
-			<div className="mb-2">
-				<NextLink href={"/home"}>
-					<Button variant={"outline"} size="icon">
-						<ChevronLeft />
-					</Button>
-				</NextLink>
-			</div>
-			<div>{children}</div>
-		</div>
-	);
+  return (
+    <div className="p-5 md:p-10">
+      <div className="mb-2">
+        <Button variant={"outline"} size="icon" asChild>
+          <NextLink href={"/home"}>
+            <ChevronLeft />
+          </NextLink>
+        </Button>
+      </div>
+      <div>{children}</div>
+    </div>
+  );
 }

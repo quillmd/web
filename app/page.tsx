@@ -1,47 +1,41 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import NextLink from "next/link";
 
-export default function Home() {
+export default function Landing() {
   return (
-    <>
-      <header className="flex items-center justify-between px-6 py-4">
+    <div className="font-garamond">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-2 bg-background">
         <div className="flex items-center">
           <Image
-            src="/Quill_plain.svg"
+            src="/logo_text.svg"
             alt="Logo"
-            width={60}
-            height={75}
-            className="logo"
-          />
-          <Image
-            src="/Quill_text_plain.svg"
-            alt="Logo"
-            width={75}
-            height={75}
+            width={100}
+            height={36}
             className="logo"
           />
         </div>
         <nav>
           <ul className="flex space-x-6">
             <li>
-              <button className="text-lg hover:underline">Pricing</button>
+              <Button variant="ghost" size={"lg"} className="text-lg" asChild>
+                <NextLink href={"/about"}>About us</NextLink>
+              </Button>
             </li>
             <li>
-              <button className="text-lg hover:underline">Research</button>
-            </li>
-            <li>
-              <button className="text-lg hover:underline">About Us</button>
-            </li>
-            <li>
-              <button className="text-lg hover:underline">News</button>
-            </li>
-            <li>
-              <button className="text-lg hover:underline">Careers</button>
+              <Button
+                variant={"outline"}
+                className="text-lg"
+                size={"lg"}
+                asChild
+              >
+                <NextLink href={"/login"}>Login</NextLink>
+              </Button>
             </li>
           </ul>
         </nav>
       </header>
-      <main className="flex flex-col items-center justify-center pt-20">
+      <main className="flex flex-col items-center justify-center pt-48">
         <div className="flex items-center justify-center mx-auto">
           <div className="text-left max-w-3xl mr-20">
             <h1 className="text-6xl font-bold mb-1">Introducing Quill:</h1>
@@ -65,15 +59,13 @@ export default function Home() {
           </div>
         </div>
       </main>
-      <section className="py-20 text-center">
+      <section className="py-36 text-center">
         <h2 className="text-4xl font-bold mb-8 text-center">How Quill Works</h2>
         <div className="grid grid-cols-3 gap-8 max-w-5xl mx-auto">
           <div>
             <h3 className="text-3xl font-bold mb-2">1. Consent</h3>
             <p className="text-2xl mb-4">
-              Quill is introduced and everyone in the room agrees to let it
-              scribe. Like a human scribe, Quill listens and doesn't record or
-              save audio.
+              {"Quill is introduced and everyone in the room agrees to let it scribe. Like a human scribe, Quill listens and doesn't record or save audio."}
             </p>
           </div>
           <div>
@@ -116,8 +108,8 @@ export default function Home() {
                 <td className="px-6 py-4 text-2xl">
                   <ul className="list-disc pl-5">
                     <li>Entire system designed by doctors to be intuitive</li>
-                    <li>No new hardware</li>
                     <li>Seamless integration into existing workflows</li>
+                    <li>No new hardware</li>
                   </ul>
                 </td>
               </tr>
@@ -180,6 +172,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

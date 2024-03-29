@@ -9,18 +9,19 @@ export default async function HomePage() {
       <h2 className="mt-10 scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
         All Notes
       </h2>
-
-      {notes.map((note) => (
-        <NoteCard
-          key={`note-row-${note.id}`}
-          noteId={note.id}
-          name={note.name}
-          createdAt={DateTime.fromISO(note.created_at).toLocaleString(
-            DateTime.DATETIME_SHORT
-          )}
-          status={note.status}
-        />
-      ))}
+      <div className="flex flex-col gap-2">
+        {notes.map((note) => (
+          <NoteCard
+            key={`note-row-${note.id}`}
+            noteId={note.id}
+            name={note.name}
+            createdAt={DateTime.fromISO(note.created_at).toLocaleString(
+              DateTime.DATETIME_SHORT
+            )}
+            status={note.status}
+          />
+        ))}
+      </div>
     </div>
   );
 }

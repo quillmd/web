@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Note } from "@/lib/note";
 import NextLink from "next/link";
@@ -12,9 +11,9 @@ interface NoteCardProps extends React.HTMLAttributes<HTMLElement> {
 function NoteCard({ name, createdAt, status }: NoteCardProps) {
   return (
     <Card
-      className={`${
-        status == "ready" ? "hover:border-blue-600" : "hover:border-gray-500"
-      } ${status == "ready" ? "cursor-pointer" : ""}`}
+      className={`relative ${
+        status === "ready" ? "hover:border-blue-600 cursor-pointer" : ""
+      }`}
     >
       <CardContent className="flex justify-between items-center p-4">
         <div className="flex flex-col justify-center">
@@ -23,20 +22,20 @@ function NoteCard({ name, createdAt, status }: NoteCardProps) {
           </h4>
           <p className="text-sm text-muted-foreground">{createdAt}</p>
         </div>
-        <div>
-          <Badge
-            variant={
-              status === "error"
-                ? "destructive"
-                : status === "ready"
-                ? "default"
-                : "secondary"
-            }
-          >
-            {status.charAt(0).toUpperCase() + status.slice(1)}
-          </Badge>
-        </div>
       </CardContent>
+      {status !== "ready" && (
+        <div
+          className={`absolute inset-0 flex items-center justify-center bg-opacity-75 rounded-lg ${
+            status === "error"
+              ? "bg-red-900 text-white"
+              : "bg-gray-500 text-white"
+          }`}
+        >
+          <span className="text-lg font-semibold">
+            {status.charAt(0).toUpperCase() + status.slice(1)}
+          </span>
+        </div>
+      )}
     </Card>
   );
 }
