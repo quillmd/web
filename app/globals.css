@@ -50,7 +50,7 @@
   }
 }
 
- 
+
 @layer base {
   * {
     @apply border-border;
@@ -58,4 +58,12 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.invert-on-dark {
+  filter: invert(1);
+}
+
+[data-theme="dark"] .invert-on-dark {
+  filter: invert(0);
 }
