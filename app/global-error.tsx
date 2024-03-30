@@ -3,12 +3,12 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface ErrorProps {
+interface GlobalErrorProps {
   error: Error & { digest?: string };
   reset: () => void;
 }
 
-const RootError: React.FC<ErrorProps> = ({ error, reset }) => {
+const GlobalError: React.FC<GlobalErrorProps> = ({ error, reset }) => {
   return (
     <div className="flex flex-row items-center justify-center min-h-screen bg-orange-200 flex-wrap">
       <div className="text-center mr-8 flex flex-col items-center">
@@ -32,4 +32,4 @@ const RootError: React.FC<ErrorProps> = ({ error, reset }) => {
   );
 };
 
-export default RootError;
+export default GlobalError;
