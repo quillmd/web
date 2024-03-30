@@ -1,12 +1,9 @@
-// app/about/page.tsx
-
 import React from 'react';
 import Image from 'next/image';
 import NextLink from 'next/link';
-import { Button } from '@/components/ui/button'; // Adjust the import path as necessary
+import { Button } from '@/components/ui/button';
 
 const About: React.FC = () => {
-
   return (
     <div className="font-garamond">
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-2 bg-background">
@@ -37,11 +34,6 @@ const About: React.FC = () => {
         </nav>
       </header>
       <main className="flex flex-col items-center justify-center pt-48 px-6 md:px-0 min-h-screen">
-        <div className="text-center">
-            <button className="mt-5 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-            Trigger Error
-            </button>
-        </div>
         <div className="max-w-3xl bg-white shadow overflow-hidden sm:rounded-lg p-5">
           <h1 className="text-center text-3xl leading-9 font-extrabold text-gray-900">
             About Us
@@ -98,4 +90,3 @@ const About: React.FC = () => {
 };
 
 export default About;
-
