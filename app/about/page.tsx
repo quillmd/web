@@ -1,57 +1,54 @@
-import React from 'react';
-import Image from 'next/image';
-import NextLink from 'next/link';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import NextLink from "next/link";
 
-const About: React.FC = () => {
+export default function About() {
+  // Throw an error for testing error handling
+  // throw new Error('Test Error - Landing Page');
   return (
     <div className="font-garamond">
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-2 bg-background">
-        <NextLink href="/" passHref>
-          <div className="flex items-center cursor-pointer">
+        <div className="flex items-center">
+          <NextLink href={"/"}>
             <Image
               src="/logo_text.svg"
               alt="Logo"
               width={100}
               height={36}
-              className="logo"
+              className="logo cursor-pointer"
             />
-          </div>
-        </NextLink>
+          </NextLink>
+        </div>
         <nav>
           <ul className="flex space-x-6">
             <li className="hidden md:block">
-              <Button variant="ghost" size="lg" className="text-lg" asChild>
-                <NextLink href={"/about"}>About Us</NextLink>
+              <Button variant="ghost" size={"lg"} className="text-lg" asChild>
+                <NextLink href={"/about"}>About us</NextLink>
               </Button>
             </li>
             <li>
-              <Button variant="outline" className="text-lg" size="lg" asChild>
+              <Button
+                variant={"outline"}
+                className="text-lg"
+                size={"lg"}
+                asChild
+              >
                 <NextLink href={"/login"}>Login</NextLink>
               </Button>
             </li>
           </ul>
         </nav>
       </header>
-      <main className="flex flex-col items-center justify-center pt-48 px-6 md:px-0 min-h-screen">
-        <div className="max-w-3xl bg-white shadow overflow-hidden sm:rounded-lg p-5">
-          <h1 className="text-center text-3xl leading-9 font-extrabold text-gray-900">
-            About Us
+      <main className="flex flex-col items-center justify-start pt-64 px-6 md:px-0 h-screen">
+        <div className="text-center max-w-3xl mr-20">
+          <h1 className="text-6xl font-bold mb-8">
+            {"We make safe AI systems for healthcare professionals"}
           </h1>
-          <div className="mt-6 text-gray-500 space-y-4">
-            <p>
-              In a world where medicine increasingly intersects with technology, we, a group of dedicated physicians, found ourselves at a crossroads. Faced with the growing demands of documentation and administrative tasks, we noticed that the essence of patient care was gradually eroding away.
-            </p>
-            <p>
-              Driven by a collective ambition to return medicine to its roots — where the focus is solely on the patient and their well-being — we ventured into the realm of artificial intelligence to develop Quill: an AI scribe designed to liberate doctors from the chains of clerical burdens.
-            </p>
-            <p>
-              Quill is more than just technology; it's a beacon of hope for healthcare professionals everywhere. By streamlining the documentation process, we enable doctors to spend less time typing and more time engaging with their patients. Our vision is clear: to revolutionize the way medicine is practiced by ensuring that doctors can focus on what they do best — doctoring.
-            </p>
-            <p>
-              We are proud to introduce Quill to the world, not just as a tool, but as a movement towards a future where technology and healthcare walk hand in hand towards a more humane and connected world of medicine.
-            </p>
-          </div>
+          <p className="text-3xl">
+            {
+              "As doctors, we are driven by an ambition to return medicine to its roots — where the focus is solely on the patient and their well-being. By automating the process of creating accurate and comprehensive medical documentation, with safety and privacy as a top priority, we empower doctors with more time for patient connection."
+            }
+          </p>
         </div>
       </main>
       <footer className="py-12">
@@ -87,6 +84,4 @@ const About: React.FC = () => {
       </footer>
     </div>
   );
-};
-
-export default About;
+}

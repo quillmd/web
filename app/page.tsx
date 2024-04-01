@@ -7,25 +7,20 @@ export default function Landing() {
   // throw new Error('Test Error - Landing Page');
   return (
     <div className="font-garamond">
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-2 bg-background">
-        <div className="flex items-center">
-          <Image
-            src="/logo_text.svg"
-            alt="Logo"
-            width={100}
-            height={36}
-            className="logo"
-          />
-        </div>
-        <nav>
-          <ul className="flex space-x-6">
+      <header className="fixed top-0 left-0 right-0 z-50 px-6 py-2 bg-background w-screen">
+        <nav className="flex justify-between items-center w-screen">
+          <NextLink href={"/"}>
+            <Image
+              src="/logo_text.svg"
+              alt="Logo"
+              width={100}
+              height={36}
+              className="logo cursor-pointer"
+            />
+          </NextLink>
+          <ul className="flex">
             <li className="hidden md:block">
-              <Button
-                variant="ghost"
-                size={"lg"}
-                className="text-lg"
-                asChild
-              >
+              <Button variant="ghost" size={"lg"} className="text-lg" asChild>
                 <NextLink href={"/about"}>About us</NextLink>
               </Button>
             </li>
@@ -42,7 +37,7 @@ export default function Landing() {
           </ul>
         </nav>
       </header>
-      <main className="flex flex-col items-center justify-center pt-48 px-6 md:px-0">
+      <main className="flex flex-col items-center justify-center pt-48 px-6 md:px-0 max-w-screen">
         <div className="flex items-center justify-center mx-auto">
           <div className="text-left max-w-3xl mr-20">
             <h1 className="text-6xl font-bold mb-1">Introducing Quill:</h1>
@@ -67,7 +62,9 @@ export default function Landing() {
         </div>
       </main>
       <section className="py-36 text-center">
-        <h2 className="text-4xl font-bold mb-12 text-center">How Quill Works</h2>
+        <h2 className="text-4xl font-bold mb-12 text-center">
+          How Quill Works
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 md:gap-20 max-w-6xl mx-auto">
           <div>
             <h3 className="text-3xl font-bold mb-2">1. Consent</h3>

@@ -12,8 +12,8 @@ const GlobalError: React.FC<GlobalErrorProps> = ({ error, reset }) => {
   return (
     <div className="flex flex-row items-center justify-center min-h-screen bg-orange-200 flex-wrap">
       <div className="text-center mr-8 flex flex-col items-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Something's wrong here...</h1>
-        <p className="text-gray-600 mb-8">We can't find the page you're looking for. Check out our Help Center or head back to home.</p>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">{"Something's wrong here..."}</h1>
+        <p className="text-gray-600 mb-8">{"We can't find the page you're looking for. Check out our Help Center or head back to home."}</p>
 
         <div className="flex justify-center space-x-4 mb-8">
           <Link href="/help">
