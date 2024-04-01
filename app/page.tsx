@@ -37,19 +37,19 @@ export default function Landing() {
           </ul>
         </nav>
       </header>
-      <main className="flex flex-col items-center justify-center pt-48 px-6 md:px-0 max-w-screen">
+      <main className="flex flex-col items-center justify-center pt-24 md:pt-48 px-6 md:px-0 max-w-screen">
         <div className="flex items-center justify-center mx-auto">
           <div className="text-left max-w-3xl mr-20">
-            <h1 className="text-6xl font-bold mb-1">Introducing Quill:</h1>
-            <h1 className="text-6xl font-bold mb-8">
+            <h1 className="text-5xl md:text-6xl font-bold mb-1">Introducing Quill:</h1>
+            <h1 className="text-5xl md:text-6xl font-bold mb-8">
               Effortless Documentation for the Modern Physician
             </h1>
-            <p className="text-3xl">
+            <p className="text-2xl md:text-3xl">
               Quill is an AI scribe that listens to doctor-patient interactions
               and writes accurate, complete notes. Replace the computer and
               keyboard with better conversations and more time.
             </p>
-            <p className="text-3xl mb-8">Built by doctors, for doctors.</p>
+            <p className="text-2xl md:text-3xl mb-8">Built by doctors, for doctors.</p>
             <div className="flex w-full justify-center md:justify-start">
               <Button className="p-6 text-2xl" size={"lg"} asChild>
                 <NextLink href={"/signup"}> Try Quill</NextLink>
@@ -61,7 +61,7 @@ export default function Landing() {
           </div>
         </div>
       </main>
-      <section className="py-36 text-center">
+      <section className="py-36 px-2 md:text-center">
         <h2 className="text-4xl font-bold mb-12 text-center">
           How Quill Works
         </h2>
@@ -90,13 +90,13 @@ export default function Landing() {
           </div>
         </div>
       </section>
-      <section className="">
+      <section className="max-w-screen">
         <h2 className="text-4xl font-bold mb-6 text-center">Why Quill?</h2>
         <div className="w-full">
           <table className="divide-y divide-gray-200 mx-auto">
             <tbody className="divide-y divide-gray-200">
               <tr>
-                <td className="px-6 py-4 text-2xl md:text-3xl font-medium text-gray-900">
+                <td className="px-6 py-4 text-xl md:text-3xl font-medium text-gray-900">
                   Robust Privacy and Security
                 </td>
                 <td className="px-6 py-4">
@@ -108,7 +108,7 @@ export default function Landing() {
                 </td>
               </tr>
               <tr>
-                <td className="px-6 py-4 text-2xl md:text-3xl font-medium text-gray-900">
+                <td className="px-6 py-4 text-xl md:text-3xl font-medium text-gray-900">
                   Intuitive and User-Friendly
                 </td>
                 <td className="px-6 py-4 text-lg md:text-2xl">
@@ -120,7 +120,7 @@ export default function Landing() {
                 </td>
               </tr>
               <tr>
-                <td className="px-6 py-4 text-2xl md:text-3xl font-medium text-gray-900">
+                <td className="px-6 py-4 text-xl md:text-3xl font-medium text-gray-900">
                   AI Superpowers
                 </td>
                 <td className="px-6 py-4">
@@ -132,7 +132,7 @@ export default function Landing() {
                 </td>
               </tr>
               <tr>
-                <td className="px-6 py-4 text-2xl md:text-3xl font-medium text-gray-900">
+                <td className="px-6 py-4 text-xl md:text-3xl font-medium text-gray-900">
                   More time for...
                 </td>
                 <td className="px-6 py-4">
@@ -147,7 +147,7 @@ export default function Landing() {
           </table>
         </div>
       </section>
-      <footer className="py-12">
+      <footer className="py-12 max-w-screen">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div>
             <Image src="/hippa.svg" alt="HIPAA" width={150} height={150} />

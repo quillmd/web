@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(inter.variable, garamond.variable, "w-screen")}>{children}</body>
+      <body className={cn(inter.variable, garamond.variable, "max-w-screen")}>{children}</body>
     </html>
   );
 }
