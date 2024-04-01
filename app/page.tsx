@@ -7,8 +7,8 @@ export default function Landing() {
   // throw new Error('Test Error - Landing Page');
   return (
     <div className="font-garamond">
-      <header className="fixed top-0 left-0 right-0 z-50 px-6 py-2 bg-background w-screen">
-        <nav className="flex justify-between items-center w-screen">
+      <header className="fixed top-0 left-0 right-0 z-50 px-6 py-2 bg-background">
+        <nav className="flex justify-between items-center w-full">
           <NextLink href={"/"}>
             <Image
               src="/logo_text.svg"

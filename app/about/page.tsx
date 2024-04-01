@@ -7,8 +7,8 @@ export default function About() {
   // throw new Error('Test Error - Landing Page');
   return (
     <div className="font-garamond">
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-2 bg-background">
-        <div className="flex items-center">
+      <header className="fixed top-0 left-0 right-0 z-50 px-6 py-2 bg-background">
+        <nav className="flex justify-between items-center w-full">
           <NextLink href={"/"}>
             <Image
               src="/logo_text.svg"
@@ -18,9 +18,7 @@ export default function About() {
               className="logo cursor-pointer"
             />
           </NextLink>
-        </div>
-        <nav>
-          <ul className="flex space-x-6">
+          <ul className="flex">
             <li className="hidden md:block">
               <Button variant="ghost" size={"lg"} className="text-lg" asChild>
                 <NextLink href={"/about"}>About us</NextLink>
