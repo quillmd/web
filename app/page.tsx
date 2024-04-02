@@ -21,6 +21,21 @@ export default function Landing() {
           <ul className="flex">
             <li className="hidden md:block">
               <Button variant="ghost" size={"lg"} className="text-lg" asChild>
+                <NextLink href={"/about"}>How Quill Works</NextLink>
+              </Button>
+            </li>
+            <li className="hidden md:block">
+              <Button variant="ghost" size={"lg"} className="text-lg" asChild>
+                <NextLink href={"/about"}>Testimonials</NextLink>
+              </Button>
+            </li>
+            <li className="hidden md:block">
+              <Button variant="ghost" size={"lg"} className="text-lg" asChild>
+                <NextLink href={"/about"}>Pricing</NextLink>
+              </Button>
+            </li>
+            <li className="hidden md:block">
+              <Button variant="ghost" size={"lg"} className="text-lg" asChild>
                 <NextLink href={"/about"}>About us</NextLink>
               </Button>
             </li>
@@ -156,7 +171,7 @@ export default function Landing() {
             <ul className="flex space-x-6">
               <li>
                 <a href="#" className="text-lg hover:underline">
-                  Blog
+                  Privacy Policy
                 </a>
               </li>
               <li>
