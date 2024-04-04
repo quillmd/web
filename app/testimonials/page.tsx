@@ -77,7 +77,7 @@ export default function Testimonials() {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-lg hover:underline">
+                <a href="/trustsafety" className="text-lg hover:underline">
                   Trust & Safety
                 </a>
               </li>

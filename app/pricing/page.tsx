@@ -96,8 +96,8 @@ export default function Pricing() {
           </div>
         </div>
         <p className="mt-12 text-lg text-center">
-          We&apore dedicated to making Quill accessible to all aspiring clinicians. If you&apore a student or trainee,
-          please <a href="#" className="text-blue-500 hover:underline">contact us</a> for a discount.
+          We are dedicated to making Quill accessible to all aspiring clinicians. If you are a student or trainee,
+          please <a href="/contactus" className="text-blue-500 hover:underline">contact us</a> for a discount.
         </p>
       </main>
       <footer className="py-12">
@@ -123,7 +123,7 @@ export default function Pricing() {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-lg hover:underline">
+                <a href="/trustsafety" className="text-lg hover:underline">
                   Trust & Safety
                 </a>
               </li>
