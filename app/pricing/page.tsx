@@ -96,7 +96,7 @@ export default function Pricing() {
           </div>
         </div>
         <p className="mt-12 text-lg text-center">
-          We're dedicated to making Quill accessible to all aspiring clinicians. If you're a student or trainee,
+          We&apore dedicated to making Quill accessible to all aspiring clinicians. If you&apore a student or trainee,
           please <a href="#" className="text-blue-500 hover:underline">contact us</a> for a discount.
         </p>
       </main>
