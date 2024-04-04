@@ -170,13 +170,8 @@ export default function Landing() {
           <div className="flex-1 flex justify-center pr-12">
             <ul className="flex space-x-6">
               <li>
-                <a href="#" className="text-lg hover:underline">
+                <a href="/privacypolicy" className="text-lg hover:underline">
                   Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-lg hover:underline">
-                  Press Inquiries
                 </a>
               </li>
               <li>

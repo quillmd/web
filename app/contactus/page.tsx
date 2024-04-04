@@ -55,7 +55,7 @@ export default function Contact() {
             }
           </p>
           <p className="text-xl mb-8">
-            {"For all other sales questions, please fill the form below."}
+            {"For all other sales questions and press inquiries, please fill the form below."}
           </p>
         </div>
 
@@ -210,17 +210,12 @@ export default function Contact() {
           <div className="flex-1 flex justify-center pr-12">
             <ul className="flex space-x-6">
               <li>
-                <a href="#" className="text-lg hover:underline">
+                <a href="/privacypolicy" className="text-lg hover:underline">
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="#" className="text-lg hover:underline">
-                  Press Inquiries
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-lg hover:underline">
+                <a href="/contactus" className="text-lg hover:underline">
                   Contact Us
                 </a>
               </li>

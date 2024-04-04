@@ -129,11 +129,6 @@ export default function PrivacySecurity() {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-lg hover:underline">
-                  Press Inquiries
-                </a>
-              </li>
-              <li>
                 <a href="/contactus" className="text-lg hover:underline">
                   Contact Us
                 </a>
