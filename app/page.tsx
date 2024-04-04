@@ -31,7 +31,7 @@ export default function Landing() {
             </li>
             <li className="hidden md:block">
               <Button variant="ghost" size={"lg"} className="text-lg" asChild>
-                <NextLink href={"/about"}>Pricing</NextLink>
+                <NextLink href={"/pricing"}>Pricing</NextLink>
               </Button>
             </li>
             <li className="hidden md:block">
