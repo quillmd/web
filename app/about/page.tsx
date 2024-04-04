@@ -26,7 +26,7 @@ export default function About() {
             </li>
             <li className="hidden md:block">
               <Button variant="ghost" size={"lg"} className="text-lg" asChild>
-                <NextLink href={"/about"}>Testimonials</NextLink>
+                <NextLink href={"/testimonials"}>Testimonials</NextLink>
               </Button>
             </li>
             <li className="hidden md:block">
