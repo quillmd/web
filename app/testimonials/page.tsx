@@ -72,7 +72,7 @@ export default function Testimonials() {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-lg hover:underline">
+                <a href="/contactus" className="text-lg hover:underline">
                   Contact Us
                 </a>
               </li>
