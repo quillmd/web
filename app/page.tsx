@@ -6,7 +6,7 @@ export default function Landing() {
   // Throw an error for testing error handling
   // throw new Error('Test Error - Landing Page');
   return (
-    <div className="font-garamond">
+    <div className="font-garamond overflow-x-hidden">
       <header className="fixed top-0 left-0 right-0 z-50 px-6 py-2 bg-background">
         <nav className="flex justify-between items-center w-full">
           <NextLink href={"/"}>
@@ -52,7 +52,7 @@ export default function Landing() {
           </ul>
         </nav>
       </header>
-      <main className="flex flex-col items-center justify-center pt-24 md:pt-48 px-6 md:px-0 max-w-screen">
+      <main className="flex flex-col items-center justify-center pt-24 md:pt-48 px-6 md:px-0 max-w-full">
         <div className="flex items-center justify-center mx-auto">
           <div className="text-left max-w-3xl mr-20">
             <h1 className="text-5xl md:text-6xl font-bold mb-1">Introducing Quill:</h1>
@@ -65,7 +65,7 @@ export default function Landing() {
               keyboard with better conversations and more time.
             </p>
             <p className="text-2xl md:text-3xl mb-8">Built by doctors, for doctors.</p>
-            <div className="flex w-full justify-center md:justify-start">
+            <div className="flex max-w-full justify-center md:justify-start">
               <Button className="p-6 text-2xl" size={"lg"} asChild>
                 <NextLink href={"/signup"}> Try Quill</NextLink>
               </Button>
@@ -105,7 +105,7 @@ export default function Landing() {
           </div>
         </div>
       </section>
-      <section className="max-w-screen">
+      <section className="max-w-full">
         <h2 className="text-4xl font-bold mb-6 text-center">Why Quill?</h2>
         <div className="w-full">
           <table className="divide-y divide-gray-200 mx-auto">
@@ -162,10 +162,10 @@ export default function Landing() {
           </table>
         </div>
       </section>
-      <footer className="py-12 max-w-screen">
+      <footer className="py-12 max-w-full">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div>
-            <Image src="/hippa.svg" alt="HIPAA" width={150} height={150} />
+            <Image src="/hippa.svg" alt="HIPAA" width={120} height={120} />
           </div>
           <div className="flex-1 flex justify-center pr-12">
             <ul className="flex space-x-6">
