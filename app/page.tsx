@@ -146,7 +146,7 @@ export default function Landing() {
             <h3 className="text-3xl font-bold mb-2">1. Consent</h3>
             <p className="text-2xl">
               Quill is introduced and everyone in the room agrees to let it
-              scribe. Like a human scribe, Quill listens and doesn't save audio.
+              scribe. Like a human scribe, Quill listens and doesn&apos;t save audio.
             </p>
           </div>
           <div>
