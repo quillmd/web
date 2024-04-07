@@ -52,9 +52,9 @@ export default function Landing() {
           </ul>
         </nav>
       </header>
-      <main className="flex flex-col items-center justify-center pt-24 md:pt-48 px-6 md:px-0 max-w-full">
+      <main className="flex flex-col items-center justify-center pt-24 md:pt-48 px-4 md:px-0 max-w-full">
         <div className="flex items-center justify-center mx-auto">
-          <div className="text-left max-w-3xl mr-20">
+          <div className="text-left md:text-left max-w-3xl mr-20">
             <h1 className="text-5xl md:text-6xl font-bold mb-1">Introducing Quill:</h1>
             <h1 className="text-5xl md:text-6xl font-bold mb-8">
               Effortless Documentation for the Modern Physician
@@ -76,7 +76,7 @@ export default function Landing() {
           </div>
         </div>
       </main>
-      <section className="py-36 px-2 md:text-center">
+      <section className="py-36 px-6 md:text-center">
         <h2 className="text-4xl font-bold mb-12 text-center">
           How Quill Works
         </h2>
@@ -105,7 +105,7 @@ export default function Landing() {
           </div>
         </div>
       </section>
-      <section className="max-w-full">
+      <section className="max-w-full px-6">
         <h2 className="text-4xl font-bold mb-6 text-center">Why Quill?</h2>
         <div className="w-full">
           <table className="divide-y divide-gray-200 mx-auto">
