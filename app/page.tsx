@@ -1,10 +1,16 @@
+'use client';
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import NextLink from "next/link";
+import { useState } from "react";
 
 export default function Landing() {
-  // Throw an error for testing error handling
-  // throw new Error('Test Error - Landing Page');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div className="font-garamond overflow-x-hidden snap-y snap-mandatory h-screen overflow-scroll">
       <header className="fixed top-0 left-0 right-0 z-50 px-6 py-2 bg-background">
@@ -18,28 +24,28 @@ export default function Landing() {
               className="logo cursor-pointer"
             />
           </NextLink>
-          <ul className="flex">
-            <li className="hidden md:block">
+          <ul className="hidden md:flex">
+            <li>
               <Button variant="ghost" size={"lg"} className="text-lg" asChild>
                 <NextLink href={"/about"}>How Quill Works</NextLink>
               </Button>
             </li>
-            <li className="hidden md:block">
+            <li>
               <Button variant="ghost" size={"lg"} className="text-lg" asChild>
                 <NextLink href={"/testimonials"}>Testimonials</NextLink>
               </Button>
             </li>
-            <li className="hidden md:block">
+            <li>
               <Button variant="ghost" size={"lg"} className="text-lg" asChild>
                 <NextLink href={"/pricing"}>Pricing</NextLink>
               </Button>
             </li>
-            <li className="hidden md:block">
+            <li>
               <Button variant="ghost" size={"lg"} className="text-lg" asChild>
                 <NextLink href={"/about"}>About us</NextLink>
               </Button>
             </li>
-            <li>
+            <li className="hidden md:block">
               <Button
                 variant={"outline"}
                 className="text-lg"
@@ -50,22 +56,70 @@ export default function Landing() {
               </Button>
             </li>
           </ul>
+          <div className="md:hidden">
+            <Button
+              variant="ghost"
+              size={"lg"}
+              className="text-lg"
+              onClick={toggleMenu}
+            >
+              |||
+            </Button>
+          </div>
         </nav>
       </header>
+      {isMenuOpen && (
+        <div className="fixed inset-0 bg-background z-40 flex flex-col items-center justify-center">
+          <Button
+            variant="ghost"
+            size={"lg"}
+            className="text-lg absolute top-6 right-6"
+            onClick={toggleMenu}
+          >
+            Close
+          </Button>
+          <ul className="flex flex-col space-y-16 text-center">
+            <li>
+              <Button variant="ghost" size={"lg"} className="text-3xl" asChild>
+                <NextLink href={"/about"}>How Quill Works</NextLink>
+              </Button>
+            </li>
+            <li>
+              <Button variant="ghost" size={"lg"} className="text-3xl" asChild>
+                <NextLink href={"/testimonials"}>Testimonials</NextLink>
+              </Button>
+            </li>
+            <li>
+              <Button variant="ghost" size={"lg"} className="text-3xl" asChild>
+                <NextLink href={"/pricing"}>Pricing</NextLink>
+              </Button>
+            </li>
+            <li>
+              <Button variant="ghost" size={"lg"} className="text-3xl" asChild>
+                <NextLink href={"/about"}>About us</NextLink>
+              </Button>
+            </li>
+          </ul>
+        </div>
+      )}
       <div className="h-screen snap-start">
         <main className="flex flex-col items-center justify-center pt-24 md:pt-48 px-4 md:px-0 max-w-full h-full">
           <div className="flex items-center justify-center mx-auto">
             <div className="text-left md:text-left max-w-3xl mr-20">
-              <h1 className="text-5xl md:text-6xl font-bold mb-1">Introducing Quill:</h1>
+              <h1 className="text-5xl md:text-6xl font-bold mb-1">
+                Introducing Quill:
+              </h1>
               <h1 className="text-5xl md:text-6xl font-bold mb-8">
                 Effortless Documentation for the Modern Physician
               </h1>
               <p className="text-2xl md:text-3xl">
-                Quill is an AI scribe that listens to doctor-patient interactions
-                and writes accurate, complete notes. Replace the computer and
-                keyboard with better conversations and more time.
+                Quill is an AI scribe that listens to doctor-patient
+                interactions and writes accurate, complete notes. Replace the
+                computer and keyboard with better conversations and more time.
               </p>
-              <p className="text-2xl md:text-3xl mb-8">Built by doctors, for doctors.</p>
+              <p className="text-2xl md:text-3xl mb-8">
+                Built by doctors, for doctors.
+              </p>
               <div className="flex max-w-full justify-center md:justify-start">
                 <Button className="p-6 text-2xl" size={"lg"} asChild>
                   <NextLink href={"/signup"}> Try Quill</NextLink>
@@ -73,7 +127,12 @@ export default function Landing() {
               </div>
             </div>
             <div className="hidden md:block">
-              <Image src="/doctor.svg" alt="Mascot" width={400} height={400} />
+              <Image
+                src="/doctor.svg"
+                alt="Mascot"
+                width={400}
+                height={400}
+              />
             </div>
           </div>
         </main>
@@ -86,9 +145,8 @@ export default function Landing() {
           <div>
             <h3 className="text-3xl font-bold mb-2">1. Consent</h3>
             <p className="text-2xl">
-              {
-                "Quill is introduced and everyone in the room agrees to let it scribe. Like a human scribe, Quill listens and doesn't save audio."
-              }
+              Quill is introduced and everyone in the room agrees to let it
+              scribe. Like a human scribe, Quill listens and doesn't save audio.
             </p>
           </div>
           <div>
@@ -131,7 +189,9 @@ export default function Landing() {
                   </td>
                   <td className="px-6 py-4 text-lg md:text-2xl">
                     <ul className="list-disc pl-5">
-                      <li>Entire system designed by doctors to be intuitive</li>
+                      <li>
+                        Entire system designed by doctors to be intuitive
+                      </li>
                       <li>Seamless integration into existing workflows</li>
                       <li>No new hardware</li>
                     </ul>
@@ -170,12 +230,20 @@ export default function Landing() {
         <footer className="py-12 max-w-full">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div>
-              <Image src="/hippa.svg" alt="HIPAA" width={120} height={120} />
+              <Image
+                src="/hippa.svg"
+                alt="HIPAA"
+                width={120}
+                height={120}
+              />
             </div>
             <div className="flex-1 flex justify-center pr-12">
               <ul className="flex space-x-6">
                 <li>
-                  <a href="/privacypolicy" className="text-lg hover:underline">
+                  <a
+                    href="/privacypolicy"
+                    className="text-lg hover:underline"
+                  >
                     Privacy Policy
                   </a>
                 </li>
@@ -185,7 +253,10 @@ export default function Landing() {
                   </a>
                 </li>
                 <li>
-                  <a href="/trustsafety" className="text-lg hover:underline">
+                  <a
+                    href="/trustsafety"
+                    className="text-lg hover:underline"
+                  >
                     Trust & Safety
                   </a>
                 </li>
