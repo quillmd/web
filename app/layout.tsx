@@ -93,24 +93,26 @@ export default function RootLayout({
               Close
             </Button>
             <ul className="flex flex-col space-y-16 text-center">
+              {/*
               <li>
                 <Button variant="ghost" size={"lg"} className="text-3xl" asChild>
-                  <NextLink href={"/about"}>How Quill Works</NextLink>
+                  <NextLink href={"/about"} onClick={toggleMenu}>How Quill Works</NextLink>
                 </Button>
               </li>
               <li>
                 <Button variant="ghost" size={"lg"} className="text-3xl" asChild>
-                  <NextLink href={"/testimonials"}>Testimonials</NextLink>
+                  <NextLink href={"/testimonials"} onClick={toggleMenu}>Testimonials</NextLink>
+                </Button>
+              </li>
+              */}
+              <li>
+                <Button variant="ghost" size={"lg"} className="text-3xl" asChild>
+                  <NextLink href={"/pricing"} onClick={toggleMenu}>Pricing</NextLink>
                 </Button>
               </li>
               <li>
                 <Button variant="ghost" size={"lg"} className="text-3xl" asChild>
-                  <NextLink href={"/pricing"}>Pricing</NextLink>
-                </Button>
-              </li>
-              <li>
-                <Button variant="ghost" size={"lg"} className="text-3xl" asChild>
-                  <NextLink href={"/about"}>About us</NextLink>
+                  <NextLink href={"/about"} onClick={toggleMenu}>About us</NextLink>
                 </Button>
               </li>
             </ul>
