@@ -72,13 +72,10 @@ export default function RootLayout({
               </li>
             </ul>
             <div className="md:hidden">
-              <Button
-                variant="ghost"
-                size={"lg"}
-                className="text-lg"
-                onClick={toggleMenu}
-              >
-                |||
+              <Button variant="ghost" size={"lg"} className="flex flex-col justify-center items-center gap-2" onClick={toggleMenu}>
+                <div className="w-6 h-0.5 bg-black"></div>
+                <div className="w-6 h-0.5 bg-black"></div>
+                <div className="w-6 h-0.5 bg-black"></div>
               </Button>
             </div>
           </nav>
