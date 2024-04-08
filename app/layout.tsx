@@ -128,7 +128,7 @@ export default function RootLayout({
         {/* Footer */}
         <footer className="py-12 max-w-full font-garamond">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <div>
+            <div className="p-2">
               <Image
                 src="/hippa.svg"
                 alt="HIPAA"
@@ -136,7 +136,7 @@ export default function RootLayout({
                 height={120}
               />
             </div>
-            <div className="flex-1 flex justify-center pr-12">
+            <div className="flex-1 flex justify-center pr-12 px-8">
               <ul className="flex space-x-6">
                 <li>
                   <a
