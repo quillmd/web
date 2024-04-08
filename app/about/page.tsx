@@ -7,8 +7,8 @@ export default function About() {
   // throw new Error('Test Error - Landing Page');
   return (
     <div className="font-garamond">
-      <main className="flex flex-col items-center justify-start pt-64 px-6 md:px-0 h-screen">
-        <div className="text-center max-w-3xl mr-20">
+      <main className="flex flex-col items-center justify-start pt-24 px-6 md:px-0 h-screen">
+        <div className="text-center max-w-3xl">
           <h1 className="text-6xl font-bold mb-8">
             {"We make safe AI systems for healthcare professionals"}
           </h1>
