@@ -11,7 +11,7 @@ export default function Landing() {
 
   return (
     <div className="flex flex-col flex-1 snap-y snap-mandatory h-screen overflow-y-auto">
-      <div className="pt-8 md:pt-36 px-4 md:px-0 max-w-full min-h-screen flex-1 snap-start">
+      <div className="pt-8 md:pt-36 px-4 md:px-0 max-w-full min-h-screen flex-1 snap-start flex flex-col justify-center">
         <main className="flex flex-col md:flex-row items-center justify-center mb-24 md:mb-48">
           <div className="text-center md:text-left max-w-3xl mb-8 md:mb-0">
             <h1 className="text-4xl md:text-6xl font-bold mb-1">Introducing Quill:</h1>
@@ -29,7 +29,7 @@ export default function Landing() {
           </div>
         </main>
       </div>
-      <section className="py-16 md:py-36 px-4 md:px-6 md:text-center min-h-screen flex-1 snap-start sm:flex sm:flex-col sm:items-center">
+      <section className="py-16 md:py-36 px-4 md:px-6 md:text-center min-h-screen flex-1 snap-start flex flex-col justify-center">
         <h2 className="text-2xl md:text-4xl font-bold mb-8 md:mb-12 text-center">How Quill Works</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-20 max-w-6xl mx-auto h-full">
           <div>
@@ -52,7 +52,7 @@ export default function Landing() {
           </div>
         </div>
       </section>
-      <section className="py-16 md:py-36 px-4 md:px-6 md:text-center flex-1 snap-start">
+      <section className="py-16 md:py-36 px-4 md:px-6 md:text-center flex-1 snap-start flex flex-col justify-center">
         <div className="max-w-6xl mx-auto flex flex-col">
           <h2 className="text-2xl md:text-4xl font-bold mb-4 md:mb-6 text-center">Why Quill?</h2>
           <div className="w-full overflow-x-auto mb-16">
