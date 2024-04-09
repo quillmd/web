@@ -20,7 +20,7 @@ export default function Landing() {
             <p className="text-lg md:text-3xl mb-6 md:mb-8">Built by doctors, for doctors.</p>
             <div className="flex justify-center md:justify-start">
               <Button className="py-3 px-6 text-lg md:text-2xl" size={"lg"} asChild>
-                <NextLink href={"/signup"}>Try Quill</NextLink>
+                <NextLink href={"auth/signup"}>Try Quill</NextLink>
               </Button>
             </div>
           </div>

@@ -42,22 +42,22 @@ export default function RootLayout({
             <ul className="hidden md:flex">
               <li>
                 <Button variant="ghost" size={"lg"} className="text-lg" asChild>
-                  <NextLink href={"/howquillworks"}>How Quill Works</NextLink>
+                  <NextLink href={"/homepage/howquillworks"}>How Quill Works</NextLink>
                 </Button>
               </li>
               <li>
                 <Button variant="ghost" size={"lg"} className="text-lg" asChild>
-                  <NextLink href={"/testimonials"}>Testimonials</NextLink>
+                  <NextLink href={"/homepage/testimonials"}>Testimonials</NextLink>
                 </Button>
               </li>
               <li>
                 <Button variant="ghost" size={"lg"} className="text-lg" asChild>
-                  <NextLink href={"/pricing"}>Pricing</NextLink>
+                  <NextLink href={"/homepage/pricing"}>Pricing</NextLink>
                 </Button>
               </li>
               <li>
                 <Button variant="ghost" size={"lg"} className="text-lg" asChild>
-                  <NextLink href={"/about"}>About us</NextLink>
+                  <NextLink href={"/homepage/about"}>About us</NextLink>
                 </Button>
               </li>
               <li className="hidden md:block">
@@ -67,7 +67,7 @@ export default function RootLayout({
                   size={"lg"}
                   asChild
                 >
-                  <NextLink href={"/login"}>Login</NextLink>
+                  <NextLink href={"/auth/login"}>Login</NextLink>
                 </Button>
               </li>
             </ul>
@@ -107,12 +107,12 @@ export default function RootLayout({
               */}
               <li>
                 <Button variant="ghost" size={"lg"} className="text-3xl" asChild>
-                  <NextLink href={"/pricing"} onClick={toggleMenu}>Pricing</NextLink>
+                  <NextLink href={"/homepage/pricing"} onClick={toggleMenu}>Pricing</NextLink>
                 </Button>
               </li>
               <li>
                 <Button variant="ghost" size={"lg"} className="text-3xl" asChild>
-                  <NextLink href={"/about"} onClick={toggleMenu}>About us</NextLink>
+                  <NextLink href={"/homepage/about"} onClick={toggleMenu}>About us</NextLink>
                 </Button>
               </li>
             </ul>
@@ -140,20 +140,20 @@ export default function RootLayout({
               <ul className="flex space-x-6">
                 <li>
                   <a
-                    href="/privacypolicy"
+                    href="/homepage/privacypolicy"
                     className="text-lg hover:underline"
                   >
                     Privacy Policy
                   </a>
                 </li>
                 <li>
-                  <a href="/contactus" className="text-lg hover:underline">
+                  <a href="/homepage/contactus" className="text-lg hover:underline">
                     Contact Us
                   </a>
                 </li>
                 <li>
                   <a
-                    href="/trustsafety"
+                    href="/homepage/trustsafety"
                     className="text-lg hover:underline"
                   >
                     Trust & Safety
