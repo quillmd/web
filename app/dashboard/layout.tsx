@@ -7,7 +7,6 @@ import Image from "next/image";
 import NextLink from "next/link";
 import { cn } from "@/lib/utils";
 import { EB_Garamond, Inter } from "next/font/google";
-import { metadata } from "./metadata"; // Import the metadata
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const garamond = EB_Garamond({ subsets: ["latin"], variable: "--font-serif" });

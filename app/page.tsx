@@ -14,10 +14,10 @@ export default function Landing() {
       <div className="pt-8 md:pt-36 px-4 md:px-0 max-w-full min-h-screen flex-1 snap-start flex flex-col justify-center">
         <main className="flex flex-col md:flex-row items-center justify-center mb-24 md:mb-48">
           <div className="text-center md:text-left max-w-3xl mb-8 md:mb-0">
-            <h1 className="text-4xl md:text-6xl font-bold mb-1">Introducing Quill:</h1>
+            <h1 className="text-4xl md:text-6xl font-bold mb-4 md:mb-8">Introducing Quill:</h1>
             <h1 className="text-4xl md:text-6xl font-bold mb-4 md:mb-8">Effortless Documentation for the Modern Physician</h1>
-            <p className="text-lg md:text-3xl mb-4 md:mb-8">Quill is an AI scribe that listens to doctor-patient interactions and writes accurate, complete notes. Replace the computer and keyboard with better conversations and more time.</p>
-            <p className="text-lg md:text-3xl mb-6 md:mb-8">Built by doctors, for doctors.</p>
+            <p className="text-xl md:text-3xl mb-4 md:mb-8">Quill is an AI scribe that listens to doctor-patient interactions and writes accurate, complete notes. Replace the computer and keyboard with better conversations and more time.</p>
+            <p className="text-xl md:text-3xl mb-6 md:mb-8">Built by doctors, for doctors.</p>
             <div className="flex justify-center md:justify-start">
               <Button className="py-3 px-6 text-lg md:text-2xl" size={"lg"} asChild>
                 <NextLink href={"auth/signup"}>Try Quill</NextLink>
