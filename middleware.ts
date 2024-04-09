@@ -7,7 +7,7 @@ export function middleware(req: NextRequest) {
     req.nextUrl.pathname == "/home" ||
     req.nextUrl.pathname.startsWith("/notes")
   ) {
-    return validateUser().catch(() =>
+    return validateUser().then(()=>null).catch(() =>
       NextResponse.redirect(new URL("/login", req.nextUrl.origin))
     );
   }
