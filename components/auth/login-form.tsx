@@ -1,13 +1,8 @@
 "use client";
+
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { LoginFormSchema, loginFormSchema } from "@/lib/form-schema";
 import { loginUser } from "@/lib/user";
@@ -19,6 +14,7 @@ import { useForm } from "react-hook-form";
 interface LoginFormFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function LoginForm({ className, ...props }: LoginFormFormProps) {
+  const router = useRouter();
   const form = useForm<LoginFormSchema>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -28,9 +24,15 @@ export function LoginForm({ className, ...props }: LoginFormFormProps) {
   });
 
   const onSubmit = async (values: LoginFormSchema) => {
-    await loginUser(values.email, values.password);
+    try {
+      await loginUser(values.email, values.password);
+      router.push("/dashboard/home"); // Redirect to /dashboard/home
+    } catch (error) {
+      console.error("Login error:", error);
+      // Handle login error
+    }
   };
-
+  
   return (
     <div className={cn("grid gap-6", className)} {...props}>
       <Form {...form}>

@@ -9,10 +9,11 @@ export default async function HomePage() {
       <h2 className="mt-10 scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
         All Notes
       </h2>
-      <div className="flex flex-col gap-2">
+      {/* Updated the container to use grid instead of flex and specify 4 columns */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {notes.map((note) => (
           <NoteCard
-            key={`note-row-${note.id}`}
+            key={`note-${note.id}`}
             noteId={note.id}
             name={note.name}
             createdAt={DateTime.fromISO(note.created_at).toLocaleString(
