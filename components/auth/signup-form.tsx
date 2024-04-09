@@ -31,7 +31,6 @@ export function SignupForm({ className, ...props }: SignupFormProps) {
 
   const onSubmit = async (values: SignupFormSchema) => {
     await createUser(values.email, values.password, values.activation);
-    redirect("/login");
   };
 
   return (

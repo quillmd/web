@@ -17,7 +17,7 @@ export interface Note {
 export async function getNotes(): Promise<Note[]> {
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
-    redirect(`/home`);
+    redirect(`/login`);
   }
   const response = await fetch(`${process.env.NEXT_PUBLIC_API}/notes`, {
     method: "get",
@@ -39,7 +39,7 @@ export async function getNotes(): Promise<Note[]> {
 export async function getNote(id: string): Promise<Note> {
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
-    redirect(`/home`);
+    redirect(`/login`);
   }
   const response = await fetch(`${process.env.NEXT_PUBLIC_API}/notes/${id}`, {
     method: "get",
@@ -67,7 +67,7 @@ export async function updateNote({
   const data: Partial<Note> = {};
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
-    redirect(`/home`);
+    redirect(`/login`);
   }
   if (name !== undefined) {
     data.name = name;
@@ -94,7 +94,7 @@ export async function deleteNote(id: Note["id"]) {
   const data: Partial<Note> = {};
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
-    redirect(`/home`);
+    redirect(`/login`);
   }
   await fetch(`${process.env.NEXT_PUBLIC_API}/notes/${id}`, {
     method: "delete",
