@@ -69,3 +69,7 @@
 [data-theme="dark"] .invert-on-dark {
   filter: invert(0);
 }
+
+.art {
+  background-color: transparent;
+}
