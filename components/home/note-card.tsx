@@ -50,7 +50,7 @@ export default async function NoteCardWrapped({
   createdAt,
   status,
 }: NoteCardWrappedProps) {
-  const path = `/notes/${noteId}`;
+  const path = `/dashboard/notes/${noteId}`;
   if (status === "ready") {
     return (
       <NextLink href={path}>

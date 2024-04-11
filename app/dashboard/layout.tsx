@@ -40,7 +40,7 @@ export default function RootLayout({
             <ul className="hidden md:flex">
               <li>
                 <Button variant="ghost" size={"lg"} className="text-lg" asChild>
-                  <NextLink href={"/homepage/howquillworks"}>How To Use</NextLink>
+                  <NextLink href={"/"}>Give Us Feedback</NextLink>
                 </Button>
               </li>
               <li className="hidden md:block">
