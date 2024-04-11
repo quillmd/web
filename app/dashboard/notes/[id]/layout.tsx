@@ -11,7 +11,7 @@ export default function NotesLayout({
     <div className="p-5 md:p-10">
       <div className="mb-2">
         <Button variant={"outline"} size="icon" asChild>
-          <NextLink href={"/home"}>
+          <NextLink href={"/dashboard/home/"}>
             <ChevronLeft />
           </NextLink>
         </Button>
