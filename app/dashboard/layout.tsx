@@ -7,8 +7,6 @@ import Image from "next/image";
 import NextLink from "next/link";
 import { cn } from "@/lib/utils";
 import { EB_Garamond, Inter } from "next/font/google";
-import "./globals.css";
-import { metadata } from "./metadata"; // Import the metadata
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const garamond = EB_Garamond({ subsets: ["latin"], variable: "--font-serif" });
@@ -42,22 +40,7 @@ export default function RootLayout({
             <ul className="hidden md:flex">
               <li>
                 <Button variant="ghost" size={"lg"} className="text-lg" asChild>
-                  <NextLink href={"/homepage/howquillworks"}>How Quill Works</NextLink>
-                </Button>
-              </li>
-              <li>
-                <Button variant="ghost" size={"lg"} className="text-lg" asChild>
-                  <NextLink href={"/homepage/testimonials"}>Testimonials</NextLink>
-                </Button>
-              </li>
-              <li>
-                <Button variant="ghost" size={"lg"} className="text-lg" asChild>
-                  <NextLink href={"/homepage/pricing"}>Pricing</NextLink>
-                </Button>
-              </li>
-              <li>
-                <Button variant="ghost" size={"lg"} className="text-lg" asChild>
-                  <NextLink href={"/homepage/about"}>About us</NextLink>
+                  <NextLink href={"/homepage/howquillworks"}>How To Use</NextLink>
                 </Button>
               </li>
               <li className="hidden md:block">
@@ -67,7 +50,7 @@ export default function RootLayout({
                   size={"lg"}
                   asChild
                 >
-                  <NextLink href={"/auth/login"}>Login</NextLink>
+                  <NextLink href={"/auth/login"}>Logout</NextLink>
                 </Button>
               </li>
             </ul>
@@ -126,43 +109,6 @@ export default function RootLayout({
         </div>
 
         {/* Footer */}
-        <footer className="py-12 max-w-full font-garamond">
-          <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <div className="p-2">
-              <Image
-                src="/hippa.svg"
-                alt="HIPAA"
-                width={120}
-                height={120}
-              />
-            </div>
-            <div className="flex-1 flex justify-center pr-12 px-8">
-              <ul className="flex space-x-6">
-                <li>
-                  <a
-                    href="/homepage/privacypolicy"
-                    className="text-lg hover:underline"
-                  >
-                    Privacy Policy
-                  </a>
-                </li>
-                <li>
-                  <a href="/homepage/contactus" className="text-lg hover:underline">
-                    Contact Us
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/homepage/trustsafety"
-                    className="text-lg hover:underline"
-                  >
-                    Trust & Safety
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </footer> 
       </body>
     </html>
   );
