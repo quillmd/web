@@ -19,17 +19,13 @@ export async function validateUser() {
   }
 }
 
-export async function createUser(
-  email: string,
-  password: string,
-  activation: string
-) {
+export async function createUser(email: string, password: string) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password, activation }),
+    body: JSON.stringify({ email, password }),
   });
   if (response.ok) {
     const data = await response.json();
@@ -37,7 +33,7 @@ export async function createUser(
       name: "accessToken",
       value: data.token,
     });
-    redirect(`/home`);
+    // redirect(`/home`);
   }
 }
 
@@ -55,6 +51,6 @@ export async function loginUser(email: string, password: string) {
       name: "accessToken",
       value: data.token,
     });
-    redirect(`/home`);
+    // redirect(`/home`);
   }
 }

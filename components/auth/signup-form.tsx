@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -9,28 +10,34 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { SignupFormSchema, signupFormSchema } from "@/lib/form-schema";
-import { createUser } from "@/lib/user";
+import { LoginFormSchema, loginFormSchema } from "@/lib/form-schema";
+import { createUser, loginUser } from "@/lib/user";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 
-interface SignupFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface LoginFormFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export function SignupForm({ className, ...props }: SignupFormProps) {
-  const form = useForm<SignupFormSchema>({
-    resolver: zodResolver(signupFormSchema),
+export function SignupForm({ className, ...props }: LoginFormFormProps) {
+  const router = useRouter();
+  const form = useForm<LoginFormSchema>({
+    resolver: zodResolver(loginFormSchema),
     defaultValues: {
       email: "",
       password: "",
-	  activation: "",
     },
   });
 
-  const onSubmit = async (values: SignupFormSchema) => {
-    await createUser(values.email, values.password, values.activation);
+  const onSubmit = async (values: LoginFormSchema) => {
+    try {
+      await createUser(values.email, values.password);
+      router.push("/home"); // Redirect to /home
+    } catch (error) {
+      console.error("Login error:", error);
+      // Handle login error
+    }
   };
 
   return (
@@ -44,7 +51,7 @@ export function SignupForm({ className, ...props }: SignupFormProps) {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="name@example.com" {...field} />
+                  <Input placeholder="name@example.com" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -57,24 +64,7 @@ export function SignupForm({ className, ...props }: SignupFormProps) {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input
-                    type="password"
-                    placeholder="8 characters minimum."
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-		<FormField
-            control={form.control}
-            name="activation"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Activation Code</FormLabel>
-                <FormControl>
-                  <Input {...field} />
+                  <Input type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
