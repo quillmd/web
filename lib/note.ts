@@ -3,103 +3,122 @@
 import { DateTime } from "luxon";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { Case } from "./case";
 
 export interface Note {
-  id: string;
-  user_id: number;
-  name: string;
-  transcript?: string;
-  text?: string;
-  status: string;
-  created_at: string;
+  id: number;
+  type: string;
+  content: string;
+  version: number;
+  inserted_at: string;
 }
 
-export async function getNotes(): Promise<Note[]> {
+export async function getNotes({
+  case_id
+}: {
+  case_id: Case["id"];
+}): Promise<Note[]> {
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
   }
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/notes`, {
-    method: "get",
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-    },
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/notes`,
+    {
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    }
+  );
   const data = await response.json();
   const notes = Object.values(data).sort(
     (a, b) =>
       //@ts-ignore
-      DateTime.fromISO(b.created_at).toMillis() -
+      DateTime.fromISO(b.inserted_at).toMillis() -
       //@ts-ignore
-      DateTime.fromISO(a.created_at).toMillis()
+      DateTime.fromISO(a.inserted_at).toMillis()
   );
   return notes as Note[];
 }
 
-export async function getNote(id: string): Promise<Note> {
+export async function getNote({
+  case_id,
+  note_id,
+}: {
+  case_id: Case["id"];
+  note_id: Note["id"];
+}): Promise<Note> {
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
   }
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/notes/${id}`, {
-    method: "get",
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-    },
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/notes/${note_id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    }
+  );
   const note = await response.json();
   return note as Note;
 }
 
 export async function updateNote({
-  id,
-  name,
-  status,
-  transcript,
-  text,
+  case_id,
+  note_id,
+  type,
+  content,
 }: {
-  id: Note["id"];
-  name?: Note["name"];
-  status?: Note["status"];
-  transcript?: Note["transcript"];
-  text?: Note["text"];
+  case_id: Case["id"];
+  note_id: Note["id"];
+  type?: Note["type"];
+  content?: Note["content"];
 }) {
   const data: Partial<Note> = {};
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
   }
-  if (name !== undefined) {
-    data.name = name;
+  if (type !== undefined) {
+    data.type = type;
   }
-  if (status !== undefined) {
-    data.status = status;
+  if (content !== undefined) {
+    data.content = content;
   }
-  if (transcript !== undefined) {
-    data.transcript = transcript;
-  }
-  if (text !== undefined) {
-    data.text = text;
-  }
-  await fetch(`${process.env.NEXT_PUBLIC_API}/notes/${id}`, {
-    method: "patch",
-    body: JSON.stringify(data),
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-    },
-  });
+  await fetch(
+    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/notes/${note_id}`,
+    {
+      method: "patch",
+      body: JSON.stringify(data),
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    }
+  );
 }
 
-export async function deleteNote(id: Note["id"]) {
+export async function deleteNote({
+  case_id,
+  note_id,
+}: {
+  case_id: Case["id"];
+  note_id: Note["id"];
+}) {
   const data: Partial<Note> = {};
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
   }
-  await fetch(`${process.env.NEXT_PUBLIC_API}/notes/${id}`, {
-    method: "delete",
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-    },
-  });
+  await fetch(
+    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/notes/${note_id}`,
+    {
+      method: "delete",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    }
+  );
 }

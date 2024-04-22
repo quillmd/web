@@ -8,7 +8,7 @@ export async function validateUser() {
   if (!authToken) {
     throw "Not Logged in";
   }
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/users/me`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/auth/refresh`, {
     method: "get",
     headers: {
       Authorization: `Bearer ${authToken}`,
@@ -24,7 +24,7 @@ export async function createUser(
   password: string,
   activation: string
 ) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/register`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -35,14 +35,14 @@ export async function createUser(
     const data = await response.json();
     cookies().set({
       name: "accessToken",
-      value: data.access_token,
+      value: data.token,
     });
     redirect(`/home`);
   }
 }
 
 export async function loginUser(email: string, password: string) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/token`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -53,7 +53,7 @@ export async function loginUser(email: string, password: string) {
     const data = await response.json();
     cookies().set({
       name: "accessToken",
-      value: data.access_token,
+      value: data.token,
     });
     redirect(`/home`);
   }
