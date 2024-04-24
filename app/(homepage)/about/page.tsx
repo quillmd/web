@@ -5,8 +5,7 @@ export default function About() {
   // throw new Error('Test Error - Landing Page');
 
   return (
-    <div className="font-garamond">
-      <main className="flex flex-col items-center justify-start pt-24 px-6 md:px-0 h-screen">
+      <main className="flex flex-col items-center justify-start px-8 min-h-screen">
         <div className="text-center max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-bold mb-8">
             {"We make safe AI systems for healthcare professionals"}
@@ -20,44 +19,45 @@ export default function About() {
 
         {/* Who We Are Section */}
         <div className="mt-16 text-left max-w-3xl">
-          <h2 className="text-3xl font-bold mb-8 text-center">Who We Are</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
-            <div>
-              <Image
-                src="/boris.jpg"
-                alt="Boris Chobrutskiy"
-                width={200}
-                height={200}
-                className="rounded-full"
-              />
+            <div className="flex flex-col items-center justify-center">
+              <div className="relative w-40 h-40 overflow-hidden rounded-full">
+                <Image
+                  src="/boris.jpg"
+                  alt="Boris Chobrutskiy"
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
               <h3 className="text-xl font-bold mt-4">Boris Chobrutskiy, MD</h3>
-              <p className="text-gray-600">Lead Software Engineer</p>
+              {/* <p className="text-gray-600">Lead Software Engineer</p> */}
             </div>
-            <div>
-              <Image
-                src="/garrett.jpg"
-                alt="Garrett Tynes"
-                width={200}
-                height={200}
-                className="rounded-full"
-              />
+            <div className="flex flex-col items-center justify-center">
+              <div className="relative w-40 h-40 overflow-hidden rounded-full">
+                <Image
+                  src="/garrett.jpeg"
+                  alt="Garrett Tynes"
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
               <h3 className="text-xl font-bold mt-4">Garrett Tynes, JD</h3>
-              <p className="text-gray-600">Regulatory Compliance Specialist</p>
+              {/* <p className="text-gray-600">Regulatory Compliance Specialist</p> */}
             </div>
-            <div>
-              <Image
-                src="/saif.jpg"
-                alt="Saif Zaman"
-                width={200}
-                height={200}
-                className="rounded-full"
-              />
+            <div className="flex flex-col items-center justify-center">
+              <div className="relative w-40 h-40 overflow-hidden rounded-full">
+                <Image
+                  src="/saif.jpeg"
+                  alt="Saif Zaman"
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
               <h3 className="text-xl font-bold mt-4">Saif Zaman, MD</h3>
-              <p className="text-gray-600">Front End Developer</p>
+              {/* <p className="text-gray-600">Front End Developer</p> */}
             </div>
           </div>
         </div>
       </main>
-    </div>
   );
 }
