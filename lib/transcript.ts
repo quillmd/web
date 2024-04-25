@@ -1,86 +1,96 @@
 "use server";
 
 import { DateTime } from "luxon";
+import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Case } from "./case";
-import { revalidateTag } from "next/cache";
 
-export interface Note {
+export interface Transcript {
   id: number;
   type: string;
+  status: string;
+  description: string;
   content: string;
-  version: number;
   inserted_at: string;
 }
 
-export async function getNotes({
-  case_id
+export async function getTranscripts({
+  case_id,
 }: {
   case_id: Case["id"];
-}): Promise<Note[]> {
-  const tags = ["notes"];
+}): Promise<Transcript[]> {
+  const tags = ["transcripts"];
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
   }
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/notes`,
+    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/transcripts`,
     {
       method: "GET",
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
-      next:{tags}
+      next: { tags },
     }
   );
   const data = await response.json();
-  const notes = Object.values(data).sort(
+  const transcripts = Object.values(data).sort(
     (a, b) =>
       //@ts-ignore
       DateTime.fromISO(b.inserted_at).toMillis() -
       //@ts-ignore
       DateTime.fromISO(a.inserted_at).toMillis()
   );
-  return notes as Note[];
+  return transcripts as Transcript[];
 }
 
-export async function getNote({
+export async function getTranscript({
   case_id,
-  note_id,
+  transcript_id,
 }: {
   case_id: Case["id"];
-  note_id: Note["id"];
-}): Promise<Note> {
-  const tags = ["notes"];
+  transcript_id: Transcript["id"];
+}): Promise<Transcript> {
+  const tags = ["transcripts"];
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
   }
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/notes/${note_id}`,
+    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/transcripts/${transcript_id}`,
     {
       method: "GET",
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
-      next:{tags}
+      next: { tags },
     }
   );
-  const note = await response.json();
-  return note as Note;
+  const transcript = await response.json();
+  return transcript as Transcript;
 }
 
-export async function postNote({
+export async function postTranscript({
   case_id,
   type,
+  status,
+  description,
+  content,
 }: {
   case_id: Case["id"];
-  type: Note["type"];
+  type: Transcript["type"];
+  status: Transcript["status"];
+  description: Transcript["description"];
+  content: Transcript["content"];
 }) {
-  const tags = ["notes"];
-  const data: Partial<Note> = {
+  const tags = ["transcripts"];
+  const data: Partial<Transcript> = {
     type,
+    status,
+    description,
+    content,
   };
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
@@ -88,7 +98,7 @@ export async function postNote({
   }
 
   await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/notes`,
+    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/transcripts`,
     {
       method: "POST",
       body: JSON.stringify(data),
@@ -103,31 +113,31 @@ export async function postNote({
   });
 }
 
-export async function updateNote({
+export async function updateTranscript({
   case_id,
-  note_id,
-  type,
+  transcript_id,
+  description,
   content,
 }: {
   case_id: Case["id"];
-  note_id: Note["id"];
-  type?: Note["type"];
-  content?: Note["content"];
+  transcript_id: Transcript["id"];
+  description?: Transcript["description"];
+  content?: Transcript["content"];
 }) {
-  const tags = ["notes"];
-  const data: Partial<Note> = {};
+  const tags = ["transcripts"];
+  const data: Partial<Transcript> = {};
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
   }
-  if (type !== undefined) {
-    data.type = type;
+  if (description !== undefined) {
+    data.description = description;
   }
   if (content !== undefined) {
     data.content = content;
   }
   await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/notes/${note_id}`,
+    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/transcripts/${transcript_id}`,
     {
       method: "PATCH",
       body: JSON.stringify(data),
@@ -142,28 +152,28 @@ export async function updateNote({
   });
 }
 
-export async function deleteNote({
+export async function deleteTranscript({
   case_id,
-  note_id,
+  transcript_id,
 }: {
   case_id: Case["id"];
-  note_id: Note["id"];
+  transcript_id: Transcript["id"];
 }) {
-  const tags = ["notes"];
-  const data: Partial<Note> = {};
+  const tags = ["transcripts"];
+  const data: Partial<Transcript> = {};
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
   }
   await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/notes/${note_id}`,
+    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/transcripts/${transcript_id}`,
     {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
     }
-  );  
+  );
   tags.forEach((tag) => {
     revalidateTag(tag);
   });

@@ -54,3 +54,10 @@ export async function loginUser(email: string, password: string) {
     // redirect(`/home`);
   }
 }
+
+export async function logout() {
+    cookies().delete({
+      name: "accessToken",
+    });
+    redirect(`/login`);
+}

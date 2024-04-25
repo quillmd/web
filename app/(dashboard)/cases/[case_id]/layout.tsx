@@ -1,22 +1,14 @@
-import { Button } from "@/components/ui/button";
-import { ChevronLeft } from "lucide-react";
-import NextLink from "next/link";
+import BackButton from "@/components/dashboard/case/back-button";
 
-export default function NotesLayout({
+export default function CaseLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <div className="p-5 md:p-10">
-      <div className="mb-2">
-        <Button variant={"outline"} size="icon" asChild>
-          <NextLink href={"/home/"}>
-            <ChevronLeft />
-          </NextLink>
-        </Button>
-      </div>
-      <div>{children}</div>
+    <div className="w-full max-w-6xl flex flex-col gap-2 mx-auto">
+      <BackButton />
+      <div className="w-full p-8">{children}</div>
     </div>
   );
 }

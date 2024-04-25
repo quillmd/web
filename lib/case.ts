@@ -1,6 +1,7 @@
 "use server";
 
 import { DateTime } from "luxon";
+import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -11,15 +12,17 @@ export interface Case {
 }
 
 export async function getCases(): Promise<Case[]> {
+  const tags = ["cases"];
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
   }
   const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/cases`, {
-    method: "get",
+    method: "GET",
     headers: {
       Authorization: `Bearer ${authToken}`,
     },
+    next: { tags },
   });
   const data = await response.json();
   const cases = Object.values(data).sort(
@@ -33,6 +36,7 @@ export async function getCases(): Promise<Case[]> {
 }
 
 export async function getCase({ id }: { id: Case["id"] }): Promise<Case> {
+  const tags = ["cases"];
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
@@ -40,10 +44,11 @@ export async function getCase({ id }: { id: Case["id"] }): Promise<Case> {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API}/api/cases/${id}`,
     {
-      method: "get",
+      method: "GET",
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
+      next: { tags },
     }
   );
   const data = await response.json();
@@ -57,19 +62,23 @@ export async function updateCase({
   id: Case["id"];
   title: Case["title"];
 }) {
+  const tags = ["cases"];
   const data: Partial<Case> = {};
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
   }
   data.title = title;
-
-  await fetch(`${process.env.NEXT_PUBLIC_API}/api//${id}`, {
-    method: "patch",
+  await fetch(`${process.env.NEXT_PUBLIC_API}/api/cases/${id}`, {
+    method: "PATCH",
     body: JSON.stringify(data),
     headers: {
+      "Content-Type": "application/json",
       Authorization: `Bearer ${authToken}`,
     },
+  });
+  tags.forEach((tag) => {
+    revalidateTag(tag);
   });
 }
 
@@ -79,8 +88,8 @@ export async function deleteCase({ id }: { id: Case["id"] }) {
   if (!authToken) {
     redirect(`/login`);
   }
-  await fetch(`${process.env.NEXT_PUBLIC_API}/api//${id}`, {
-    method: "delete",
+  await fetch(`${process.env.NEXT_PUBLIC_API}/api/cases/${id}`, {
+    method: "DELETE",
     headers: {
       Authorization: `Bearer ${authToken}`,
     },
