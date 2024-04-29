@@ -2,6 +2,7 @@ import { getCases } from "@/lib/case";
 import CaseCard from "@/components/dashboard/home/case-card";
 import { DateTime } from "luxon";
 import { Case } from "@/lib/case";
+import NewCaseButton from "@/components/dashboard/home/new-case-button";
 
 type GroupedCases = {
   [date: string]: Case[];
@@ -28,6 +29,7 @@ export default async function HomePage() {
       <h2 className="mt-10 scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
         All Cases
       </h2>
+      <NewCaseButton/>
       {casesArray.map(([date, casesForDate]) => (
         <div key={date}>
           <h3 className="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">

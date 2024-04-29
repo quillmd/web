@@ -55,6 +55,30 @@ export async function getCase({ id }: { id: Case["id"] }): Promise<Case> {
   return data as Case;
 }
 
+export async function postCase({ title }: { title: Case["title"] }) {
+  const tags = ["cases"];
+  const data: Partial<Case> = {};
+  data.title = title;
+  const authToken = cookies().get("accessToken")?.value;
+  if (!authToken) {
+    redirect(`/login`);
+  }
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/cases/`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${authToken}`,
+    },
+  });
+  const newCaseData = await response.json();
+  tags.forEach((tag) => {
+    revalidateTag(tag);
+  });
+  return newCaseData as Case;
+}
+
 export async function updateCase({
   id,
   title,
