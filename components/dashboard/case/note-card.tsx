@@ -11,13 +11,27 @@ interface CaseCardProps extends React.HTMLAttributes<HTMLElement> {
 
 export default function NoteCard({ case_id, note }: CaseCardProps) {
   const path = `/cases/${case_id}/notes/${note.id}`;
+
+  function getNoteTypeDisplay(noteType: string): string {
+    switch (noteType) {
+      case "hp":
+        return "H&P";
+      case "soap":
+        return "SOAP";
+      case "instructions":
+        return "Patient Instructions";
+      default:
+        return noteType;
+    }
+  }
+
   return (
     <NextLink href={path}>
       <Card className={`relative ${"hover:border-blue-600 cursor-pointer"}`}>
         <CardContent className="flex justify-between items-center p-4">
           <div className="flex flex-col justify-center">
             <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-              {`${note.type} ${note.version}`}
+              {`${getNoteTypeDisplay(note.type)} ${note.version}`}
             </h4>
             <span className="text-sm text-muted-foreground">
               {DateTime.fromISO(note.inserted_at).toLocaleString(

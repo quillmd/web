@@ -12,7 +12,9 @@ export default function TranscriptCard({ transcript }: CaseCardProps) {
       <CardContent className="flex justify-between items-center p-4">
         <div className="flex flex-col justify-center">
           <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-            {`${transcript.type}`}
+            {`${transcript.type.charAt(0).toUpperCase()}${transcript.type.slice(
+              1
+            )}`}
           </h4>
           <span className="text-sm text-muted-foreground">
             {DateTime.fromISO(transcript.inserted_at).toLocaleString(

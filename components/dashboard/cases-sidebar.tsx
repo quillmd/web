@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
+import NewCaseButton from "./home/new-case-button";
 
 export default function CasesSidebar({
   casesGroupedByDate,
@@ -19,6 +20,7 @@ export default function CasesSidebar({
       <aside className="top-16 z-50 fixed hidden md:sticky md:block h-[calc(100vh-4.5rem)] w-1/4 max-w-[300px] shrink-0">
         <ScrollArea className="h-full p-2 border rounded-lg">
           <div className="flex flex-col gap-4">
+            <NewCaseButton variant={"ghost"} />
             {casesArray.map(([date, casesForDate]) => (
               <div key={date}>
                 <SidebarSectionTitle text={date} />

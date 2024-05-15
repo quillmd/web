@@ -3,7 +3,7 @@ import { postCase } from "@/lib/case";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { Button } from "@/components/ui/button";
+import { Button, ButtonProps } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default function NewCaseButton() {
+export default function NewCaseButton({ variant, ...props }: ButtonProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [newTitle, setNewTitle] = useState("");
@@ -26,17 +26,18 @@ export default function NewCaseButton() {
     setOpen(false);
   };
 
-  const handleKeyDown = (e: { key: string; }) => {
+  const handleKeyDown = (e: { key: string }) => {
     if (e.key === "Enter") {
       handleNewCase();
     }
   };
 
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">New Case +</Button>
+        <Button variant={variant} {...props}>
+          New Case +
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
