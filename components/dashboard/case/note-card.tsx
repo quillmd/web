@@ -19,11 +19,11 @@ export default function NoteCard({ case_id, note }: CaseCardProps) {
             <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
               {`${note.type} ${note.version}`}
             </h4>
-            <p className="text-sm text-muted-foreground">
+            <span className="text-sm text-muted-foreground">
               {DateTime.fromISO(note.inserted_at).toLocaleString(
                 DateTime.DATETIME_SHORT
               )}
-            </p>
+            </span>
           </div>
         </CardContent>
       </Card>

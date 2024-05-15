@@ -5,9 +5,8 @@ import { Button } from "../ui/button";
 export default function LogoutButton() {
   return (
     <Button
-      variant={"outline"}
+      variant={"ghost"}
       className="text-lg font-semibold"
-      size={"lg"}
       onClick={() => logout().then(() => console.log("logged out"))}
     >
       Logout

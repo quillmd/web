@@ -20,7 +20,7 @@ export async function getTranscripts({
 }: {
   case_id: Case["id"];
 }): Promise<Transcript[]> {
-  const tags = ["transcripts"];
+  const tags = [`transcripts-${case_id}`];
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
@@ -53,7 +53,7 @@ export async function getTranscript({
   case_id: Case["id"];
   transcript_id: Transcript["id"];
 }): Promise<Transcript> {
-  const tags = ["transcripts"];
+  const tags = [`transcripts-${case_id}`];
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
@@ -85,7 +85,7 @@ export async function postTranscript({
   description: Transcript["description"];
   content: Transcript["content"];
 }) {
-  const tags = ["transcripts"];
+  const tags = [`transcripts-${case_id}`];
   const data: Partial<Transcript> = {
     type,
     status,
@@ -124,7 +124,7 @@ export async function updateTranscript({
   description?: Transcript["description"];
   content?: Transcript["content"];
 }) {
-  const tags = ["transcripts"];
+  const tags = [`transcripts-${case_id}`];
   const data: Partial<Transcript> = {};
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
@@ -159,7 +159,7 @@ export async function deleteTranscript({
   case_id: Case["id"];
   transcript_id: Transcript["id"];
 }) {
-  const tags = ["transcripts"];
+  const tags = [`transcripts-${case_id}`];
   const data: Partial<Transcript> = {};
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
@@ -178,3 +178,11 @@ export async function deleteTranscript({
     revalidateTag(tag);
   });
 }
+
+export async function revalidateTranscripts({case_id}:{ case_id: Case["id"]}){
+  const tags = [`transcripts-${case_id}`];
+  tags.forEach((tag) => {
+    revalidateTag(tag);
+  });
+}
+

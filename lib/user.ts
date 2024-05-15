@@ -33,6 +33,10 @@ export async function createUser(email: string, password: string) {
       name: "accessToken",
       value: data.token,
     });
+    cookies().set({
+      name: "userId",
+      value: data.user_id,
+    });
     // redirect(`/home`);
   }
 }
@@ -51,6 +55,10 @@ export async function loginUser(email: string, password: string) {
       name: "accessToken",
       value: data.token,
     });
+    cookies().set({
+      name: "userId",
+      value: data.user_id,
+    });
     // redirect(`/home`);
   }
 }
@@ -58,6 +66,9 @@ export async function loginUser(email: string, password: string) {
 export async function logout() {
     cookies().delete({
       name: "accessToken",
+    });
+    cookies().delete({
+      name: "userId",
     });
     redirect(`/login`);
 }

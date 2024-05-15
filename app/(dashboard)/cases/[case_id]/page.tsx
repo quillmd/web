@@ -1,11 +1,13 @@
-import CaseTitle from "@/components/dashboard/case/case-title";
-import CreateNote from "@/components/dashboard/case/create-note";
+import CreateNotes from "@/components/dashboard/case/create-notes";
 import FreetextInput from "@/components/dashboard/case/freetext-input";
 import NoteCard from "@/components/dashboard/case/note-card";
 import TranscriptCard from "@/components/dashboard/case/transcript-card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Case, getCase } from "@/lib/case";
 import { Note, getNotes } from "@/lib/note";
 import { Transcript, getTranscripts } from "@/lib/transcript";
+import BreadcrumbNav from "@/components/dashboard/breadcrumb-nav";
+import CaseTitle from "@/components/dashboard/case/case-title";
 
 async function getData(case_id: number) {
   const promiseArray = [
@@ -31,51 +33,49 @@ export default async function CasePage({
     (transcript) => transcript.type == "freetext"
   );
   return (
-    <div className="w-full flex flex-col gap-8">
-      <CaseTitle
+    <div className="flex flex-col gap-2">
+    <BreadcrumbNav current_case={current_case} /> 
+    <CaseTitle
         case_id={parseInt(case_id)}
         initial_title={current_case.title}
       />
-      <div className="grid grid-cols-3 grid-rows-2 gap-8">
-        <div className="row-span-2">
-          <span>Freetext input:</span>
-          <div className="flex flex-col">
-            <FreetextInput
+    <Tabs defaultValue="notes">
+      <TabsList className="grid w-1/2 grid-cols-3 mb-2">
+        <TabsTrigger value="notes">Notes</TabsTrigger>
+        <TabsTrigger value="text">Text Input</TabsTrigger>
+        <TabsTrigger value="audio">Audio Input</TabsTrigger>
+      </TabsList>
+      <TabsContent value="notes">
+        <div className="flex flex-col gap-2">
+          {notes.map((note) => (
+            <NoteCard
+              key={`note-${note.id}`}
               case_id={parseInt(case_id)}
-              transcript_id={freetextInput?.id}
-              initial_content={freetextInput?.content}
+              note={note}
             />
-          </div>
+          ))}
+          <CreateNotes case_id={parseInt(case_id)} />
         </div>
-        <div className="row-span-2">
-          <span>Audio inputs:</span>
-          <div className="flex flex-col">
-            {transcripts
-              .filter((transcript) => transcript.type != "freetext")
-              .map((transcript) => (
-                <div key={`transcript-${transcript.id}`} className="w-full">
-                  <TranscriptCard transcript={transcript} />
-                </div>
-              ))}
-          </div>
-        </div>
-        <div>
-          <span>Create notes:</span>
-          <CreateNote case_id={parseInt(case_id)} />
-        </div>
-        <div>
-          <span>Notes:</span>
-          <div className="flex">
-            {notes.map((note) => (
-              <NoteCard
-                key={`note-${note.id}`}
-                case_id={parseInt(case_id)}
-                note={note}
-              />
+      </TabsContent>
+      <TabsContent value="text">
+        <FreetextInput
+          case_id={parseInt(case_id)}
+          transcript_id={freetextInput?.id}
+          initial_content={freetextInput?.content}
+        />
+      </TabsContent>
+      <TabsContent value="audio">
+        <div className="flex flex-col gap-2">
+          {transcripts
+            .filter((transcript) => transcript.type != "freetext")
+            .map((transcript) => (
+              <div key={`transcript-${transcript.id}`} className="w-full">
+                <TranscriptCard transcript={transcript} />
+              </div>
             ))}
-          </div>
         </div>
-      </div>
+      </TabsContent>
+    </Tabs>
     </div>
   );
 }

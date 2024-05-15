@@ -19,7 +19,7 @@ export async function getNotes({
 }: {
   case_id: Case["id"];
 }): Promise<Note[]> {
-  const tags = ["notes"];
+  const tags = [`notes-${case_id}`];
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
@@ -52,7 +52,7 @@ export async function getNote({
   case_id: Case["id"];
   note_id: Note["id"];
 }): Promise<Note> {
-  const tags = ["notes"];
+  const tags = [`notes-${case_id}`];
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
@@ -78,7 +78,7 @@ export async function postNote({
   case_id: Case["id"];
   type: Note["type"];
 }) {
-  const tags = ["notes"];
+  const tags = [`notes-${case_id}`];
   const data: Partial<Note> = {
     type,
   };
@@ -114,7 +114,7 @@ export async function updateNote({
   type?: Note["type"];
   content?: Note["content"];
 }) {
-  const tags = ["notes"];
+  const tags = [`notes-${case_id}`];
   const data: Partial<Note> = {};
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
@@ -149,7 +149,7 @@ export async function deleteNote({
   case_id: Case["id"];
   note_id: Note["id"];
 }) {
-  const tags = ["notes"];
+  const tags = [`notes-${case_id}`];
   const data: Partial<Note> = {};
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
@@ -164,6 +164,13 @@ export async function deleteNote({
       },
     }
   );  
+  tags.forEach((tag) => {
+    revalidateTag(tag);
+  });
+}
+
+export async function revalidateNotes({case_id}:{ case_id: Case["id"]}){
+  const tags = [`notes-${case_id}`];
   tags.forEach((tag) => {
     revalidateTag(tag);
   });

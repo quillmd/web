@@ -1,27 +1,19 @@
+import CasesSidebar from "@/components/dashboard/cases-sidebar";
 import LogoutButton from "@/components/dashboard/logout-button";
-import Image from "next/image";
-import NextLink from "next/link";
+import { getCasesGroupedByDate } from "@/lib/case";
+import CasesSocket from "@/components/dashboard/cases-socket";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const casesGroupedByDate = await getCasesGroupedByDate();
   return (
     <body>
-      {/* Header */}
+      {/* <CasesSocket/> */}
       <header className="sticky top-0 z-50 bg-background p-2 px-8">
-        <nav className="flex justify-between items-center w-full">
-          <NextLink href={"/"}>
-            <Image
-              src="/logo_text.svg"
-              alt="Logo"
-              width={80}
-              height={36}
-              className="logo cursor-pointer"
-            />
-          </NextLink>
-
+        <nav className="flex justify-end items-center w-full">
           <ul className="flex items-center gap-6">
             <li className="block">
               <LogoutButton />
@@ -29,7 +21,10 @@ export default function DashboardLayout({
           </ul>
         </nav>
       </header>
-      {children}
+      <div className="flex items-start max-w-7xl mx-auto gap-2 p-2">
+        <CasesSidebar casesGroupedByDate={casesGroupedByDate} />
+        <div className="flex-1">{children}</div>
+      </div>
     </body>
   );
 }

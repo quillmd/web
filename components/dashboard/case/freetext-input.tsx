@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -14,8 +13,11 @@ import {
   freetextInputFormSchema,
 } from "@/lib/form-schema";
 import { Transcript, postTranscript, updateTranscript } from "@/lib/transcript";
+import { useDebounce } from "@/lib/useDebounce";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check } from "lucide-react";
+import { DateTime } from "luxon";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface FreetextInputProps extends React.HTMLAttributes<HTMLElement> {
@@ -29,34 +31,48 @@ export default function FreetextInput({
   transcript_id,
   initial_content,
 }: FreetextInputProps) {
+  const [updatedAt, setUpdatedAt] = useState<DateTime | undefined>();
   const form = useForm<FreetextInputFormSchema>({
     resolver: zodResolver(freetextInputFormSchema),
     defaultValues: {
       content: initial_content ?? "",
     },
+    mode: "onChange",
   });
-
+  const data = form.watch();
   function onSubmit(data: FreetextInputFormSchema) {
-    if (
-      transcript_id != undefined &&
-      initial_content &&
-      data.content != initial_content
-    ) {
+    if (transcript_id != undefined && data.content != initial_content) {
+      console.log("submitting update");
       updateTranscript({
         case_id: case_id,
         transcript_id: transcript_id,
         content: data.content,
-      }).then(() => form.reset({ content: data.content }));
-    } else {
+      }).then(() => {
+        form.reset({ content: data.content });
+        setUpdatedAt(DateTime.now());
+      });
+    } else if (data.content != initial_content) {
+      console.log("submitting post");
       postTranscript({
         case_id: case_id,
         type: "freetext",
         status: "ready",
         description: "Freetext input",
         content: data.content,
-      }).then(() => form.reset({ content: data.content }));
+      }).then(() => {
+        form.reset({ content: data.content });
+        setUpdatedAt(DateTime.now());
+      });
     }
   }
+
+  const onSubmitDebounced = useDebounce(() => onSubmit(data), 1000);
+
+  useEffect(() => {
+    if (form.formState.isValid && !form.formState.isValidating) {
+      onSubmitDebounced();
+    }
+  }, [form.formState.isValid, data, form.formState.isValidating]);
 
   return (
     <Form {...form}>
@@ -70,15 +86,20 @@ export default function FreetextInput({
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Textarea placeholder="Freetext input" {...field} rows={20} />
+                <Textarea placeholder="Freetext input" {...field} rows={30} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={!form.formState.isDirty}>
-          {form.formState.isSubmitSuccessful ? <Check /> : "Save"}
-        </Button>
+        {updatedAt && (
+          <div className="w-full flex justify-end items-center gap-2">
+            <Check size={12} />
+            <span className="text-sm text-muted-foreground">{`Saved ${updatedAt.toLocaleString(
+              DateTime.DATETIME_SHORT_WITH_SECONDS
+            )}`}</span>
+          </div>
+        )}
       </form>
     </Form>
   );

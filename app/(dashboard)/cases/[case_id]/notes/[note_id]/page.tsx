@@ -1,18 +1,36 @@
+import BreadcrumbNav from "@/components/dashboard/breadcrumb-nav";
 import NoteText from "@/components/dashboard/note/note-text";
-import { getNote } from "@/lib/note";
+import { Case, getCase } from "@/lib/case";
+import { Note, getNote } from "@/lib/note";
+
+async function getData(case_id: number, note_id: number) {
+  const promiseArray = [
+    getCase({ id: case_id }),
+    getNote({ case_id: case_id, note_id: note_id }),
+  ];
+
+  const results = await Promise.all(promiseArray);
+
+  return {
+    current_case: results[0] as Case,
+    note: results[1] as Note,
+  };
+}
 
 export default async function NotePage({
   params: { case_id, note_id },
 }: {
   params: { case_id: string; note_id: string };
 }) {
-  const note = await getNote({
-    case_id: parseInt(case_id),
-    note_id: parseInt(note_id),
-  });
+  const { current_case, note } = await getData(
+    parseInt(case_id),
+    parseInt(note_id)
+  );
+
   return (
-    <div className="max-w-screen-lg mx-auto">
-      <h2 className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+    <div className="flex flex-col gap-2">
+      <BreadcrumbNav current_case={current_case} note={note} />
+      <h2 className="text-3xl font-semibold tracking-tight transition-colors">
         {`${note.type} ${note.version}`}
       </h2>
       <div className="rounded-md border bg-muted p-2 font-garamond text-lg">

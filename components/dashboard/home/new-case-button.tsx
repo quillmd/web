@@ -1,26 +1,66 @@
-"use client"
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+"use client";
 import { postCase } from "@/lib/case";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
 export default function NewCaseButton() {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const handleNewCase = async () => {
-    const newCase = await postCase({title:newTitle});
+    const newCase = await postCase({ title: newTitle });
     router.push(`/cases/${newCase.id}`);
+    setOpen(false);
   };
 
+  const handleKeyDown = (e: { key: string; }) => {
+    if (e.key === "Enter") {
+      handleNewCase();
+    }
+  };
+
+
   return (
-    <div className="flex flex-col max-w-md gap-2">
-      <Input
-        value={newTitle}
-        onChange={(e) => setNewTitle(e.target.value)}
-        placeholder="New Case Title"
-      ></Input>
-      <Button onClick={handleNewCase}>Create New Case</Button>
-    </div>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="outline">New Case +</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>New Case</DialogTitle>
+          <DialogDescription>Enter a title for this case</DialogDescription>
+        </DialogHeader>
+        <div className="flex items-center space-x-2">
+          <div className="grid flex-1 gap-2">
+            <Label htmlFor="link" className="sr-only">
+              Title
+            </Label>
+            <Input
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+          </div>
+        </div>
+        <DialogFooter className="justify-end">
+          <Button type="button" onClick={handleNewCase}>
+            Create
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

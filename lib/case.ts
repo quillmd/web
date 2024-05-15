@@ -11,6 +11,10 @@ export interface Case {
   inserted_at: string;
 }
 
+export type CasesGroupedByDate = {
+  [date: string]: Case[];
+};
+
 export async function getCases(): Promise<Case[]> {
   const tags = ["cases"];
   const authToken = cookies().get("accessToken")?.value;
@@ -35,8 +39,26 @@ export async function getCases(): Promise<Case[]> {
   return cases as Case[];
 }
 
+export async function getCasesGroupedByDate(): Promise<CasesGroupedByDate> {
+  const cases = await getCases();
+  const groupedCases: CasesGroupedByDate = cases.reduce(
+    (acc: CasesGroupedByDate, current_case: Case) => {
+      const date: string = DateTime.fromISO(
+        current_case.inserted_at
+      ).toLocaleString(DateTime.DATE_SHORT);
+      if (!acc[date]) {
+        acc[date] = [];
+      }
+      acc[date].push(current_case);
+      return acc;
+    },
+    {} as CasesGroupedByDate
+  );
+  return groupedCases;
+}
+
 export async function getCase({ id }: { id: Case["id"] }): Promise<Case> {
-  const tags = ["cases"];
+  const tags = [`case-${id}`];
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
@@ -86,7 +108,7 @@ export async function updateCase({
   id: Case["id"];
   title: Case["title"];
 }) {
-  const tags = ["cases"];
+  const tags = [`case-${id}`];
   const data: Partial<Case> = {};
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
@@ -107,7 +129,6 @@ export async function updateCase({
 }
 
 export async function deleteCase({ id }: { id: Case["id"] }) {
-  const data: Partial<Case> = {};
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
@@ -117,5 +138,19 @@ export async function deleteCase({ id }: { id: Case["id"] }) {
     headers: {
       Authorization: `Bearer ${authToken}`,
     },
+  });
+}
+
+export async function revalidateCase({ id }: { id: Case["id"] }) {
+  const tags = [`case-${id}`, `notes-${id}`, `transcripts-${id}`];
+  tags.forEach((tag) => {
+    revalidateTag(tag);
+  });
+}
+
+export async function revalidateCases() {
+  const tags = [`cases`];
+  tags.forEach((tag) => {
+    revalidateTag(tag);
   });
 }
