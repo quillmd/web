@@ -1,7 +1,7 @@
 import CasesSidebar from "@/components/dashboard/cases-sidebar";
+import CasesSocket from "@/components/dashboard/cases-socket";
 import LogoutButton from "@/components/dashboard/logout-button";
 import { getCasesGroupedByDate } from "@/lib/case";
-import CasesSocket from "@/components/dashboard/cases-socket";
 
 export default async function DashboardLayout({
   children,
@@ -11,7 +11,7 @@ export default async function DashboardLayout({
   const casesGroupedByDate = await getCasesGroupedByDate();
   return (
     <body>
-      {/* <CasesSocket/> */}
+      <CasesSocket />
       <header className="sticky top-0 z-50 bg-background p-2 px-8">
         <nav className="flex justify-end items-center w-full">
           <ul className="flex items-center gap-6">

@@ -12,7 +12,7 @@ export default function TranscriptCard({ transcript }: CaseCardProps) {
       <CardContent className="flex justify-between items-center p-4">
         <div className="flex flex-col justify-center">
           <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-            {`${transcript.type.charAt(0).toUpperCase()}${transcript.type.slice(
+            {`${transcript.type?.charAt(0).toUpperCase()}${transcript.type?.slice(
               1
             )}`}
           </h4>
