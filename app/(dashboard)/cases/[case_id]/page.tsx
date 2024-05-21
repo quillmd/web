@@ -48,7 +48,6 @@ export default async function CasePage({
         </TabsList>
         <TabsContent value="notes">
           <div className="flex flex-col gap-2">
-            <CreateNotes case_id={parseInt(case_id)} />
             {notes.map((note) => (
               <NoteCard
                 key={`note-${note.id}`}
@@ -56,6 +55,7 @@ export default async function CasePage({
                 note={note}
               />
             ))}
+            <CreateNotes case_id={parseInt(case_id)} />
           </div>
         </TabsContent>
         <TabsContent value="text">
@@ -67,7 +67,6 @@ export default async function CasePage({
         </TabsContent>
         <TabsContent value="audio">
           <div className="flex flex-col gap-2">
-            <NewTranscript case_id={parseInt(case_id)} />
             {transcripts
               .filter((transcript) => transcript.type != "freetext")
               .map((transcript) => (
@@ -76,6 +75,7 @@ export default async function CasePage({
                   transcript={transcript}
                 />
               ))}
+            <NewTranscript case_id={parseInt(case_id)} />
           </div>
         </TabsContent>
       </Tabs>
