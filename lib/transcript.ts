@@ -72,6 +72,24 @@ export async function getTranscript({
   return transcript as Transcript;
 }
 
+// export async function postAudioTranscript({
+//   case_id,
+//   audio_file,
+// }: {
+//   case_id: Case["id"];
+//   audio_file: File;
+// }) {
+//   const tags = [`transcripts-${case_id}`];
+//   const authToken = cookies().get("accessToken")?.value;
+//   if (!authToken) {
+//     redirect(`/login`);
+//   }
+  
+//   tags.forEach((tag) => {
+//     revalidateTag(tag);
+//   });
+// }
+
 export async function postTranscript({
   case_id,
   type,

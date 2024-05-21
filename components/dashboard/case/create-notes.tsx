@@ -24,6 +24,9 @@ export default function CreateNotes({ case_id }: { case_id: Case["id"] }) {
       <DropdownMenuContent>
         <DropdownMenuLabel>Default templates</DropdownMenuLabel>
         <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={() => createNote("mdm")}>
+          MDM
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => createNote("hp")}>
           H&P
         </DropdownMenuItem>

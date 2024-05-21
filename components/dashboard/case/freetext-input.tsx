@@ -48,7 +48,6 @@ export default function FreetextInput({
         transcript_id: transcript_id,
         content: data.content,
       }).then(() => {
-        form.reset({ content: data.content });
         setUpdatedAt(DateTime.now());
       });
     } else if (data.content != initial_content) {
@@ -60,7 +59,6 @@ export default function FreetextInput({
         description: "Freetext input",
         content: data.content,
       }).then(() => {
-        form.reset({ content: data.content });
         setUpdatedAt(DateTime.now());
       });
     }
