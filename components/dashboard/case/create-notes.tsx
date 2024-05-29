@@ -8,34 +8,95 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Case } from "@/lib/case";
-import { Note, postNote } from "@/lib/note";
+import { postNote } from "@/lib/note";
+import { Template } from "@/lib/template";
+import Nextlink from "next/link";
 
-export default function CreateNotes({ case_id }: { case_id: Case["id"] }) {
-  const createNote = (type: Note["type"]) => {
-    postNote({ case_id, type }).then(() => {});
+interface CreateNotesProps {
+  case_id: Case["id"];
+  templates: Template[];
+  disabled: boolean;
+}
+
+export default function CreateNotes({
+  case_id,
+  templates,
+  disabled,
+}: CreateNotesProps) {
+  const createNote = (template_id: Template["id"]) => {
+    postNote({ case_id, template_id }).then(() => {});
   };
+  const defaultTemplates = templates.filter(
+    (template) => template.type == "default"
+  );
+  const customTemplates = templates.filter(
+    (template) => template.type != "default"
+  );
 
   return (
     <DropdownMenu>
-      <Button variant={"ghost"} asChild>
-        <DropdownMenuTrigger>+ Create Note</DropdownMenuTrigger>
-      </Button>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              className="w-full"
+              variant={"outline"}
+              disabled={disabled}
+              asChild
+            >
+              <DropdownMenuTrigger>
+                {disabled ? `No ready inputs available` : `+ Create Note`}
+              </DropdownMenuTrigger>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <span>
+              {disabled ? `No ready inputs available` : `Create a new note`}
+            </span>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
       <DropdownMenuContent>
-        <DropdownMenuLabel>Default templates</DropdownMenuLabel>
+        {defaultTemplates.length > 0 && (
+          <>
+            <DropdownMenuLabel>Default templates</DropdownMenuLabel>
+
+            {defaultTemplates.map((template, i) => {
+              return (
+                <DropdownMenuItem
+                  key={`default-template-option-${i}`}
+                  onClick={() => createNote(template.id)}
+                >
+                  {template.title}
+                </DropdownMenuItem>
+              );
+            })}
+          </>
+        )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => createNote("mdm")}>
-          MDM
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => createNote("hp")}>
-          H&P
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => createNote("soap")}>
-          SOAP
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => createNote("instructions")}>
-          Patient Instructions
-        </DropdownMenuItem>
+        <DropdownMenuLabel>Custom templates</DropdownMenuLabel>
+        {customTemplates.map((template, i) => {
+          return (
+            <DropdownMenuItem
+              key={`custom-template-option-${i}`}
+              onClick={() => createNote(template.id)}
+            >
+              {template.title}
+            </DropdownMenuItem>
+          );
+        })}
+        <Nextlink href={"/account/templates"}>
+          <DropdownMenuItem key={`custom-template-create`}>
+            {`+ Create Custom Template`}
+          </DropdownMenuItem>
+        </Nextlink>
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -17,7 +17,7 @@ import { useDebounce } from "@/lib/useDebounce";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check } from "lucide-react";
 import { DateTime } from "luxon";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface FreetextInputProps extends React.HTMLAttributes<HTMLElement> {
@@ -66,12 +66,6 @@ export default function FreetextInput({
 
   const onSubmitDebounced = useDebounce(() => onSubmit(data), 1000);
 
-  useEffect(() => {
-    if (form.formState.isValid && !form.formState.isValidating) {
-      onSubmitDebounced();
-    }
-  }, [form.formState.isValid, data, form.formState.isValidating]);
-
   return (
     <Form {...form}>
       <form
@@ -84,7 +78,15 @@ export default function FreetextInput({
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Textarea placeholder="Freetext input" {...field} rows={30} />
+                <Textarea
+                  placeholder="Freetext input"
+                  {...field}
+                  onChange={(e) => {
+                    field.onChange(e);
+                    onSubmitDebounced();
+                  }}
+                  rows={30}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

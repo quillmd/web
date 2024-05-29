@@ -5,12 +5,15 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Case } from "./case";
 import { revalidateTag } from "next/cache";
+import { Template } from "./template";
 
 export interface Note {
   id: number;
-  type: string;
+  template_id: Template["id"];
   content: string;
+  status: string;
   version: number;
+  template: Template;
   inserted_at: string;
 }
 
@@ -68,25 +71,26 @@ export async function getNote({
     }
   );
   const note = await response.json();
+  console.log(note)
   return note as Note;
 }
 
 export async function postNote({
   case_id,
-  type,
+  template_id,
 }: {
   case_id: Case["id"];
-  type: Note["type"];
+  template_id: Template["id"];
 }) {
   const tags = [`notes-${case_id}`];
-  const data: Partial<Note> = {
-    type,
-  };
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
   }
-
+  const data: Partial<Note> = {};
+  if (template_id !== undefined) {
+    data.template_id = template_id;
+  }
   await fetch(
     `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/notes`,
     {
@@ -106,12 +110,10 @@ export async function postNote({
 export async function updateNote({
   case_id,
   note_id,
-  type,
   content,
 }: {
   case_id: Case["id"];
   note_id: Note["id"];
-  type?: Note["type"];
   content?: Note["content"];
 }) {
   const tags = [`notes-${case_id}`];
@@ -119,9 +121,6 @@ export async function updateNote({
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
-  }
-  if (type !== undefined) {
-    data.type = type;
   }
   if (content !== undefined) {
     data.content = content;

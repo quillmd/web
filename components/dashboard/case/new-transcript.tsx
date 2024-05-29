@@ -44,8 +44,7 @@ export default function NewTranscript({ case_id }: NewTranscriptProps) {
   return (
     <Button
       className="w-full"
-      variant="ghost"
-      size="icon"
+      variant="outline"
       onClick={buttonState.onClick}
     >
       <buttonState.Icon

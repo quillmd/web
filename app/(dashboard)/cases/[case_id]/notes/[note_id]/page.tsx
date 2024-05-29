@@ -2,6 +2,7 @@ import BreadcrumbNav from "@/components/dashboard/breadcrumb-nav";
 import NoteText from "@/components/dashboard/note/note-text";
 import { Case, getCase } from "@/lib/case";
 import { Note, getNote } from "@/lib/note";
+import { getTemplate } from "@/lib/template";
 
 async function getData(case_id: number, note_id: number) {
   const promiseArray = [
@@ -20,18 +21,18 @@ async function getData(case_id: number, note_id: number) {
 export default async function NotePage({
   params: { case_id, note_id },
 }: {
-  params: { case_id: string; note_id: string };
+  params: { case_id: string; note_id: string; };
 }) {
   const { current_case, note } = await getData(
     parseInt(case_id),
-    parseInt(note_id)
+    parseInt(note_id),
   );
 
   return (
     <div className="flex flex-col gap-2">
       <BreadcrumbNav current_case={current_case} note={note} />
       <h2 className="text-3xl font-semibold tracking-tight transition-colors">
-        {`${note.type} ${note.version}`}
+        {`${note.template?.title || "Generic Note"} ${note.version}`}
       </h2>
       <div className="rounded-md border bg-muted p-2 font-garamond text-lg">
         {note.content && <NoteText text={note.content} />}

@@ -1,7 +1,9 @@
+import LocalDateTime from "@/components/local-datetime";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Case } from "@/lib/case";
 import { Note } from "@/lib/note";
-import { DateTime } from "luxon";
+import { Check, LoaderCircle } from "lucide-react";
 import NextLink from "next/link";
 
 interface CaseCardProps extends React.HTMLAttributes<HTMLElement> {
@@ -9,36 +11,37 @@ interface CaseCardProps extends React.HTMLAttributes<HTMLElement> {
   note: Note;
 }
 
-export default function NoteCard({ case_id, note }: CaseCardProps) {
+export default async function NoteCard({ case_id, note }: CaseCardProps) {
   const path = `/cases/${case_id}/notes/${note.id}`;
-
-  function getNoteTypeDisplay(noteType: string): string {
-    switch (noteType) {
-      case "hp":
-        return "H&P";
-      case "soap":
-        return "SOAP";
-      case "instructions":
-        return "Patient Instructions";
-      default:
-        return noteType;
-    }
-  }
-
   return (
-    <NextLink href={path}>
-      <Card className={`relative ${"hover:border-blue-600 cursor-pointer"}`}>
+    <NextLink
+      className={note.status != "ready" ? "pointer-events-none" : ""}
+      href={path}
+      aria-disabled={note.status != "ready"}
+    >
+      <Card className={`relative ${"hover:border-primary cursor-pointer"}`}>
         <CardContent className="flex justify-between items-center p-4">
           <div className="flex flex-col justify-center">
             <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-              {`${getNoteTypeDisplay(note.type)} ${note.version}`}
+              {`${note.template?.title || "Generic Note"} ${note.version}`}
             </h4>
-            <span className="text-sm text-muted-foreground">
-              {DateTime.fromISO(note.inserted_at).toLocaleString(
-                DateTime.DATETIME_SHORT
-              )}
-            </span>
+            <LocalDateTime
+              className="text-sm text-muted-foreground"
+              isoString={note.inserted_at}
+            />
           </div>
+          <Badge variant={"outline"}>
+            {`${note.status.charAt(0).toUpperCase()}${note.status.slice(1)}`}
+            &nbsp;
+            {note.status == "processing" ? (
+              <LoaderCircle
+                size={16}
+                className={`animate-spin text-muted-foreground`}
+              />
+            ) : (
+              <Check size={16} />
+            )}
+          </Badge>
         </CardContent>
       </Card>
     </NextLink>

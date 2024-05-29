@@ -31,6 +31,12 @@ export const freetextInputFormSchema = z.object({
   content: z.string(),
 });
 
+export const templateInputFormSchema = z.object({
+  title: z.string(),
+  instructions: z.string(),
+  examples: z.string().array()
+});
+
 export type LoginFormSchema = z.infer<typeof loginFormSchema>;
 export type SignupFormSchema = z.infer<typeof signupFormSchema>;
 export type ChangeCaseTitleFormSchema = z.infer<
@@ -38,3 +44,4 @@ export type ChangeCaseTitleFormSchema = z.infer<
 >;
 export type NewSessionFormSchema = z.infer<typeof newSessionFormSchema>;
 export type FreetextInputFormSchema = z.infer<typeof freetextInputFormSchema>;
+export type TemplateInputFormSchema = z.infer<typeof templateInputFormSchema>;

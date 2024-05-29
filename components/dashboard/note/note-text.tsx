@@ -24,15 +24,15 @@ export default function NoteText({ text }: NoteTextProps) {
   };
 
   return (
-    <div className="relative">
+    <div className="relative p-2">
       <Button
-        className="absolute right-2"
+        className="absolute top-2 right-2 h-8 w-8"
         variant={"outline"}
         size={"icon"}
         onClick={handleCopyClick}
         aria-label="Copy"
       >
-        {copied ? <Check /> : <Clipboard />}
+        {copied ? <Check size={16}/> : <Clipboard size={16}/>}
       </Button>
       <Markdown
         components={{
