@@ -83,7 +83,7 @@ export default function HomepageLayout({
         <div className="flex flex-1 justify-center">
           <ul className="flex gap-6">
             <li>
-              <a href="/privacypolicy" className="text-lg hover:underline">
+              <a href="/privacy" className="text-lg hover:underline">
                 Privacy Policy
               </a>
             </li>
