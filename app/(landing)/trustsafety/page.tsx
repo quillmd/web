@@ -2,136 +2,70 @@ export default function PrivacySecurity() {
   return (
     <div className="font-garamond">
       <main className="flex flex-col items-center justify-start pt-24 px-6 md:px-0">
-        <div className="text-center max-w-3xl">
-          <h1 className="text-6xl font-bold mb-8">
-            {"Trust, Safety, Privacy & Security at Quill"}
+        <div className="max-w-3xl">
+          <h1 className="text-4xl text-center font-bold mb-8">
+            {"Trust & Safety"}
           </h1>
-          <p className="text-xl mb-12">
-            {
-              "Clinician and patient trust is of the highest priority at Quill. We hold ourselves accountable to a HIPAA-compliant data storage and processing protocol for all data captured and shared through our platform."
-            }
+          <p className="text-2xl mb-12">
+            {`Quill believes in the responsible and transparent use of AI in healthcare.`}
           </p>
-        </div>
-        <div className="text-left max-w-3xl">
-          <h2 className="text-3xl font-bold mb-4">
-            {"Internal Personnel Security"}
-          </h2>
-          <div className="text-xl mb-8">
-            <p>{"All Quill employees are required to:"}</p>
-            <ul className="list-disc list-inside ml-6">
-              <li>{"Undergo background checks before being hired"}</li>
-              <li>
-                {
-                  "Complete annual security awareness training on HIPAA, privacy, and information classification"
-                }
-              </li>
-            </ul>
-          </div>
-          <h2 className="text-3xl font-bold mb-4">{"Compliance"}</h2>
-          <div className="text-xl mb-8">
-            <ul className="list-disc list-inside ml-6">
-              <li>
-                {
-                  "Quill conducts regular risk assessments to ensure policies remain up-to-date and relevant"
-                }
-              </li>
-              <li>{"Our CEO is responsible for Privacy and Security"}</li>
-            </ul>
-          </div>
-          <h2 className="text-3xl font-bold mb-4">
-            {"Secure Development Lifecycle"}
-          </h2>
-          <div className="text-xl mb-8">
-            <ul className="list-disc list-inside ml-6">
-              <li>{"All software changes are reviewed for compliance"}</li>
-              <li>
-                {
-                  "Quill practices infrastructure-as-code. All infrastructure changes are reviewed before deployment"
-                }
-              </li>
-              <li>
-                {"All engineers complete secure development practices training"}
-              </li>
-            </ul>
-          </div>
-          <h2 className="text-3xl font-bold mb-4">
-            {"Cloud Hosting and Availability"}
-          </h2>
-          <div className="text-xl mb-8">
-            <ul className="list-disc list-inside ml-6">
-              <li>
-                {
-                  "All hosting services and data is stored and processed within Microsoft's Azure secure data centers"
-                }
-              </li>
-              <li>
-                {
-                  "Quill has a HIPAA Business associate agreement with Microsoft"
-                }
-              </li>
-              <li>
-                {
-                  "Quill leverages Azure's high-availability infrastructure to ensure data is always accessible"
-                }
-              </li>
-            </ul>
-          </div>
-          <h2 className="text-3xl font-bold mb-4">
-            {"Confidentiality and Data Encryption"}
-          </h2>
-          <div className="text-xl mb-8">
-            <ul className="list-disc list-inside ml-6">
-              <li>
-                {
-                  "All data is encrypted at-rest and in-transit using standard encryption schemes"
-                }
-              </li>
-            </ul>
-          </div>
-          <h2 className="text-3xl font-bold mb-4">{"Vendor Management"}</h2>
-          <div className="text-xl mb-8">
-            <ul className="list-disc list-inside ml-6">
-              <li>
-                {
-                  "All Vendors who may process patient information are required to be HIPAA compliant and sign BAAs with Quill"
-                }
-              </li>
-              <li>
-                {
-                  "Quill regularly reviews vendor security practices to ensure continued high standards"
-                }
-              </li>
-            </ul>
-          </div>
-          <h2 className="text-3xl font-bold mb-4">
-            {"Artificial Intelligence"}
-          </h2>
-          <div className="text-xl mb-8">
-            <ul className="list-disc list-inside ml-6">
-              <li>
-                {"All AI models are HIPAA compliant and don't retain data"}
-              </li>
-              <li>
-                {
-                  "Protected health information is never used for AI training purposes"
-                }
-              </li>
-            </ul>
-          </div>
-          <h2 className="text-3xl font-bold mb-4">{"Patient Information"}</h2>
-          <div className="text-xl mb-8">
-            <ul className="list-disc list-inside ml-6">
-              <li>
-                {"Patient information is encrypted at-rest and in-transit"}
-              </li>
-              <li>
-                {
-                  "Patient recordings are never stored to disk and are immediately deleted upon successful note generation"
-                }
-              </li>
-              <li>{"No patient information is retained"}</li>
-            </ul>
-          </div>
+          <p className="text-2xl mb-12">
+            {`Built by physicians, for physicians, to provide the best possible service to physicians.`}
+          </p>
+          <p className="text-2xl mb-2">
+            {`AI that aligns with core human values`}
+          </p>
+          <p className="text-xl mb-2">
+            {`Artificial intelligence is transforming our world. It is a powerful tool that is being utilized to create apps and programs that solve problems that were previously unsolvable. But in the healthcare field – where patient confidentiality, safety, and data security are paramount and protected by law – we all have a responsibility to ensure AI is implemented both ethically and responsibly.`}
+          </p>
+          <p className="text-xl mb-2">
+            {`Practicing medicine and collecting medical information is one of the most sensitive things you can do. Processing that medical data is equally as sensitive. We understand that, and treat that sensitivity with the respect that it deserves. Quill is the conscientious steward of that data.`}
+          </p>
+          <p className="text-xl mb-12">
+            {`At Quill, we’re committed to expanding upon the established standard for the use of AI in healthcare: a standard that guides technological advancement with a strong moral compass, without sacrificing safety, and trust with patients. This philosophy is what shapes our products today, and drives our vision for what’s possible tomorrow.`}
+          </p>
+          <p className="text-2xl mb-2">
+            {`Transparent by Design`}
+          </p>
+          <p className="text-xl mb-12">
+            {`Quill’s AI platform was engineered from the ground up to be HIPAA compliant and promote transparency in healthcare AI – with key features that promote trust and safety. Our proactive and advanced measures ensure that your information remains protected, transparent, and within your control.`}
+          </p>
+          <p className="text-2xl mb-2">
+            {`Security`}
+          </p>
+          <p className="text-xl mb-12">
+            {`Our trusted, reliable technology and high security standards ensure your sensitive data is always protected. Quill retains the minimum amount of data needed to accomplish the goal of crafting accurate patient notes. Quill employs a specialized transcription process, ensuring no recordings and patient information are stored. We employ comprehensive security measures, including sophisticated encryption and secure server infrastructure, to guard against unauthorized access and data breaches.`}
+          </p>
+          <p className="text-2xl mb-2">
+            {`HIPAA Compliant`}
+          </p>
+          <p className="text-xl mb-12">
+            {`Quill’s ambient AI platform is 100% HIPAA compliant and all our employees are HIPAA certified. Quill maintains Business Associate Agreements with Anthropic, OpenAI, and others to ensure that HIPAA compliance is maintained at all phases.`}
+          </p>
+          <p className="text-2xl mb-2">
+            {`End-to-End Encryption`}
+          </p>
+          <p className="text-xl mb-12">
+            {`All data captured and processed by Quill is encrypted using end-to-end AES-256 technology.`}
+          </p>
+          <p className="text-2xl mb-2">
+            {`De-Identified Patient Data`}
+          </p>
+          <p className="text-xl mb-12">
+            {`Encrypted data is stripped of all personally identifiable information, ensuring patient information cannot be associated with an individual. Data in the notes produced by Quill have the same standard, ensuring that all information is De-Identified. Data is handled and stored with stringent protocols, utilizing de-identification tools for anonymity in business improvement and analysis.`}
+          </p>
+          <p className="text-2xl mb-2">
+            {`Multi-Factor Authentication`}
+          </p>
+          <p className="text-xl mb-12">
+            {`Quill includes an additional layer of security to ensure any user accessing our platform is authorized to do so. Strong access permission settings prevent patient data from being shared too broadly – on your side and ours.`}
+          </p>
+          <p className="text-2xl mb-2">
+            {`Continual Improvement and Staff Training`}
+          </p>
+          <p className="text-xl mb-12">
+            {`We adapt our security measures in response to emerging threats and technological advancements. Staff training is pivotal, ensuring every team member is versed in the latest security protocols and best practices.`}
+          </p>
         </div>
       </main>
     </div>
