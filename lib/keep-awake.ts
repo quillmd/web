@@ -10,7 +10,6 @@ const KeepAwake = () => {
       try {
         const wakeLock = await navigator.wakeLock.request('screen');
         setWakeLock(wakeLock);
-        console.log('Wake Lock is active');
       } catch (err) {
         console.error('Failed to acquire Wake Lock:', err);
       }
@@ -25,7 +24,6 @@ const KeepAwake = () => {
     return () => {
       if (wakeLock) {
         wakeLock.release();
-        console.log('Wake Lock is released');
       }
     };
   }, []);

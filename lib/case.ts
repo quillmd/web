@@ -15,13 +15,33 @@ export type CasesGroupedByDate = {
   [date: string]: Case[];
 };
 
-export async function getCases(): Promise<Case[]> {
+interface GetCasesParams {
+  from?: DateTime;
+  to?: DateTime;
+  days?: number;
+  query?: string;
+}
+export async function getCases({
+  from,
+  to,
+  days,
+  query,
+}: GetCasesParams): Promise<Case[]> {
   const tags = ["cases"];
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
   }
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/cases`, {
+  const params = new URLSearchParams();
+  from && params.append("from", from.toUTC().toISO() || "null");
+  to && params.append("to", to.toUTC().toISO() || "null");
+  days !== undefined && params.append("days", days.toString());
+  query && params.append("query", query);
+
+  const url = new URL(`${process.env.NEXT_PUBLIC_API}/api/cases`);
+  url.search = params.toString()
+
+  const response = await fetch(url, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${authToken}`,
@@ -39,8 +59,8 @@ export async function getCases(): Promise<Case[]> {
   return cases as Case[];
 }
 
-export async function getCasesGroupedByDate(): Promise<CasesGroupedByDate> {
-  const cases = await getCases();
+export async function getCasesGroupedByDate(params: GetCasesParams): Promise<CasesGroupedByDate> {
+  const cases = await getCases(params);
   const groupedCases: CasesGroupedByDate = cases.reduce(
     (acc: CasesGroupedByDate, current_case: Case) => {
       const date: string = DateTime.fromISO(

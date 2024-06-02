@@ -3,7 +3,7 @@ import NewCaseButton from "@/components/dashboard/home/new-case-button";
 import { Case, getCasesGroupedByDate } from "@/lib/case";
 
 export default async function HomePage() {
-  const cases = await getCasesGroupedByDate();
+  const cases = await getCasesGroupedByDate({ days: 5 });
   const casesArray = Object.entries(cases);
 
   return (

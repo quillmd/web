@@ -42,7 +42,6 @@ export default function FreetextInput({
   const data = form.watch();
   function onSubmit(data: FreetextInputFormSchema) {
     if (transcript_id != undefined && data.content != initial_content) {
-      console.log("submitting update");
       updateTranscript({
         case_id: case_id,
         transcript_id: transcript_id,
@@ -51,7 +50,6 @@ export default function FreetextInput({
         setUpdatedAt(DateTime.now());
       });
     } else if (data.content != initial_content) {
-      console.log("submitting post");
       postTranscript({
         case_id: case_id,
         type: "freetext",

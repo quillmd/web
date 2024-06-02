@@ -71,7 +71,6 @@ export async function getNote({
     }
   );
   const note = await response.json();
-  console.log(note)
   return note as Note;
 }
 

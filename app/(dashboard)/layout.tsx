@@ -2,14 +2,13 @@ import AccountButton from "@/components/dashboard/account-button";
 import CasesSidebar from "@/components/dashboard/cases-sidebar";
 import CasesSocket from "@/components/dashboard/cases-socket";
 import LogoutButton from "@/components/dashboard/logout-button";
-import { getCases, getCasesGroupedByDate } from "@/lib/case";
+import { getCases } from "@/lib/case";
 
 export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cases = await getCases()
   return (
     <body>
       <CasesSocket />
@@ -26,7 +25,7 @@ export default async function DashboardLayout({
         </nav>
       </header>
       <div className="flex items-start max-w-7xl mx-auto gap-2 p-2">
-        <CasesSidebar cases={cases} />
+        <CasesSidebar />
         <div className="flex-1">{children}</div>
       </div>
     </body>
