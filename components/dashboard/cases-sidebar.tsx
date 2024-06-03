@@ -11,8 +11,15 @@ import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
 import NewCaseButton from "./home/new-case-button";
 
+interface fetchParamsState{
+  days?: number,
+  query: string,
+  from?: string,
+  to?: string
+}
+
 export default function CasesSidebar() {
-  const [fetchParams, setFetchParams] = useState({
+  const [fetchParams, setFetchParams] = useState<fetchParamsState>({
     days: 5,
     query: "",
     from: undefined,
@@ -48,7 +55,7 @@ export default function CasesSidebar() {
   const handleLoadMore = () => {
     setFetchParams({
       ...fetchParams,
-      days: fetchParams.days + 500,
+      days: undefined,
     });
   };
 
@@ -97,13 +104,13 @@ export default function CasesSidebar() {
                 <Separator />
               </div>
             ))}
-            <Button
+            {fetchParams.days && <Button
               className="w-full"
               variant={"ghost"}
               onClick={handleLoadMore}
             >
               Load More
-            </Button>
+            </Button>}
           </div>
         </ScrollArea>
       </aside>
