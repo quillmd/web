@@ -104,7 +104,7 @@ export default function CasesSidebar() {
                 <Separator />
               </div>
             ))}
-            {fetchParams.days && <Button
+            {casesGroupedByDate && fetchParams.days && <Button
               className="w-full"
               variant={"ghost"}
               onClick={handleLoadMore}
