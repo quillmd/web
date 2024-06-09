@@ -1,4 +1,5 @@
 import BreadcrumbNav from "@/components/dashboard/breadcrumb-nav";
+import AudioUpload from "@/components/dashboard/case/audio-upload";
 import CaseTitle from "@/components/dashboard/case/case-title";
 import CreateNotes from "@/components/dashboard/case/create-notes";
 import FreetextInput from "@/components/dashboard/case/freetext-input";
@@ -48,10 +49,11 @@ export default async function CasePage({
         initial_title={current_case.title}
       />
       <Tabs defaultValue="notes">
-        <TabsList className="grid w-1/2 grid-cols-3 mb-2">
+        <TabsList className="grid w-1/2 grid-cols-4 mb-2">
           <TabsTrigger value="notes">Notes</TabsTrigger>
           <TabsTrigger value="text">Text Input</TabsTrigger>
           <TabsTrigger value="audio">Audio Input</TabsTrigger>
+          <TabsTrigger value="audioupload">Audio Upload</TabsTrigger>
         </TabsList>
         <TabsContent value="notes">
           <div className="flex flex-col gap-2">
@@ -84,6 +86,21 @@ export default async function CasePage({
           <div className="flex flex-col gap-2">
             <div className="my-2">
               <NewTranscript case_id={parseInt(case_id)} />
+            </div>
+            {transcripts
+              .filter((transcript) => transcript.type != "freetext")
+              .map((transcript) => (
+                <TranscriptCard
+                  key={`transcript-${transcript.id}`}
+                  transcript={transcript}
+                />
+              ))}
+          </div>
+        </TabsContent>
+        <TabsContent value="audioupload">
+          <div className="flex flex-col gap-2">
+            <div className="my-2">
+              <AudioUpload case_id={parseInt(case_id)} />
             </div>
             {transcripts
               .filter((transcript) => transcript.type != "freetext")
