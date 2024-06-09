@@ -42,11 +42,7 @@ export default function NewTranscript({ case_id }: NewTranscriptProps) {
       ? buttonStates.uploading
       : buttonStates.error;
   return (
-    <Button
-      className="w-36 h-36"
-      variant="outline"
-      onClick={buttonState.onClick}
-    >
+    <Button className="w-36" variant="outline" onClick={buttonState.onClick}>
       <buttonState.Icon
         className={recorderStatus == "uploading" ? "animate-spin" : ""}
         size={14}

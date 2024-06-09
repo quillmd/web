@@ -46,7 +46,7 @@ export default function CreateNotes({
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              className="w-full"
+              className="w-36"
               variant={"outline"}
               disabled={disabled}
               asChild

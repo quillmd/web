@@ -34,12 +34,12 @@ export default function AudioUpload({ case_id }: { case_id: number }) {
       <input
         id="file-upload"
         type="file"
-        accept=".m4a"
+        accept="audio/*"
         onChange={handleUpload}
         className="hidden"
       />
       <Button
-        className="w-36 h-36"
+        className="w-36"
         variant="outline"
         onClick={() => document.getElementById("file-upload")?.click()}
         disabled={uploaderStatus === "uploading"}

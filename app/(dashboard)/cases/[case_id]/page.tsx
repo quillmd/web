@@ -42,21 +42,21 @@ export default async function CasePage({
   const notesDisabled =
     transcripts.find((transcript) => transcript.status == "ready") == undefined;
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
       <BreadcrumbNav current_case={current_case} />
       <CaseTitle
         case_id={parseInt(case_id)}
         initial_title={current_case.title}
       />
       <Tabs defaultValue="notes">
-        <TabsList className="grid w-1/2 grid-cols-3 mb-2">
+        <TabsList className="grid w-1/2 grid-cols-3 mb-4">
           <TabsTrigger value="notes">Notes</TabsTrigger>
           <TabsTrigger value="text">Text Input</TabsTrigger>
           <TabsTrigger value="audio">Audio Input</TabsTrigger>
         </TabsList>
         <TabsContent value="notes">
-          <div className="flex flex-col gap-2">
-            <div className="my-2">
+          <div className="flex flex-col gap-4">
+            <div className="my-2 mx-auto">
               <CreateNotes
                 case_id={parseInt(case_id)}
                 templates={templates}
@@ -73,7 +73,7 @@ export default async function CasePage({
           </div>
         </TabsContent>
         <TabsContent value="text">
-          <div className="my-2">
+          <div className="my-4">
             <FreetextInput
               case_id={parseInt(case_id)}
               transcript_id={freetextInput?.id}
@@ -82,7 +82,7 @@ export default async function CasePage({
           </div>
         </TabsContent>
         <TabsContent value="audio">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-4">
             <div className="w-full flex justify-center gap-4 my-2">
               <NewTranscript case_id={parseInt(case_id)} />
               <AudioUpload case_id={parseInt(case_id)} />
