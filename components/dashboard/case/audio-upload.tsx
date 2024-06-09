@@ -3,6 +3,11 @@
 import { useAudioUpload } from "@/lib/useAudioUpload";
 import { Button } from "@/components/ui/button";
 import { UploadCloud, LoaderCircle, CircleX } from "lucide-react";
+import {
+    HoverCard,
+    HoverCardContent,
+    HoverCardTrigger,
+  } from "@/components/ui/hover-card"  
 import { useState } from "react";
 
 export default function AudioUpload({ case_id }: { case_id: number }) {
@@ -48,14 +53,32 @@ export default function AudioUpload({ case_id }: { case_id: number }) {
         onChange={handleFileSelect}
         className="hidden"
       />
-      <Button
-        className="w-full"
-        variant="outline"
-        onClick={() => document.getElementById("file-upload")?.click()}
-        disabled={uploaderStatus === "uploading"}
-      >
-        {fileName ? fileName : "Choose .mp4 File"}
-      </Button>
+      <HoverCard >
+        <HoverCardTrigger asChild>
+          <Button
+            className="w-full"
+            variant="outline"
+            onClick={() => document.getElementById("file-upload")?.click()}
+            disabled={uploaderStatus === "uploading"}
+          >
+            {fileName ? fileName : "Choose .m4a File"}
+          </Button>
+        </HoverCardTrigger>
+        <HoverCardContent>
+          <strong>Quill works with Zoom!</strong>
+          <br /> 
+          <br /> 
+          1. Ask your patient if you can record your conversation so Quill can write your note
+          <br /> 
+          2. Press the record button on Zoom
+          <br />
+          3. Press "Record on this computer option"
+          <br />
+          4. When the meeting ends, Zoom will provide an .m4a audio file in the "Zoom" folder in Documents
+          <br />
+          5. Upload the .m4a file Zoom generated and watch the magic happen!
+        </HoverCardContent>
+      </HoverCard>
       <Button
         className="w-full"
         onClick={uploadAudio}
