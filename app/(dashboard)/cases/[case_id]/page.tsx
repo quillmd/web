@@ -49,11 +49,10 @@ export default async function CasePage({
         initial_title={current_case.title}
       />
       <Tabs defaultValue="notes">
-        <TabsList className="grid w-1/2 grid-cols-4 mb-2">
+        <TabsList className="grid w-1/2 grid-cols-3 mb-2">
           <TabsTrigger value="notes">Notes</TabsTrigger>
           <TabsTrigger value="text">Text Input</TabsTrigger>
           <TabsTrigger value="audio">Audio Input</TabsTrigger>
-          <TabsTrigger value="audioupload">Audio Upload</TabsTrigger>
         </TabsList>
         <TabsContent value="notes">
           <div className="flex flex-col gap-2">
@@ -84,22 +83,8 @@ export default async function CasePage({
         </TabsContent>
         <TabsContent value="audio">
           <div className="flex flex-col gap-2">
-            <div className="my-2">
+            <div className="w-full flex justify-center gap-4 my-2">
               <NewTranscript case_id={parseInt(case_id)} />
-            </div>
-            {transcripts
-              .filter((transcript) => transcript.type != "freetext")
-              .map((transcript) => (
-                <TranscriptCard
-                  key={`transcript-${transcript.id}`}
-                  transcript={transcript}
-                />
-              ))}
-          </div>
-        </TabsContent>
-        <TabsContent value="audioupload">
-          <div className="flex flex-col gap-2">
-            <div className="my-2">
               <AudioUpload case_id={parseInt(case_id)} />
             </div>
             {transcripts

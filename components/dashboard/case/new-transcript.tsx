@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useAudioRecorder } from "@/lib/useAudioRecorder";
-import { CircleX, LoaderCircle, Plus, Square } from "lucide-react";
+import { CircleX, LoaderCircle, Mic, Square } from "lucide-react";
 
 interface NewTranscriptProps extends React.HTMLAttributes<HTMLElement> {
   case_id: number;
@@ -18,8 +18,8 @@ export default function NewTranscript({ case_id }: NewTranscriptProps) {
       onClick: () => stopRecording(),
     },
     idle: {
-      Icon: Plus,
-      text: "New Audio Input",
+      Icon: Mic,
+      text: "Listen",
       onClick: () => startRecording(),
     },
     uploading: {
@@ -43,7 +43,7 @@ export default function NewTranscript({ case_id }: NewTranscriptProps) {
       : buttonStates.error;
   return (
     <Button
-      className="w-full"
+      className="w-36 h-36"
       variant="outline"
       onClick={buttonState.onClick}
     >
