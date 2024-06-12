@@ -25,6 +25,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cookies-next": "^4.1.1",
+    "input-otp": "^1.2.4",
     "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.362.0",
     "luxon": "^3.4.4",

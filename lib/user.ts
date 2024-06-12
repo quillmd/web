@@ -3,7 +3,13 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export async function validateUser() {
+interface AuthResponse {
+  token?: string,
+  user_id?: string,
+  error?:string
+}
+
+export async function refreshToken():Promise<AuthResponse>  {
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     throw "Not Logged in";
@@ -14,21 +20,36 @@ export async function validateUser() {
       Authorization: `Bearer ${authToken}`,
     },
   });
+  const data = await response.json()
   if (!response.ok) {
     throw "Not logged in";
   }
+  return data;
+
 }
 
-export async function createUser(email: string, password: string) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/auth/register`, {
+export async function requestAuth(email: string):Promise<AuthResponse>  {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/auth/request`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email }),
   });
+  const data = await response.json()
+  return data;
+}
+
+export async function validateAuth(email: string, otp: string):Promise<AuthResponse> {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/auth/validate`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, otp }),
+  });
+  const data = await response.json();
   if (response.ok) {
-    const data = await response.json();
     cookies().set({
       name: "accessToken",
       value: data.token,
@@ -37,38 +58,16 @@ export async function createUser(email: string, password: string) {
       name: "userId",
       value: data.user_id,
     });
-    // redirect(`/home`);
   }
-}
-
-export async function loginUser(email: string, password: string) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email, password }),
-  });
-  if (response.ok) {
-    const data = await response.json();
-    cookies().set({
-      name: "accessToken",
-      value: data.token,
-    });
-    cookies().set({
-      name: "userId",
-      value: data.user_id,
-    });
-    // redirect(`/home`);
-  }
+  return data;
 }
 
 export async function logout() {
-    cookies().delete({
-      name: "accessToken",
-    });
-    cookies().delete({
-      name: "userId",
-    });
-    redirect(`/login`);
+  cookies().delete({
+    name: "accessToken",
+  });
+  cookies().delete({
+    name: "userId",
+  });
+  redirect(`/login`);
 }

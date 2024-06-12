@@ -39,7 +39,7 @@ export async function getCases({
   query && params.append("query", query);
 
   const url = new URL(`${process.env.NEXT_PUBLIC_API}/api/cases`);
-  url.search = params.toString()
+  url.search = params.toString();
 
   const response = await fetch(url, {
     method: "GET",
@@ -59,7 +59,9 @@ export async function getCases({
   return cases as Case[];
 }
 
-export async function getCasesGroupedByDate(params: GetCasesParams): Promise<CasesGroupedByDate> {
+export async function getCasesGroupedByDate(
+  params: GetCasesParams
+): Promise<CasesGroupedByDate> {
   const cases = await getCases(params);
   const groupedCases: CasesGroupedByDate = cases.reduce(
     (acc: CasesGroupedByDate, current_case: Case) => {

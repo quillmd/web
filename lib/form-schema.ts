@@ -1,22 +1,18 @@
 import { z } from "zod";
 
-export const loginFormSchema = z.object({
+export const authRequestSchema = z.object({
   email: z.string().email({
-    message: "Must be a valid email address",
-  }),
-  password: z
-    .string()
-    .min(8, { message: "Must be at least 8 characters long" }),
-});
+    message: "Enter a valid email address",
+  })
+})
 
-export const signupFormSchema = z.object({
+export const authValidateSchema = z.object({
   email: z.string().email({
-    message: "Must be a valid email address",
+    message: "Enter a valid email address",
   }),
-  password: z
+  otp: z
     .string()
-    .min(8, { message: "Must be at least 8 characters long" }),
-  activation: z.string(),
+    .length(6, { message: "Enter the 6-number pin" }),
 });
 
 export const changeCaseTitleFormSchema = z.object({
@@ -37,8 +33,8 @@ export const templateInputFormSchema = z.object({
   examples: z.string().array()
 });
 
-export type LoginFormSchema = z.infer<typeof loginFormSchema>;
-export type SignupFormSchema = z.infer<typeof signupFormSchema>;
+export type AuthRequestSchema = z.infer<typeof authRequestSchema>;
+export type AuthValidateSchema = z.infer<typeof authValidateSchema>;
 export type ChangeCaseTitleFormSchema = z.infer<
   typeof changeCaseTitleFormSchema
 >;

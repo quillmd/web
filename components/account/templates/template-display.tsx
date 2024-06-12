@@ -53,7 +53,6 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
         data.instructions != template?.instructions ||
         data.examples != template?.examples)
     ) {
-      console.log("submitting template update");
       updateTemplate({
         template_id: template.id,
         title: data.title,
@@ -69,7 +68,6 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
         data.instructions != template?.instructions ||
         data.examples != template?.examples)
     ) {
-      console.log("submitting template post");
       postTemplate({
         title: data.title,
         instructions: data.instructions,
