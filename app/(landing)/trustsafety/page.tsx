@@ -55,7 +55,7 @@ export default function PrivacySecurity() {
             {`Encrypted data is stripped of all personally identifiable information, ensuring patient information cannot be associated with an individual. Data in the notes produced by Quill have the same standard, ensuring that all information is De-Identified. Data is handled and stored with stringent protocols, utilizing de-identification tools for anonymity in business improvement and analysis.`}
           </p>
           <p className="text-2xl mb-2">
-            {`Multi-Factor Authentication`}
+            {`Secure Authentication`}
           </p>
           <p className="text-xl mb-12">
             {`Quill includes an additional layer of security to ensure any user accessing our platform is authorized to do so. Strong access permission settings prevent patient data from being shared too broadly – on your side and ours.`}

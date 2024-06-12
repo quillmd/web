@@ -97,6 +97,11 @@ export default function HomepageLayout({
                 Trust & Safety
               </a>
             </li>
+            <li>
+              <a href="/terms" className="text-lg hover:underline">
+                Customer Terms
+              </a>
+            </li>
           </ul>
         </div>
         <div className="w-1/4 hidden md:block" />

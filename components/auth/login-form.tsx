@@ -51,10 +51,9 @@ function RequestForm({
   const onSubmit = async (values: AuthRequestSchema) => {
     try {
       const responseData = await requestAuth(values.email);
-      if (responseData.error){
-        form.setError("email", { type: "manual", message: responseData.error })
-      }
-      else{
+      if (responseData.error) {
+        form.setError("email", { type: "manual", message: responseData.error });
+      } else {
         setEmailPrefill(values.email);
       }
     } catch (error) {
@@ -70,7 +69,7 @@ function RequestForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <CardDescription className="text-lg text-foreground text-center font-garamond">
-          Access Quill using your email
+          Access Quill using just your email
         </CardDescription>
         <FormField
           control={form.control}
@@ -119,10 +118,9 @@ function ValidateForm({
   const onSubmit = async (values: AuthValidateSchema) => {
     try {
       const responseData = await validateAuth(values.email, values.otp);
-      if (responseData.error){
-        form.setError("email", { type: "manual", message: responseData.error })
-      }
-      else{
+      if (responseData.error) {
+        form.setError("email", { type: "manual", message: responseData.error });
+      } else {
         router.push("/home");
       }
     } catch (error) {
@@ -232,13 +230,13 @@ export function LoginForm() {
         )}
       </CardContent>
       <CardFooter>
-        <div className="text-center leading-tight">
+        <div className="text-center leading-tight max-w-sm">
           <span className="text-xs text-muted-foreground">{`By continuing, you agree to Quill's `}</span>
           <NextLink
             href={"/terms"}
             className="text-xs text-muted-foreground underline"
           >
-            {`Terms`}
+            {`Customer Terms`}
           </NextLink>
           <span className="text-xs text-muted-foreground">{`, and acknowledge their `}</span>
           <NextLink
