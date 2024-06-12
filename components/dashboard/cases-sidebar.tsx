@@ -1,10 +1,12 @@
 "use client";
 import { Case, CasesGroupedByDate, getCases } from "@/lib/case";
+import { Search } from "lucide-react";
 import { DateTime } from "luxon";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
 import NewCaseButton from "./home/new-case-button";
@@ -18,7 +20,7 @@ interface fetchParamsState {
 
 export default function CasesSidebar() {
   const [fetchParams, setFetchParams] = useState<fetchParamsState>({
-    days: 5,
+    days: 10,
     query: "",
     from: undefined,
     to: undefined,
@@ -73,7 +75,7 @@ export default function CasesSidebar() {
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <NewCaseButton variant={"ghost"} />
-              {/* <div className="relative">
+              <div className="relative w-11/12 mx-auto">
                 <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input
                   value={fetchParams.query}
@@ -81,7 +83,7 @@ export default function CasesSidebar() {
                   placeholder="Search"
                   className="pl-8 border-hidden"
                 />
-              </div> */}
+              </div>
             </div>
             {casesGroupedByDate?.map(([date, casesForDate]) => (
               <div key={date}>
@@ -102,15 +104,17 @@ export default function CasesSidebar() {
                 <Separator />
               </div>
             ))}
-            {casesGroupedByDate && fetchParams.days && (
-              <Button
-                className="w-full"
-                variant={"ghost"}
-                onClick={handleLoadMore}
-              >
-                Load More
-              </Button>
-            )}
+            {casesGroupedByDate &&
+              fetchParams.days &&
+              casesGroupedByDate.length >= fetchParams.days + 1 && (
+                <Button
+                  className="w-full"
+                  variant={"ghost"}
+                  onClick={handleLoadMore}
+                >
+                  Load More
+                </Button>
+              )}
           </div>
         </ScrollArea>
       </aside>
