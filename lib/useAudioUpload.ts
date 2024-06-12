@@ -12,7 +12,7 @@ type UploaderControls = {
 export function useAudioUpload({
   case_id,
 }: {
-  case_id: number;
+  case_id: string;
 }): UploaderControls {
   const authToken = getCookie("accessToken");
   const [uploaderStatus, setUploaderStatus] = useState<UploaderStatus>("idle");

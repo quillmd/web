@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useAudioUpload } from "@/lib/useAudioUpload";
 import { CircleX, LoaderCircle, UploadCloud } from "lucide-react";
 
-export default function AudioUpload({ case_id }: { case_id: number }) {
+export default function AudioUpload({ case_id }: { case_id: string }) {
   const { uploaderStatus, handleUpload } = useAudioUpload({ case_id });
 
   const buttonStates = {

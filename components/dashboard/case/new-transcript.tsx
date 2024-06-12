@@ -4,7 +4,7 @@ import { useAudioRecorder } from "@/lib/useAudioRecorder";
 import { CircleX, LoaderCircle, Mic, Square } from "lucide-react";
 
 interface NewTranscriptProps extends React.HTMLAttributes<HTMLElement> {
-  case_id: number;
+  case_id: string;
 }
 
 export default function NewTranscript({ case_id }: NewTranscriptProps) {

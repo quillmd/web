@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export interface Template {
-  id: number;
+  id: string;
   type: string;
   title: string;
   instructions: string;

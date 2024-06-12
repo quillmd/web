@@ -12,7 +12,7 @@ import { Note, getNotes } from "@/lib/note";
 import { Template, getTemplates } from "@/lib/template";
 import { Transcript, getTranscripts } from "@/lib/transcript";
 
-async function getData(case_id: number) {
+async function getData(case_id: string) {
   const promiseArray = [
     getCase({ id: case_id }),
     getNotes({ case_id: case_id }),
@@ -34,7 +34,7 @@ export default async function CasePage({
   params: { case_id: string };
 }) {
   const { current_case, notes, transcripts, templates } = await getData(
-    parseInt(case_id)
+    case_id
   );
   const freetextInput = transcripts.find(
     (transcript) => transcript.type == "freetext"
@@ -45,7 +45,7 @@ export default async function CasePage({
     <div className="flex flex-col gap-4">
       <BreadcrumbNav current_case={current_case} />
       <CaseTitle
-        case_id={parseInt(case_id)}
+        case_id={case_id}
         initial_title={current_case.title}
       />
       <Tabs defaultValue="notes">
@@ -58,7 +58,7 @@ export default async function CasePage({
           <div className="flex flex-col gap-4">
             <div className="my-2 mx-auto">
               <CreateNotes
-                case_id={parseInt(case_id)}
+                case_id={case_id}
                 templates={templates}
                 disabled={notesDisabled}
               />
@@ -66,7 +66,7 @@ export default async function CasePage({
             {notes.map((note) => (
               <NoteCard
                 key={`note-${note.id}`}
-                case_id={parseInt(case_id)}
+                case_id={case_id}
                 note={note}
               />
             ))}
@@ -75,7 +75,7 @@ export default async function CasePage({
         <TabsContent value="text">
           <div className="my-4">
             <FreetextInput
-              case_id={parseInt(case_id)}
+              case_id={case_id}
               transcript_id={freetextInput?.id}
               initial_content={freetextInput?.content}
             />
@@ -84,8 +84,8 @@ export default async function CasePage({
         <TabsContent value="audio">
           <div className="flex flex-col gap-4">
             <div className="w-full flex justify-center gap-4 my-2">
-              <NewTranscript case_id={parseInt(case_id)} />
-              <AudioUpload case_id={parseInt(case_id)} />
+              <NewTranscript case_id={case_id} />
+              <AudioUpload case_id={case_id} />
             </div>
             {transcripts
               .filter((transcript) => transcript.type != "freetext")

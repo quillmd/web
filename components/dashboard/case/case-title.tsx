@@ -5,7 +5,7 @@ import { useDebounce } from "@/lib/useDebounce";
 import { SetStateAction, useState } from "react";
 
 interface CaseTitleProps extends React.HTMLAttributes<HTMLElement> {
-  case_id: number;
+  case_id: string;
   initial_title: string;
 }
 
@@ -17,7 +17,7 @@ export default function CaseTitle({ case_id, initial_title }: CaseTitleProps) {
     1000
   );
 
-  const handleChange = (e: { target: { value: SetStateAction<string>; }; }) => {
+  const handleChange = (e: { target: { value: SetStateAction<string> } }) => {
     setTitle(e.target.value);
     debouncedSet();
   };

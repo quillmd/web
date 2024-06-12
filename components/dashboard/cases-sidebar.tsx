@@ -1,21 +1,19 @@
 "use client";
 import { Case, CasesGroupedByDate, getCases } from "@/lib/case";
-import { Search } from "lucide-react";
 import { DateTime } from "luxon";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
 import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
 import NewCaseButton from "./home/new-case-button";
 
-interface fetchParamsState{
-  days?: number,
-  query: string,
-  from?: string,
-  to?: string
+interface fetchParamsState {
+  days?: number;
+  query: string;
+  from?: string;
+  to?: string;
 }
 
 export default function CasesSidebar() {
@@ -104,13 +102,15 @@ export default function CasesSidebar() {
                 <Separator />
               </div>
             ))}
-            {casesGroupedByDate && fetchParams.days && <Button
-              className="w-full"
-              variant={"ghost"}
-              onClick={handleLoadMore}
-            >
-              Load More
-            </Button>}
+            {casesGroupedByDate && fetchParams.days && (
+              <Button
+                className="w-full"
+                variant={"ghost"}
+                onClick={handleLoadMore}
+              >
+                Load More
+              </Button>
+            )}
           </div>
         </ScrollArea>
       </aside>
@@ -133,7 +133,7 @@ function SidebarLabel({
   text,
   active,
 }: {
-  id: number;
+  id: string;
   text: string;
   active: boolean;
 }) {

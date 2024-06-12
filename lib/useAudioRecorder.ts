@@ -1,6 +1,6 @@
+import { getCookie } from "cookies-next";
 import { useEffect, useState } from "react";
 import { revalidateTranscripts } from "./transcript";
-import { getCookie } from 'cookies-next';
 
 type RecorderStatus = "idle" | "recording" | "uploading" | "success" | "error";
 
@@ -10,7 +10,11 @@ type RecorderControls = {
   stopRecording: () => void;
 };
 
-export function useAudioRecorder ({ case_id }: { case_id: number }): RecorderControls {
+export function useAudioRecorder({
+  case_id,
+}: {
+  case_id: string;
+}): RecorderControls {
   const authToken = getCookie("accessToken");
   const [recorderStatus, setRecorderStatus] = useState<RecorderStatus>("idle");
   const [recorder, setRecorder] = useState<MediaRecorder | null>(null);
@@ -65,12 +69,12 @@ export function useAudioRecorder ({ case_id }: { case_id: number }): RecorderCon
         },
       }
     );
-    await revalidateTranscripts({case_id});
+    await revalidateTranscripts({ case_id });
     setRecorderStatus("idle");
   };
 
   return { recorderStatus, startRecording, stopRecording };
-};
+}
 
 async function requestRecorder(): Promise<[MediaStream, MediaRecorder]> {
   const stream = await navigator.mediaDevices.getUserMedia({ audio: true });

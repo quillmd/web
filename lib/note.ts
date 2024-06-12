@@ -1,14 +1,14 @@
 "use server";
 
 import { DateTime } from "luxon";
+import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Case } from "./case";
-import { revalidateTag } from "next/cache";
 import { Template } from "./template";
 
 export interface Note {
-  id: number;
+  id: string;
   template_id: Template["id"];
   content: string;
   status: string;
@@ -18,7 +18,7 @@ export interface Note {
 }
 
 export async function getNotes({
-  case_id
+  case_id,
 }: {
   case_id: Case["id"];
 }): Promise<Note[]> {
@@ -34,7 +34,7 @@ export async function getNotes({
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
-      next:{tags}
+      next: { tags },
     }
   );
   const data = await response.json();
@@ -67,7 +67,7 @@ export async function getNote({
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
-      next:{tags}
+      next: { tags },
     }
   );
   const note = await response.json();
@@ -90,17 +90,14 @@ export async function postNote({
   if (template_id !== undefined) {
     data.template_id = template_id;
   }
-  await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/notes`,
-    {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${authToken}`,
-      },
-    }
-  );
+  await fetch(`${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/notes`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${authToken}`,
+    },
+  });
   tags.forEach((tag) => {
     revalidateTag(tag);
   });
@@ -161,13 +158,13 @@ export async function deleteNote({
         Authorization: `Bearer ${authToken}`,
       },
     }
-  );  
+  );
   tags.forEach((tag) => {
     revalidateTag(tag);
   });
 }
 
-export async function revalidateNotes({case_id}:{ case_id: Case["id"]}){
+export async function revalidateNotes({ case_id }: { case_id: Case["id"] }) {
   const tags = [`notes-${case_id}`];
   tags.forEach((tag) => {
     revalidateTag(tag);

@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { Case } from "./case";
 
 export interface Transcript {
-  id: number;
+  id: string;
   type: string;
   status: string;
   description: string;
@@ -84,7 +84,7 @@ export async function getTranscript({
 //   if (!authToken) {
 //     redirect(`/login`);
 //   }
-  
+
 //   tags.forEach((tag) => {
 //     revalidateTag(tag);
 //   });
@@ -197,10 +197,13 @@ export async function deleteTranscript({
   });
 }
 
-export async function revalidateTranscripts({case_id}:{ case_id: Case["id"]}){
+export async function revalidateTranscripts({
+  case_id,
+}: {
+  case_id: Case["id"];
+}) {
   const tags = [`transcripts-${case_id}`];
   tags.forEach((tag) => {
     revalidateTag(tag);
   });
 }
-

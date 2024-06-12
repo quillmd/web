@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export interface Case {
-  id: number;
+  id: string;
   title: string;
   inserted_at: string;
 }
