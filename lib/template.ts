@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 
 export interface Template {
   id: string;
+  user_id?: string;
   type: string;
   title: string;
   instructions: string;

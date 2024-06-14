@@ -2,7 +2,6 @@ import AccountButton from "@/components/dashboard/account-button";
 import CasesSidebar from "@/components/dashboard/cases-sidebar";
 import CasesSocket from "@/components/dashboard/cases-socket";
 import LogoutButton from "@/components/dashboard/logout-button";
-import { getCases } from "@/lib/case";
 
 export default async function DashboardLayout({
   children,

@@ -85,8 +85,9 @@ export default function CasesSidebar() {
                 />
               </div>
             </div>
-            {casesGroupedByDate?.map(([date, casesForDate]) => (
+            {casesGroupedByDate?.map(([date, casesForDate], i) => (
               <div key={date}>
+                {i != 0 && <Separator />}
                 <SidebarSectionTitle text={date} />
                 <div className="flex flex-col">
                   {casesForDate.map((current_case: Case) => (
@@ -101,7 +102,6 @@ export default function CasesSidebar() {
                     />
                   ))}
                 </div>
-                <Separator />
               </div>
             ))}
             {casesGroupedByDate &&

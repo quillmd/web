@@ -5,8 +5,9 @@ import { getTemplates } from "@/lib/template";
 
 export default async function TemplatePage() {
   const templates = await getTemplates();
+  console.log(templates);
   const filteredTemplates = templates.filter(
-    (template) => template.type != "default"
+    (template) => template.user_id != null
   );
   return (
     <div className="space-y-6">
@@ -17,9 +18,8 @@ export default async function TemplatePage() {
         </span>
       </div>
       <Separator />
-      <NewTemplateButton/>
+      <NewTemplateButton />
       <TemplateList templates={filteredTemplates} />
-
     </div>
   );
 }
