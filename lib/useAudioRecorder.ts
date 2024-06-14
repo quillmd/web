@@ -37,6 +37,15 @@ export function useAudioRecorder({
   };
 
   useEffect(() => {
+    if (!stream) return;
+
+    stream.getAudioTracks()[0].addEventListener("ended", () => stopRecording());
+    stream.getAudioTracks()[1].addEventListener("ended", () => stopRecording());
+    stream.getAudioTracks()[2].addEventListener("ended", () => stopRecording());
+
+  }, [stream]);
+
+  useEffect(() => {
     if (!recorder) return;
 
     const handleData = (e: BlobEvent) => {
@@ -77,6 +86,36 @@ export function useAudioRecorder({
 }
 
 async function requestRecorder(): Promise<[MediaStream, MediaRecorder]> {
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-  return [stream, new MediaRecorder(stream, { mimeType: "audio/webm" })];
+  const displayMediaOptions = {
+    video: {
+      displaySurface: "tab",
+    },
+    audio: true,
+    preferCurrentTab: false,
+    selfBrowserSurface: "exclude",
+    systemAudio: "include",
+    surfaceSwitching: "include",
+    monitorTypeSurfaces: "include",
+  };
+  const audioContext = new AudioContext();
+  const micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  const micAudioTrack = micStream.getAudioTracks()[0];
+  const shareStream = await navigator.mediaDevices.getDisplayMedia(
+    displayMediaOptions
+  );
+  const shareAudioTrack = shareStream.getAudioTracks()[0];
+  const shareAudioStream = new MediaStream([shareAudioTrack]);
+  const micAudioIn = audioContext.createMediaStreamSource(micStream);
+  const shareAudioIn = audioContext.createMediaStreamSource(shareAudioStream);
+  const dest = audioContext.createMediaStreamDestination();
+  micAudioIn.connect(dest);
+  shareAudioIn.connect(dest);
+  const destStream = dest.stream;
+  const destAudioTrack = destStream.getAudioTracks()[0];
+  const finalAudioStream = new MediaStream([destAudioTrack, micAudioTrack, shareAudioTrack]);
+
+  return [
+    finalAudioStream,
+    new MediaRecorder(finalAudioStream, { mimeType: "audio/webm" }),
+  ];
 }
