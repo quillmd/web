@@ -12,8 +12,10 @@ type RecorderControls = {
 
 export function useAudioRecorder({
   case_id,
+  mode,
 }: {
   case_id: string;
+  mode: string;
 }): RecorderControls {
   const authToken = getCookie("accessToken");
   const [recorderStatus, setRecorderStatus] = useState<RecorderStatus>("idle");
@@ -21,7 +23,7 @@ export function useAudioRecorder({
   const [stream, setStream] = useState<MediaStream | null>(null);
 
   const startRecording = async () => {
-    const [stream, recorder] = await requestRecorder();
+    const [stream, recorder] = await requestRecorder(mode);
     setStream(stream);
     setRecorder(recorder);
     recorder.start();
@@ -38,11 +40,9 @@ export function useAudioRecorder({
 
   useEffect(() => {
     if (!stream) return;
-
-    stream.getAudioTracks()[0].addEventListener("ended", () => stopRecording());
-    stream.getAudioTracks()[1].addEventListener("ended", () => stopRecording());
-    stream.getAudioTracks()[2].addEventListener("ended", () => stopRecording());
-
+    stream.getAudioTracks().forEach((track) => {
+      track.addEventListener("ended", () => stopRecording());
+    });
   }, [stream]);
 
   useEffect(() => {
@@ -85,37 +85,50 @@ export function useAudioRecorder({
   return { recorderStatus, startRecording, stopRecording };
 }
 
-async function requestRecorder(): Promise<[MediaStream, MediaRecorder]> {
-  const displayMediaOptions = {
-    video: {
-      displaySurface: "tab",
-    },
-    audio: true,
-    preferCurrentTab: false,
-    selfBrowserSurface: "exclude",
-    systemAudio: "include",
-    surfaceSwitching: "include",
-    monitorTypeSurfaces: "include",
-  };
-  const audioContext = new AudioContext();
-  const micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-  const micAudioTrack = micStream.getAudioTracks()[0];
-  const shareStream = await navigator.mediaDevices.getDisplayMedia(
-    displayMediaOptions
-  );
-  const shareAudioTrack = shareStream.getAudioTracks()[0];
-  const shareAudioStream = new MediaStream([shareAudioTrack]);
-  const micAudioIn = audioContext.createMediaStreamSource(micStream);
-  const shareAudioIn = audioContext.createMediaStreamSource(shareAudioStream);
-  const dest = audioContext.createMediaStreamDestination();
-  micAudioIn.connect(dest);
-  shareAudioIn.connect(dest);
-  const destStream = dest.stream;
-  const destAudioTrack = destStream.getAudioTracks()[0];
-  const finalAudioStream = new MediaStream([destAudioTrack, micAudioTrack, shareAudioTrack]);
+async function requestRecorder(
+  mode: string
+): Promise<[MediaStream, MediaRecorder]> {
+  if (mode == "share") {
+    const displayMediaOptions = {
+      video: {
+        displaySurface: "tab",
+      },
+      audio: true,
+      preferCurrentTab: false,
+      selfBrowserSurface: "exclude",
+      systemAudio: "include",
+      surfaceSwitching: "include",
+      monitorTypeSurfaces: "exclude",
+    };
+    const audioContext = new AudioContext();
+    const micStream = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+    });
+    const micAudioTrack = micStream.getAudioTracks()[0];
+    const shareStream = await navigator.mediaDevices.getDisplayMedia(
+      displayMediaOptions
+    );
+    const shareAudioTrack = shareStream.getAudioTracks()[0];
+    const shareAudioStream = new MediaStream([shareAudioTrack]);
+    const micAudioIn = audioContext.createMediaStreamSource(micStream);
+    const shareAudioIn = audioContext.createMediaStreamSource(shareAudioStream);
+    const dest = audioContext.createMediaStreamDestination();
+    micAudioIn.connect(dest);
+    shareAudioIn.connect(dest);
+    const destStream = dest.stream;
+    const destAudioTrack = destStream.getAudioTracks()[0];
+    const finalAudioStream = new MediaStream([
+      destAudioTrack,
+      micAudioTrack,
+      shareAudioTrack,
+    ]);
 
-  return [
-    finalAudioStream,
-    new MediaRecorder(finalAudioStream, { mimeType: "audio/webm" }),
-  ];
+    return [
+      finalAudioStream,
+      new MediaRecorder(finalAudioStream, { mimeType: "audio/webm" }),
+    ];
+  } else {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    return [stream, new MediaRecorder(stream, { mimeType: "audio/webm" })];
+  }
 }

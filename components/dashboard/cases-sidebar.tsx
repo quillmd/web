@@ -67,13 +67,13 @@ export default function CasesSidebar() {
   };
 
   const pathname = usePathname();
-  const regexCasesPathname = /\/cases\/(\d+)/;
+  const regexCasesPathname = /\/cases\/[^/]+/;
   if (regexCasesPathname.test(pathname)) {
     return (
       <aside className="top-16 z-50 fixed hidden md:sticky md:block h-[calc(100vh-4.5rem)] w-1/4 max-w-[300px] shrink-0">
         <ScrollArea className="h-full border rounded-lg p-2">
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
+          <div className="flex flex-col">
+            <div className="flex flex-col gap-2 mb-2">
               <NewCaseButton variant={"ghost"} />
               <div className="relative w-11/12 mx-auto">
                 <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -87,7 +87,7 @@ export default function CasesSidebar() {
             </div>
             {casesGroupedByDate?.map(([date, casesForDate], i) => (
               <div key={date}>
-                {i != 0 && <Separator />}
+                {i != 0 && <Separator className="my-2" />}
                 <SidebarSectionTitle text={date} />
                 <div className="flex flex-col">
                   {casesForDate.map((current_case: Case) => (

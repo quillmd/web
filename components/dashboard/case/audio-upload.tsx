@@ -3,6 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { useAudioUpload } from "@/lib/useAudioUpload";
 import { CircleX, LoaderCircle, UploadCloud } from "lucide-react";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 export default function AudioUpload({ case_id }: { case_id: string }) {
   const { uploaderStatus, handleUpload } = useAudioUpload({ case_id });
@@ -30,6 +35,8 @@ export default function AudioUpload({ case_id }: { case_id: string }) {
       : buttonStates.idle;
 
   return (
+    <HoverCard>
+    <HoverCardTrigger>
     <div>
       <input
         id="file-upload"
@@ -52,5 +59,15 @@ export default function AudioUpload({ case_id }: { case_id: string }) {
         {buttonState.text}
       </Button>
     </div>
+    </HoverCardTrigger>
+      <HoverCardContent>
+        <div className="flex flex-col gap-1">
+          <span>{`Upload audio for Quill to listen to`}</span>
+          {/* <span className="text-xs text-muted-foreground">
+            {`Useful for in-person conversations or dictation`}
+          </span> */}
+        </div>
+      </HoverCardContent>
+    </HoverCard>
   );
 }

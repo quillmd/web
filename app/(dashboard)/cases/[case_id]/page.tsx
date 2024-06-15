@@ -3,8 +3,9 @@ import AudioUpload from "@/components/dashboard/case/audio-upload";
 import CaseTitle from "@/components/dashboard/case/case-title";
 import CreateNotes from "@/components/dashboard/case/create-notes";
 import FreetextInput from "@/components/dashboard/case/freetext-input";
-import NewTranscript from "@/components/dashboard/case/new-transcript";
+import MicrophoneInput from "@/components/dashboard/case/microphone-input";
 import NoteCard from "@/components/dashboard/case/note-card";
+import ShareInput from "@/components/dashboard/case/share-input";
 import TranscriptCard from "@/components/dashboard/case/transcript-card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Case, getCase } from "@/lib/case";
@@ -84,7 +85,8 @@ export default async function CasePage({
         <TabsContent value="audio">
           <div className="flex flex-col gap-4">
             <div className="w-full flex justify-center gap-4 my-2">
-              <NewTranscript case_id={case_id} />
+              <MicrophoneInput case_id={case_id}/>
+              <ShareInput case_id={case_id}/>
               <AudioUpload case_id={case_id} />
             </div>
             {transcripts
