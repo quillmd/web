@@ -1,6 +1,7 @@
 import { AccountSidebar } from "@/components/account/account-sidebar";
 import LogoutButton from "@/components/dashboard/logout-button";
 import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 import NextLink from "next/link";
 
 const sidebarNavItems = [
@@ -11,10 +12,6 @@ const sidebarNavItems = [
   {
     title: "Templates",
     href: "/account/templates",
-  },
-  {
-    title: "Notifications",
-    href: "/account/notifications",
   },
 ];
 
@@ -29,7 +26,9 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
         <ul className="flex items-center gap-6 w-full justify-between">
           <li className="block">
             <NextLink href={"/home"}>
-              <Button variant="ghost">Back</Button>
+              <Button variant="ghost" size={"icon"}>
+                <ArrowLeft />
+              </Button>
             </NextLink>
           </li>
           <li className="block">
@@ -39,7 +38,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
       </header>
       <div className="flex items-start max-w-7xl mx-auto gap-2 p-2">
         <AccountSidebar items={sidebarNavItems} />
-        <div className="flex-1">{children}</div>
+        <div className="flex-1 mt-2">{children}</div>
       </div>
     </body>
   );

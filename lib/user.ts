@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 interface AuthResponse {
   token?: string,
   user_id?: string,
+  email?: string,
   error?:string
 }
 

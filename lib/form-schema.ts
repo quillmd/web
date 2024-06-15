@@ -15,6 +15,12 @@ export const authValidateSchema = z.object({
     .length(6, { message: "Enter the 6-number pin" }),
 });
 
+export const accountProfileSchema = z.object({
+  email: z.string().email({
+    message: "Enter a valid email address",
+  })
+})
+
 export const changeCaseTitleFormSchema = z.object({
   title: z.string().min(1),
 });
@@ -35,6 +41,7 @@ export const templateInputFormSchema = z.object({
 
 export type AuthRequestSchema = z.infer<typeof authRequestSchema>;
 export type AuthValidateSchema = z.infer<typeof authValidateSchema>;
+export type AccountProfileSchema = z.infer<typeof accountProfileSchema>;
 export type ChangeCaseTitleFormSchema = z.infer<
   typeof changeCaseTitleFormSchema
 >;
