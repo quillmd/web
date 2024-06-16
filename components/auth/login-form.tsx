@@ -78,7 +78,7 @@ function RequestForm({
             <FormItem>
               <FormControl>
                 <Input
-                  placeholder="Enter your work or personal email"
+                  placeholder="Enter your email to get started"
                   type="email"
                   {...field}
                 />

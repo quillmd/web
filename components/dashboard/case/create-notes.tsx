@@ -34,10 +34,10 @@ export default function CreateNotes({
     postNote({ case_id, template_id }).then(() => {});
   };
   const defaultTemplates = templates.filter(
-    (template) => template.type == "default"
+    (template) => template.user_id == undefined
   );
   const customTemplates = templates.filter(
-    (template) => template.type != "default"
+    (template) => template.type != undefined
   );
 
   return (
