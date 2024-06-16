@@ -91,7 +91,7 @@ async function requestRecorder(
   if (mode == "share") {
     const displayMediaOptions = {
       video: {
-        displaySurface: "tab",
+        displaySurface: "browser",
       },
       audio: true,
       preferCurrentTab: false,
