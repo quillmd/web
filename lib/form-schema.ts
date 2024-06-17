@@ -39,6 +39,22 @@ export const templateInputFormSchema = z.object({
   examples: z.string().array()
 });
 
+export const contactUsSchema = z.object({
+  name: z.string(),
+  email: z.string().email({
+    message: "Enter a valid email address",
+  }),
+  message: z.string().min(1, {
+    message: "Enter a message",
+  }),
+});
+
+export const feedbackSchema = z.object({
+  message: z.string().min(1, {
+    message: "Enter a message",
+  }),
+});
+
 export type AuthRequestSchema = z.infer<typeof authRequestSchema>;
 export type AuthValidateSchema = z.infer<typeof authValidateSchema>;
 export type AccountProfileSchema = z.infer<typeof accountProfileSchema>;
@@ -48,3 +64,5 @@ export type ChangeCaseTitleFormSchema = z.infer<
 export type NewSessionFormSchema = z.infer<typeof newSessionFormSchema>;
 export type FreetextInputFormSchema = z.infer<typeof freetextInputFormSchema>;
 export type TemplateInputFormSchema = z.infer<typeof templateInputFormSchema>;
+export type ContactUsSchema = z.infer<typeof contactUsSchema>;
+export type FeedbackSchema = z.infer<typeof feedbackSchema>;

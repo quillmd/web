@@ -1,3 +1,4 @@
+import ContactUsForm from "@/components/landing/contact-us-form";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import NextLink from "next/link";
@@ -6,34 +7,32 @@ export default async function Landing() {
   return (
     <main className="px-8 flex flex-col gap-8">
       <section className="w-full h-svh flex flex-col-reverse items-center md:flex-row justify-center gap-4 pb-24">
-          <div className="flex flex-col gap-2 md:gap-6 max-w-2xl text-center md:text-left">
-            <h1 className="text-3xl md:text-6xl font-bold">
-              Introducing Quill:
-            </h1>
-            <h1 className="text-3xl md:text-6xl font-bold">
-              Effortless Documentation for the Modern Physician
-            </h1>
-            <span className="text-xl md:text-3xl">
-              Quill is an AI scribe that listens to doctor-patient interactions
-              and writes accurate, complete notes. Replace the computer and
-              keyboard with better conversations and more time.
-            </span>
-            <span className="text-xl md:text-3xl">
-              Built by doctors, for doctors.
-            </span>
-            <div className="flex justify-center md:justify-start">
-              <Button
-                className="text-lg md:text-2xl font-semibold"
-                size={"lg"}
-                asChild
-              >
-                <NextLink href={"/signup"}>Try Quill</NextLink>
-              </Button>
-            </div>
+        <div className="flex flex-col gap-2 md:gap-6 max-w-2xl text-center md:text-left">
+          <h1 className="text-3xl md:text-6xl font-bold">Introducing Quill:</h1>
+          <h1 className="text-3xl md:text-6xl font-bold">
+            Effortless Documentation for the Modern Physician
+          </h1>
+          <span className="text-xl md:text-3xl">
+            Quill is an AI scribe that listens to doctor-patient interactions
+            and writes accurate, complete notes. Replace the computer and
+            keyboard with better conversations and more time.
+          </span>
+          <span className="text-xl md:text-3xl">
+            Built by doctors, for doctors.
+          </span>
+          <div className="flex justify-center md:justify-start">
+            <Button
+              className="text-lg md:text-2xl font-semibold"
+              size={"lg"}
+              asChild
+            >
+              <NextLink href={"/signup"}>Try Quill</NextLink>
+            </Button>
           </div>
-          <div className="relative w-full h-1/3 md:h-full max-w-md">
-          <Image src="/doctor.svg" alt="Mascot" layout="fill"/>
-          </div>
+        </div>
+        <div className="relative w-full h-1/3 md:h-full max-w-md">
+          <Image src="/doctor.svg" alt="Mascot" layout="fill" />
+        </div>
       </section>
       <section className="w-full h-svh md:h-auto flex flex-col justify-center gap-8">
         <h2 className="text-2xl md:text-4xl font-bold text-center">
@@ -127,6 +126,17 @@ export default async function Landing() {
               </tbody>
             </table>
           </div>
+        </div>
+      </section>
+      <section className="w-full h-svh md:h-96 flex flex-col md:flex-row flex-wrap justify-center items-center gap-8">
+        <div className="space-y-2 max-w-md">
+          <h2 className="text-2xl md:text-4xl font-bold">Drop us a line</h2>
+          <p className="text-base md:text-2xl">
+            {`Have a new feature idea or want to know something about the project? Know someone who could benefit from Quill? Tell us.`}
+          </p>
+        </div>
+        <div>
+          <ContactUsForm />
         </div>
       </section>
     </main>

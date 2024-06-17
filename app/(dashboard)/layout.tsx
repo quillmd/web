@@ -1,7 +1,10 @@
 import AccountButton from "@/components/dashboard/account-button";
 import CasesSidebar from "@/components/dashboard/cases-sidebar";
 import CasesSocket from "@/components/dashboard/cases-socket";
+import FeedbackForm from "@/components/dashboard/feedback-form";
 import LogoutButton from "@/components/dashboard/logout-button";
+import Image from "next/image";
+import NextLink from "next/link";
 
 export default async function DashboardLayout({
   children,
@@ -11,9 +14,21 @@ export default async function DashboardLayout({
   return (
     <body>
       <CasesSocket />
-      <header className="sticky top-0 z-50 bg-background p-2 px-8">
-        <nav className="flex justify-end items-center w-full">
+      <header className="sticky top-0 z-50 bg-background p-2 px-16">
+        <nav className="flex justify-between items-center w-full">
+          <NextLink href={"/home"}>
+            <Image
+              src="/logo_text.svg"
+              alt="Logo"
+              width={70}
+              height={36}
+              className="logo cursor-pointer"
+            />
+          </NextLink>
           <ul className="flex items-center gap-6">
+            <li className="block">
+              <FeedbackForm/>
+            </li>
             <li className="block">
               <AccountButton />
             </li>

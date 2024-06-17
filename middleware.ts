@@ -1,5 +1,6 @@
 import type { NextRequest } from 'next/server'
 
+const redirectPathnames = ["/login"]
 const protectedPathnames = ['/cases', '/home', '/account'];
 
 export function middleware(request: NextRequest) {
@@ -7,8 +8,11 @@ export function middleware(request: NextRequest) {
   const isProtectedRoute = protectedPathnames.some(pathname =>
     request.nextUrl.pathname.startsWith(pathname)
   );
+  const isRedirectRoute = redirectPathnames.some(pathname =>
+    request.nextUrl.pathname.startsWith(pathname)
+  ) || request.nextUrl.pathname == "/";
 
-  if (accessToken && !isProtectedRoute) {
+  if (accessToken && isRedirectRoute) {
     return Response.redirect(new URL('/home', request.url));
   }
 
