@@ -128,7 +128,7 @@ export default async function Landing() {
           </div>
         </div>
       </section>
-      <section className="w-full h-svh md:h-96 flex flex-col md:flex-row flex-wrap justify-center items-center gap-8">
+      <section className="w-full h-svh md:h-96 flex flex-col md:flex-row flex-wrap justify-center items-center gap-8 md:mb-48">
         <div className="space-y-2 max-w-md">
           <h2 className="text-2xl md:text-4xl font-bold">Drop us a line</h2>
           <p className="text-base md:text-2xl">
