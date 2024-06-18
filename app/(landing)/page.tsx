@@ -80,9 +80,9 @@ export default async function Landing() {
                     Robust Privacy and Security
                   </td>
                   <td className="px-4 md:px-6 py-4">
-                    <ul className="list-disc pl-5 text-base md:text-lg">
+                    <ul className="text-left list-disc pl-5 text-base md:text-lg">
                       <li>No audio is saved. No PHI included in notes.</li>
-                      <li>Military-grade encryption and data handling</li>
+                      <li>Gold-standard encryption and data handling</li>
                       <li>HIPAA compliant</li>
                     </ul>
                   </td>
@@ -92,7 +92,7 @@ export default async function Landing() {
                     Intuitive and User-Friendly
                   </td>
                   <td className="px-4 md:px-6 py-4 text-base md:text-lg">
-                    <ul className="list-disc pl-5">
+                    <ul className="text-left list-disc pl-5">
                       <li>Entire system designed by doctors to be intuitive</li>
                       <li>Seamless integration into existing workflows</li>
                       <li>No new hardware</li>
@@ -104,7 +104,7 @@ export default async function Landing() {
                     AI Superpowers
                   </td>
                   <td className="px-4 md:px-6 py-4">
-                    <ul className="list-disc pl-5 text-base md:text-lg">
+                    <ul className="text-left list-disc pl-5 text-base md:text-lg">
                       <li>Consistent and familiar documentation</li>
                       <li>Proven in noisy, fast-paced environments</li>
                       <li>Accurate over very long documents</li>
@@ -116,7 +116,7 @@ export default async function Landing() {
                     More time for...
                   </td>
                   <td className="px-4 md:px-6 py-4">
-                    <ul className="list-disc pl-5 text-base md:text-lg">
+                    <ul className="text-left list-disc pl-5 text-base md:text-lg">
                       <li>Better conversations</li>
                       <li>Trust and connection</li>
                       <li>Patient and physician wellness</li>
