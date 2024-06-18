@@ -88,7 +88,6 @@ export default function CasesSidebar({
 
   const pathname = usePathname();
   const regexCasesPathname = /\/cases\/[^/]+/;
-  console.log(pathname.match(regexCasesPathname))
   if (regexCasesPathname.test(pathname)) {
     return (
       <aside className="top-16 z-50 fixed hidden md:sticky md:block h-[calc(100vh-4.5rem)] w-1/4 max-w-[300px] shrink-0">

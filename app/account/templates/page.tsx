@@ -5,7 +5,6 @@ import { getTemplates } from "@/lib/template";
 
 export default async function TemplatePage() {
   const templates = await getTemplates();
-  console.log(templates);
   const filteredTemplates = templates.filter(
     (template) => template.user_id != null
   );
