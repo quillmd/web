@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/hover-card";
 import { useAudioRecorder } from "@/lib/useAudioRecorder";
 import { CircleX, LoaderCircle, MonitorCheck, ScreenShare } from "lucide-react";
+import Image from "next/image";
 
 export default function ShareInput({ case_id }: { case_id: string }) {
   const { startRecording, recorderStatus } = useAudioRecorder({
@@ -64,6 +65,23 @@ export default function ShareInput({ case_id }: { case_id: string }) {
           <span>{`Share your screen with Quill`}</span>
           <span className="text-xs text-muted-foreground">
             {`Useful for telehealth visits - Quill will listen to the conversation`}
+          </span>
+        </div>
+        <div className="flex flex-col mt-2">
+          <Image
+            src="/share-steps.png"
+            alt="Share steps"
+            width={400}
+            height={361}
+          />
+          <span className="text-xs text-muted-foreground">
+            {`1. Select only the telehealth app tab`}
+          </span>
+          <span className="text-xs text-muted-foreground">
+            {`2. Make sure that audio is shared`}
+          </span>
+          <span className="text-xs text-muted-foreground">
+            {`3. Click "Share" to start`}
           </span>
         </div>
       </HoverCardContent>
