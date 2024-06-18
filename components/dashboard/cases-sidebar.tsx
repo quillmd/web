@@ -11,45 +11,65 @@ import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
 import NewCaseButton from "./home/new-case-button";
 
-interface fetchParamsState {
+interface FetchParamsState {
   days?: number;
   query: string;
   from?: string;
   to?: string;
 }
 
-export default function CasesSidebar() {
-  const [fetchParams, setFetchParams] = useState<fetchParamsState>({
-    days: 10,
-    query: "",
-    from: undefined,
-    to: undefined,
-  });
+interface CasesSidebarProps {
+  initialCases: Case[];
+  initialFetchParams: FetchParamsState;
+}
+
+export default function CasesSidebar({
+  initialCases,
+  initialFetchParams,
+}: CasesSidebarProps) {
+  const [fetchParams, setFetchParams] = useState<FetchParamsState>(initialFetchParams);
 
   const [casesGroupedByDate, setCasesGroupedByDate] = useState<
     [string, Case[]][] | undefined
   >();
 
   useEffect(() => {
-    getCases({
-      days: fetchParams.query.length == 0 ? fetchParams.days : 9999,
-      query: fetchParams.query,
-    }).then((cases) =>
-      setCasesGroupedByDate(
-        Object.entries(
-          cases.reduce((acc: CasesGroupedByDate, current_case: Case) => {
-            const date: string = DateTime.fromISO(
-              current_case.inserted_at
-            ).toLocaleString(DateTime.DATE_SHORT);
-            if (!acc[date]) {
-              acc[date] = [];
-            }
-            acc[date].push(current_case);
-            return acc;
-          }, {} as CasesGroupedByDate)
+    setCasesGroupedByDate(Object.entries(
+      initialCases.reduce((acc: CasesGroupedByDate, current_case: Case) => {
+        const date: string = DateTime.fromISO(
+          current_case.inserted_at
+        ).toLocaleString(DateTime.DATE_SHORT);
+        if (!acc[date]) {
+          acc[date] = [];
+        }
+        acc[date].push(current_case);
+        return acc;
+      }, {} as CasesGroupedByDate)
+    ))
+  }, [initialCases])
+
+  useEffect(() => {
+    if (JSON.stringify(initialFetchParams) != JSON.stringify(fetchParams)) {
+      getCases({
+        days: fetchParams.query.length == 0 ? fetchParams.days : 9999,
+        query: fetchParams.query,
+      }).then((cases) =>
+        setCasesGroupedByDate(
+          Object.entries(
+            cases.reduce((acc: CasesGroupedByDate, current_case: Case) => {
+              const date: string = DateTime.fromISO(
+                current_case.inserted_at
+              ).toLocaleString(DateTime.DATE_SHORT);
+              if (!acc[date]) {
+                acc[date] = [];
+              }
+              acc[date].push(current_case);
+              return acc;
+            }, {} as CasesGroupedByDate)
+          )
         )
-      )
-    );
+      );
+    }
   }, [fetchParams]);
 
   const handleLoadMore = () => {
@@ -68,6 +88,7 @@ export default function CasesSidebar() {
 
   const pathname = usePathname();
   const regexCasesPathname = /\/cases\/[^/]+/;
+  console.log(pathname.match(regexCasesPathname))
   if (regexCasesPathname.test(pathname)) {
     return (
       <aside className="top-16 z-50 fixed hidden md:sticky md:block h-[calc(100vh-4.5rem)] w-1/4 max-w-[300px] shrink-0">
@@ -96,7 +117,7 @@ export default function CasesSidebar() {
                       id={current_case.id}
                       text={current_case.title}
                       active={
-                        pathname.match(regexCasesPathname)?.[1] ==
+                        pathname.match(regexCasesPathname)?.[0].replace("/cases/", "") ==
                         `${current_case.id}`
                       }
                     />

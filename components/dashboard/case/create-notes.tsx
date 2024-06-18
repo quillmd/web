@@ -45,14 +45,11 @@ export default function CreateNotes({
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button
-              className="w-36"
-              variant={"outline"}
-              disabled={disabled}
-              asChild
-            >
+            <Button variant={"outline"} disabled={disabled} asChild>
               <DropdownMenuTrigger>
-                {disabled ? `No ready inputs available` : `+ Create Note`}
+                {disabled
+                  ? `This case needs at least one input to create a note`
+                  : `+ Create Note`}
               </DropdownMenuTrigger>
             </Button>
           </TooltipTrigger>
