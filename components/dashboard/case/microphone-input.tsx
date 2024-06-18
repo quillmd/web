@@ -44,7 +44,7 @@ export default function MicrophoneInput({ case_id }: { case_id: string }) {
       ? buttonStates.uploading
       : buttonStates.error;
   return (
-    <HoverCard>
+    <HoverCard openDelay={250}>
       <HoverCardTrigger>
         <Button
           className="w-36"

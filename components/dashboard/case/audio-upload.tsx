@@ -35,7 +35,7 @@ export default function AudioUpload({ case_id }: { case_id: string }) {
       : buttonStates.idle;
 
   return (
-    <HoverCard>
+    <HoverCard openDelay={250}>
     <HoverCardTrigger>
     <div>
       <input
