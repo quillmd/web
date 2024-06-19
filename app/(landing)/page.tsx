@@ -38,31 +38,25 @@ export default async function Landing() {
         <h2 className="text-2xl md:text-4xl font-bold text-center">
           How Quill Works
         </h2>
-        <div className="flex flex-col md:flex-row gap-8 max-w-6xl mx-auto">
+        <div className="flex flex-col md:grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           <div>
             <h3 className="text-xl md:text-3xl font-bold mb-2">1. Consent</h3>
             <p className="text-base md:text-2xl">
               Quill is introduced and everyone in the room agrees to let it
               scribe. Like a human scribe, Quill listens and doesn&apos;t save
-              audio. You free yourself from the computer, and can provide the
-              patient with your undivided attention.
+              audio.
             </p>
           </div>
           <div>
             <h3 className="text-xl md:text-3xl font-bold mb-2">2. Listen</h3>
             <p className="text-base md:text-2xl">
-              The Quill mobile app listens to the conversation and writes the
-              documentation based on the selected template. You proceed as you
-              normally would during a patient encounter, no changes need to be
-              made to your style.
+              Quill listens to the conversation and writes the draft based on the selected template. No changes need to be made to your interviewing style.
             </p>
           </div>
           <div>
             <h3 className="text-xl md:text-3xl font-bold mb-2">3. Verify</h3>
             <p className="text-base md:text-2xl">
-              The scribed note is available on the Quill website. All you have
-              to do is copy and paste from our website to your EMR. The
-              physician then edits and reviews the note prior to signing.
+              The scribed note draft is available on the Quill website. Copy and paste from the website to your EMR, review and edit where appropriate.
             </p>
           </div>
         </div>
