@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Case } from "@/lib/case";
-import NextLink from "next/link";
 import { DateTime } from "luxon";
+import NextLink from "next/link";
 
 interface CaseCardProps extends React.HTMLAttributes<HTMLElement> {
   current_case: Case;
@@ -19,8 +19,8 @@ export default function CaseCard({ current_case }: CaseCardProps) {
             </h4>
             <p className="text-sm text-muted-foreground">
               {DateTime.fromISO(current_case.inserted_at).toLocaleString(
-              DateTime.DATETIME_SHORT
-            )}
+                DateTime.DATETIME_SHORT
+              )}
             </p>
           </div>
         </CardContent>

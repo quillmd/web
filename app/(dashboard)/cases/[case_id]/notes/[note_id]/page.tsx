@@ -22,10 +22,7 @@ export default async function NotePage({
 }: {
   params: { case_id: string; note_id: string };
 }) {
-  const { current_case, note } = await getData(
-    case_id,
-    note_id
-  );
+  const { current_case, note } = await getData(case_id, note_id);
 
   return (
     <div className="flex flex-col gap-2">

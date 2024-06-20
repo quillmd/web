@@ -44,7 +44,9 @@ export default function BreadcrumbNav({
             <BreadcrumbItem>
               <BreadcrumbPage>
                 <Nextlink href={`/case/${current_case?.id}/notes/${note.id}`}>
-                  {`Note: ${note.template?.title || "Generic Note"} ${note.version}`}
+                  {`Note: ${note.template?.title || "Generic Note"} ${
+                    note.version
+                  }`}
                 </Nextlink>
               </BreadcrumbPage>
             </BreadcrumbItem>

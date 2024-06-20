@@ -1,3 +1,4 @@
+import Subscribe from "@/components/account/subscribe";
 import AccountButton from "@/components/dashboard/account-button";
 import CasesSidebar from "@/components/dashboard/cases-sidebar";
 import CasesSocket from "@/components/dashboard/cases-socket";
@@ -36,6 +37,9 @@ export default async function DashboardLayout({
           <ul className="flex items-center gap-6">
             <li className="block">
               <FeedbackForm />
+            </li>
+            <li className="block">
+              <Subscribe />
             </li>
             <li className="block">
               <AccountButton />

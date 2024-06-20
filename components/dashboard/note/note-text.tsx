@@ -32,7 +32,7 @@ export default function NoteText({ text }: NoteTextProps) {
         onClick={handleCopyClick}
         aria-label="Copy"
       >
-        {copied ? <Check size={16}/> : <Clipboard size={16}/>}
+        {copied ? <Check size={16} /> : <Clipboard size={16} />}
       </Button>
       <Markdown
         components={{

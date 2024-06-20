@@ -42,10 +42,11 @@ export default function TranscriptCard({ transcript }: CaseCardProps) {
             className="text-sm text-muted-foreground"
             isoString={transcript.inserted_at}
           />
-          <span className="text-sm text-muted-foreground">{transcript.status == "error"? `Error:`:`Description:`}</span>
           <span className="text-sm text-muted-foreground">
-            {
-            (transcript.status == "ready" || transcript.status == "error")
+            {transcript.status == "error" ? `Error:` : `Description:`}
+          </span>
+          <span className="text-sm text-muted-foreground">
+            {transcript.status == "ready" || transcript.status == "error"
               ? transcript.description
               : "New input queued for processing"}
           </span>

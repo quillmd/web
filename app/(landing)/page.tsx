@@ -5,7 +5,7 @@ import NextLink from "next/link";
 
 export default async function Landing() {
   return (
-    <main className="px-8 flex flex-col gap-8">
+    <main className="px-8 flex flex-col gap-48">
       <section className="w-full h-svh flex flex-col-reverse items-center md:flex-row justify-center gap-4 pb-24">
         <div className="flex flex-col gap-2 md:gap-6 max-w-2xl text-center md:text-left">
           <h1 className="text-3xl md:text-6xl font-bold">Introducing Quill:</h1>
@@ -34,7 +34,7 @@ export default async function Landing() {
           <Image src="/doctor.svg" alt="Mascot" layout="fill" />
         </div>
       </section>
-      <section className="w-full h-svh md:h-auto flex flex-col justify-center gap-8">
+      <section className="w-full flex flex-col justify-center gap-8">
         <h2 className="text-2xl md:text-4xl font-bold text-center">
           How Quill Works
         </h2>
@@ -50,18 +50,29 @@ export default async function Landing() {
           <div>
             <h3 className="text-xl md:text-3xl font-bold mb-2">2. Listen</h3>
             <p className="text-base md:text-2xl">
-              Quill listens to the conversation and writes the draft based on the selected template. No changes need to be made to your interviewing style.
+              Quill listens to the conversation and writes the draft based on
+              the selected template. No changes need to be made to your
+              interviewing style.
             </p>
           </div>
           <div>
             <h3 className="text-xl md:text-3xl font-bold mb-2">3. Verify</h3>
             <p className="text-base md:text-2xl">
-              The scribed note draft is available on the Quill website. Copy and paste from the website to your EMR, review and edit where appropriate.
+              The scribed note draft is available on the Quill website. Copy and
+              paste from the website to your EMR, review and edit where
+              appropriate.
             </p>
           </div>
         </div>
+        <Image
+          src={"/multiple_inputs.png"}
+          alt="Multiple Inputs"
+          width={800}
+          height={500}
+        />
       </section>
-      <section className="w-full h-svh md:text-center flex flex-col justify-center gap-8">
+      <section className="w-full flex justify-center"></section>
+      <section className="w-full md:text-center flex flex-col justify-center gap-8">
         <div className="max-w-6xl mx-auto flex flex-col gap-8">
           <h2 className="text-2xl md:text-4xl font-bold text-center">
             Why Quill?

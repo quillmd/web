@@ -4,23 +4,25 @@ import { revalidateNotes } from "@/lib/note";
 import { revalidateTranscripts } from "@/lib/transcript";
 import { getCookie } from "cookies-next";
 import { Channel, Socket } from "phoenix";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const CasesSocket = () => {
   const authToken = getCookie("accessToken");
-  const userId = getCookie("userId");
-  const [socket, setSocket] = useState<Socket|undefined>(undefined);
-  const [channel, setChannel] = useState<Channel|undefined>(undefined)
+  const userString = getCookie("user");
+  const user = userString ? JSON.parse(userString) : undefined;
+  const userId = user?.id;
+  const [socket, setSocket] = useState<Socket | undefined>(undefined);
+  const [channel, setChannel] = useState<Channel | undefined>(undefined);
 
-  useEffect(()=>{
-    if (authToken && userId && !socket){
+  useEffect(() => {
+    if (authToken && userId && !socket) {
       const newSocket = new Socket(`${process.env.NEXT_PUBLIC_API_WS}`, {
         params: { token: authToken },
       });
       newSocket.connect();
-      setSocket(newSocket)
+      setSocket(newSocket);
     }
-  }, [authToken, userId, socket])
+  }, [authToken, userId, socket]);
 
   useEffect(() => {
     if (userId && socket && !channel) {
@@ -74,12 +76,12 @@ const CasesSocket = () => {
         .join()
         .receive("ok", (resp) => {
           console.log("Joined successfully", resp);
-          setChannel(newChannel)
+          setChannel(newChannel);
         })
         .receive("error", (resp) => {
           console.log("Unable to join", resp);
         });
-    };
+    }
   }, [userId, socket, channel]);
 
   return null;

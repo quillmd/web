@@ -1,24 +1,24 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 const KeepAwake = () => {
-  const [wakeLock, setWakeLock] = useState<WakeLockSentinel|null>(null);
+  const [wakeLock, setWakeLock] = useState<WakeLockSentinel | null>(null);
 
   useEffect(() => {
     const requestWakeLock = async () => {
       try {
-        const wakeLock = await navigator.wakeLock.request('screen');
+        const wakeLock = await navigator.wakeLock.request("screen");
         setWakeLock(wakeLock);
       } catch (err) {
-        console.error('Failed to acquire Wake Lock:', err);
+        console.error("Failed to acquire Wake Lock:", err);
       }
     };
 
-    if ('wakeLock' in navigator) {
+    if ("wakeLock" in navigator) {
       requestWakeLock();
     } else {
-      console.warn('Wake Lock API not supported');
+      console.warn("Wake Lock API not supported");
     }
 
     return () => {

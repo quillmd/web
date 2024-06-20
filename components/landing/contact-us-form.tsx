@@ -13,6 +13,7 @@ import { contact } from "@/lib/contact";
 import { ContactUsSchema, contactUsSchema } from "@/lib/form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, LoaderCircle } from "lucide-react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
   Card,
@@ -22,32 +23,30 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { useEffect } from "react";
 
 export default function ContactUsForm() {
-    const defaultValues = {
-        name:"",
-        email: "",
-        message: ""
-    }
+  const defaultValues = {
+    name: "",
+    email: "",
+    message: "",
+  };
   const form = useForm<ContactUsSchema>({
     resolver: zodResolver(contactUsSchema),
     defaultValues: defaultValues,
   });
-  const isSubmitSuccessful = form.formState.isSubmitSuccessful
+  const isSubmitSuccessful = form.formState.isSubmitSuccessful;
 
   const onSubmit = async (values: ContactUsSchema) => {
     await contact(values);
   };
 
   useEffect(() => {
-    if (isSubmitSuccessful){
-        setTimeout(() => {
-            form.reset(defaultValues);
-          }, 250);
-      
+    if (isSubmitSuccessful) {
+      setTimeout(() => {
+        form.reset(defaultValues);
+      }, 250);
     }
-  }, [isSubmitSuccessful])
+  }, [isSubmitSuccessful]);
 
   return (
     <Card>

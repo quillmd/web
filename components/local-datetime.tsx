@@ -3,7 +3,6 @@ import { cn } from "@/lib/utils";
 import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 
-
 interface LocalDateTimeProps extends React.HTMLAttributes<HTMLElement> {
   isoString: string;
 }
@@ -21,5 +20,9 @@ export default function LocalDateTime({
     );
   }, [isoString]);
 
-  return <span className={cn(className, LocalDateTime? "" : "text-transparent")}>{LocalDateTime || isoString}</span>;
+  return (
+    <span className={cn(className, LocalDateTime ? "" : "text-transparent")}>
+      {LocalDateTime || isoString}
+    </span>
+  );
 }

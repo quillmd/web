@@ -3,23 +3,21 @@ import { z } from "zod";
 export const authRequestSchema = z.object({
   email: z.string().email({
     message: "Enter a valid email address",
-  })
-})
+  }),
+});
 
 export const authValidateSchema = z.object({
   email: z.string().email({
     message: "Enter a valid email address",
   }),
-  otp: z
-    .string()
-    .length(6, { message: "Enter the 6-number pin" }),
+  otp: z.string().length(6, { message: "Enter the 6-number pin" }),
 });
 
 export const accountProfileSchema = z.object({
   email: z.string().email({
     message: "Enter a valid email address",
-  })
-})
+  }),
+});
 
 export const changeCaseTitleFormSchema = z.object({
   title: z.string().min(1),
@@ -36,7 +34,7 @@ export const freetextInputFormSchema = z.object({
 export const templateInputFormSchema = z.object({
   title: z.string(),
   instructions: z.string(),
-  examples: z.string().array()
+  examples: z.string().array(),
 });
 
 export const contactUsSchema = z.object({

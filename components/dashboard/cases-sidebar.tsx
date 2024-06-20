@@ -27,26 +27,29 @@ export default function CasesSidebar({
   initialCases,
   initialFetchParams,
 }: CasesSidebarProps) {
-  const [fetchParams, setFetchParams] = useState<FetchParamsState>(initialFetchParams);
+  const [fetchParams, setFetchParams] =
+    useState<FetchParamsState>(initialFetchParams);
 
   const [casesGroupedByDate, setCasesGroupedByDate] = useState<
     [string, Case[]][] | undefined
   >();
 
   useEffect(() => {
-    setCasesGroupedByDate(Object.entries(
-      initialCases.reduce((acc: CasesGroupedByDate, current_case: Case) => {
-        const date: string = DateTime.fromISO(
-          current_case.inserted_at
-        ).toLocaleString(DateTime.DATE_SHORT);
-        if (!acc[date]) {
-          acc[date] = [];
-        }
-        acc[date].push(current_case);
-        return acc;
-      }, {} as CasesGroupedByDate)
-    ))
-  }, [initialCases])
+    setCasesGroupedByDate(
+      Object.entries(
+        initialCases.reduce((acc: CasesGroupedByDate, current_case: Case) => {
+          const date: string = DateTime.fromISO(
+            current_case.inserted_at
+          ).toLocaleString(DateTime.DATE_SHORT);
+          if (!acc[date]) {
+            acc[date] = [];
+          }
+          acc[date].push(current_case);
+          return acc;
+        }, {} as CasesGroupedByDate)
+      )
+    );
+  }, [initialCases]);
 
   useEffect(() => {
     if (JSON.stringify(initialFetchParams) != JSON.stringify(fetchParams)) {
@@ -116,8 +119,9 @@ export default function CasesSidebar({
                       id={current_case.id}
                       text={current_case.title}
                       active={
-                        pathname.match(regexCasesPathname)?.[0].replace("/cases/", "") ==
-                        `${current_case.id}`
+                        pathname
+                          .match(regexCasesPathname)?.[0]
+                          .replace("/cases/", "") == `${current_case.id}`
                       }
                     />
                   ))}

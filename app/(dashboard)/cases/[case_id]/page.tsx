@@ -45,10 +45,7 @@ export default async function CasePage({
   return (
     <div className="flex flex-col gap-4">
       <BreadcrumbNav current_case={current_case} />
-      <CaseTitle
-        case_id={case_id}
-        initial_title={current_case.title}
-      />
+      <CaseTitle case_id={case_id} initial_title={current_case.title} />
       <Tabs defaultValue="notes">
         <TabsList className="grid w-1/2 grid-cols-3 mb-4">
           <TabsTrigger value="notes">Notes</TabsTrigger>
@@ -65,11 +62,7 @@ export default async function CasePage({
               />
             </div>
             {notes.map((note) => (
-              <NoteCard
-                key={`note-${note.id}`}
-                case_id={case_id}
-                note={note}
-              />
+              <NoteCard key={`note-${note.id}`} case_id={case_id} note={note} />
             ))}
           </div>
         </TabsContent>
@@ -85,8 +78,8 @@ export default async function CasePage({
         <TabsContent value="audio">
           <div className="flex flex-col gap-4">
             <div className="w-full flex justify-center gap-4 my-2">
-              <MicrophoneInput case_id={case_id}/>
-              <ShareInput case_id={case_id}/>
+              <MicrophoneInput case_id={case_id} />
+              <ShareInput case_id={case_id} />
               <AudioUpload case_id={case_id} />
             </div>
             {transcripts
