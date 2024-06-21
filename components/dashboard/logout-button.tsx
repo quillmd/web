@@ -1,5 +1,5 @@
 "use client";
-import { logout } from "@/lib/user";
+import { logout } from "@/lib/auth";
 import { Button } from "../ui/button";
 
 export default function LogoutButton() {

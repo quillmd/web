@@ -1,9 +1,9 @@
 import ProfileForm from "@/components/account/profile-form";
 import { Separator } from "@/components/ui/separator";
-import { refreshToken } from "@/lib/user";
+import { getAccount } from "@/lib/account";
 
 export default async function AccountProfilePage() {
-  const { email } = await refreshToken();
+  const account = await getAccount();
 
   return (
     <div className="space-y-6">
@@ -14,7 +14,7 @@ export default async function AccountProfilePage() {
         </span>
       </div>
       <Separator />
-      {email && <ProfileForm email={email} />}
+      <ProfileForm email={account.email} />
     </div>
   );
 }

@@ -6,6 +6,6 @@ export default async function TemplatePage({
 }: {
   params: { template_id: string };
 }) {
-  const template = await getTemplate({ template_id: template_id});
+  const template = await getTemplate({ template_id: template_id });
   return <TemplateDisplay template={template} />;
 }

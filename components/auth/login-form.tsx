@@ -21,13 +21,13 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { requestAuth, validateAuth } from "@/lib/auth";
 import {
   AuthRequestSchema,
   AuthValidateSchema,
   authRequestSchema,
   authValidateSchema,
 } from "@/lib/form-schema";
-import { requestAuth, validateAuth } from "@/lib/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, LoaderCircle } from "lucide-react";
 import NextLink from "next/link";

@@ -5,7 +5,7 @@ import NextLink from "next/link";
 
 export default async function Landing() {
   return (
-    <main className="px-8 flex flex-col gap-8">
+    <main className="px-8 flex flex-col gap-48">
       <section className="w-full h-svh flex flex-col-reverse items-center md:flex-row justify-center gap-4 pb-24">
         <div className="flex flex-col gap-2 md:gap-6 max-w-2xl text-center md:text-left">
           <h1 className="text-3xl md:text-6xl font-bold">Introducing Quill:</h1>
@@ -34,40 +34,46 @@ export default async function Landing() {
           <Image src="/doctor.svg" alt="Mascot" layout="fill" />
         </div>
       </section>
-      <section className="w-full h-svh md:h-auto flex flex-col justify-center gap-8">
+      <section className="w-full flex flex-col justify-center gap-8">
         <h2 className="text-2xl md:text-4xl font-bold text-center">
           How Quill Works
         </h2>
-        <div className="flex flex-col md:flex-row gap-8 max-w-6xl mx-auto">
+        <div className="flex flex-col md:grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           <div>
             <h3 className="text-xl md:text-3xl font-bold mb-2">1. Consent</h3>
             <p className="text-base md:text-2xl">
               Quill is introduced and everyone in the room agrees to let it
               scribe. Like a human scribe, Quill listens and doesn&apos;t save
-              audio. You free yourself from the computer, and can provide the
-              patient with your undivided attention.
+              audio.
             </p>
           </div>
           <div>
             <h3 className="text-xl md:text-3xl font-bold mb-2">2. Listen</h3>
             <p className="text-base md:text-2xl">
-              The Quill mobile app listens to the conversation and writes the
-              documentation based on the selected template. You proceed as you
-              normally would during a patient encounter, no changes need to be
-              made to your style.
+              Quill listens to the conversation and writes the draft based on
+              the selected template. No changes need to be made to your
+              interviewing style.
             </p>
           </div>
           <div>
             <h3 className="text-xl md:text-3xl font-bold mb-2">3. Verify</h3>
             <p className="text-base md:text-2xl">
-              The scribed note is available on the Quill website. All you have
-              to do is copy and paste from our website to your EMR. The
-              physician then edits and reviews the note prior to signing.
+              The scribed note draft is available on the Quill website. Copy and
+              paste from the website to your EMR, review and edit where
+              appropriate.
             </p>
           </div>
         </div>
+        <div className="w-full flex justify-center col-span-3">
+          <Image
+            src={"/multiple_inputs.png"}
+            alt="Multiple Inputs"
+            width={800}
+            height={500}
+          />
+        </div>
       </section>
-      <section className="w-full h-svh md:text-center flex flex-col justify-center gap-8">
+      <section className="w-full md:text-center flex flex-col justify-center gap-8">
         <div className="max-w-6xl mx-auto flex flex-col gap-8">
           <h2 className="text-2xl md:text-4xl font-bold text-center">
             Why Quill?
@@ -80,9 +86,9 @@ export default async function Landing() {
                     Robust Privacy and Security
                   </td>
                   <td className="px-4 md:px-6 py-4">
-                    <ul className="list-disc pl-5 text-base md:text-lg">
+                    <ul className="text-left list-disc pl-5 text-base md:text-lg">
                       <li>No audio is saved. No PHI included in notes.</li>
-                      <li>Military-grade encryption and data handling</li>
+                      <li>Gold-standard encryption and data handling</li>
                       <li>HIPAA compliant</li>
                     </ul>
                   </td>
@@ -92,7 +98,7 @@ export default async function Landing() {
                     Intuitive and User-Friendly
                   </td>
                   <td className="px-4 md:px-6 py-4 text-base md:text-lg">
-                    <ul className="list-disc pl-5">
+                    <ul className="text-left list-disc pl-5">
                       <li>Entire system designed by doctors to be intuitive</li>
                       <li>Seamless integration into existing workflows</li>
                       <li>No new hardware</li>
@@ -104,7 +110,7 @@ export default async function Landing() {
                     AI Superpowers
                   </td>
                   <td className="px-4 md:px-6 py-4">
-                    <ul className="list-disc pl-5 text-base md:text-lg">
+                    <ul className="text-left list-disc pl-5 text-base md:text-lg">
                       <li>Consistent and familiar documentation</li>
                       <li>Proven in noisy, fast-paced environments</li>
                       <li>Accurate over very long documents</li>
@@ -116,7 +122,7 @@ export default async function Landing() {
                     More time for...
                   </td>
                   <td className="px-4 md:px-6 py-4">
-                    <ul className="list-disc pl-5 text-base md:text-lg">
+                    <ul className="text-left list-disc pl-5 text-base md:text-lg">
                       <li>Better conversations</li>
                       <li>Trust and connection</li>
                       <li>Patient and physician wellness</li>

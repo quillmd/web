@@ -8,25 +8,25 @@ import {
 } from "@/components/ui/form";
 import { AccountProfileSchema, accountProfileSchema } from "@/lib/form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "../ui/input";
-import { useEffect } from "react";
 
 export default function ProfileForm(defaultValues: AccountProfileSchema) {
   const form = useForm<AccountProfileSchema>({
     resolver: zodResolver(accountProfileSchema),
     defaultValues: defaultValues,
   });
-  const isSubmitSuccessful = form.formState.isSubmitSuccessful
+  const isSubmitSuccessful = form.formState.isSubmitSuccessful;
   const onSubmit = async (values: AccountProfileSchema) => {
     null;
   };
 
   useEffect(() => {
-    if (isSubmitSuccessful){
-      form.reset()
+    if (isSubmitSuccessful) {
+      form.reset();
     }
-  }, [isSubmitSuccessful])
+  }, [isSubmitSuccessful]);
 
   return (
     <Form {...form}>
