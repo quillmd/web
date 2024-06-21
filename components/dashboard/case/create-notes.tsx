@@ -37,7 +37,7 @@ export default function CreateNotes({
     (template) => template.user_id == undefined
   );
   const customTemplates = templates.filter(
-    (template) => template.type != undefined
+    (template) => template.user_id != undefined
   );
 
   return (
