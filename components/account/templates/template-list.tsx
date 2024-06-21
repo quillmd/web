@@ -8,7 +8,7 @@ interface TemplateListProps {
 
 export default function TemplateList({ templates }: TemplateListProps) {
   return (
-    <ScrollArea className="h-screen">
+    <ScrollArea>
       <div className="flex flex-col gap-2">
         {templates.map((template, i) => (
           <TemplateListItem

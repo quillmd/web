@@ -14,7 +14,7 @@ import { Check } from "lucide-react";
 export default function Subscribe() {
   const authToken = getCookie("accessToken");
   return (
-    <Dialog defaultOpen>
+    <Dialog>
       <DialogTrigger asChild>
         <Button variant="outline">Subscribe</Button>
       </DialogTrigger>
@@ -50,9 +50,8 @@ export default function Subscribe() {
           </ul>
         </div>
         <form
-          action={`${process.env.NEXT_PUBLIC_API}/api/subscribe`}
+          action={`${process.env.NEXT_PUBLIC_API}/api/account/subscription/subscribe`}
           method="post"
-          target="_blank"
         >
           <input type="hidden" name="authorization" value={authToken} />
           <input type="hidden" name="plan_id" value={"quill-monthly"} />

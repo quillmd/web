@@ -4,9 +4,27 @@ import CasesSidebar from "@/components/dashboard/cases-sidebar";
 import CasesSocket from "@/components/dashboard/cases-socket";
 import FeedbackForm from "@/components/dashboard/feedback-form";
 import LogoutButton from "@/components/dashboard/logout-button";
-import { getCases } from "@/lib/case";
+import { Account, getAccount } from "@/lib/account";
+import { Case, getCases } from "@/lib/case";
+import { DateTime } from "luxon";
 import Image from "next/image";
 import NextLink from "next/link";
+
+interface InitialFetchParamsProps {
+  days: number;
+  query: string;
+  from?: DateTime;
+  to?: DateTime;
+}
+
+async function getData(initialFetchParams: InitialFetchParamsProps) {
+  const promiseArray = [getAccount(), getCases(initialFetchParams)];
+  const results = await Promise.all(promiseArray);
+  return {
+    account: results[0] as Account,
+    initialCases: results[1] as Case[],
+  };
+}
 
 export default async function DashboardLayout({
   children,
@@ -19,7 +37,7 @@ export default async function DashboardLayout({
     from: undefined,
     to: undefined,
   };
-  const initialCases = await getCases(initialFetchParams);
+  const { account, initialCases } = await getData(initialFetchParams);
   return (
     <body>
       <CasesSocket />
@@ -38,9 +56,11 @@ export default async function DashboardLayout({
             <li className="block">
               <FeedbackForm />
             </li>
-            <li className="block">
-              <Subscribe />
-            </li>
+            {!account.subscription_exempt && !account.subscription && (
+              <li className="block">
+                <Subscribe />
+              </li>
+            )}
             <li className="block">
               <AccountButton />
             </li>

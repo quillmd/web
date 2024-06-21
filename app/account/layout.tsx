@@ -10,6 +10,10 @@ const sidebarNavItems = [
     href: "/account",
   },
   {
+    title: "Subscription",
+    href: "/account/subscription",
+  },
+  {
     title: "Templates",
     href: "/account/templates",
   },
