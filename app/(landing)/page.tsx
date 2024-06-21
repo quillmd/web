@@ -64,14 +64,15 @@ export default async function Landing() {
             </p>
           </div>
         </div>
-        <Image
-          src={"/multiple_inputs.png"}
-          alt="Multiple Inputs"
-          width={800}
-          height={500}
-        />
+        <div className="w-full flex justify-center col-span-3">
+          <Image
+            src={"/multiple_inputs.png"}
+            alt="Multiple Inputs"
+            width={800}
+            height={500}
+          />
+        </div>
       </section>
-      <section className="w-full flex justify-center"></section>
       <section className="w-full md:text-center flex flex-col justify-center gap-8">
         <div className="max-w-6xl mx-auto flex flex-col gap-8">
           <h2 className="text-2xl md:text-4xl font-bold text-center">
