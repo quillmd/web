@@ -8,9 +8,7 @@ import { useEffect, useState } from "react";
 
 const CasesSocket = () => {
   const authToken = getCookie("accessToken");
-  const userString = getCookie("user");
-  const user = userString ? JSON.parse(userString) : undefined;
-  const userId = user?.id;
+  const userId = getCookie("userId");
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
   const [channel, setChannel] = useState<Channel | undefined>(undefined);
 
