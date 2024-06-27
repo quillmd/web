@@ -45,7 +45,7 @@ export default function Inputs({ case_id, transcripts, textInput }:InputsProps) 
           {audioTranscripts.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full">
               <p className="text-muted-foreground mb-4">
-                Click "Add Input" to get started
+                {`Click "Add Input" to get started`}
               </p>
             </div>
           ) : (
