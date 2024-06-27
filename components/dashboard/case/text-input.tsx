@@ -8,46 +8,42 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { Case } from "@/lib/case";
-import {
-  FreetextInputFormSchema,
-  freetextInputFormSchema,
-} from "@/lib/form-schema";
+import { TextInputFormSchema, textInputFormSchema } from "@/lib/form-schema";
 import { Transcript, postTranscript, updateTranscript } from "@/lib/transcript";
 import { useDebounce } from "@/lib/useDebounce";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check } from "lucide-react";
-import { DateTime } from "luxon";
+import { CircleCheck, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-interface FreetextInputProps extends React.HTMLAttributes<HTMLElement> {
+export interface TextInputProps extends React.HTMLAttributes<HTMLElement> {
   case_id: Case["id"];
   transcript_id?: Transcript["id"];
   initial_content?: Transcript["content"];
 }
 
-export default function FreetextInput({
+export default function TextInput({
   case_id,
   transcript_id,
   initial_content,
-}: FreetextInputProps) {
-  const [updatedAt, setUpdatedAt] = useState<DateTime | undefined>();
-  const form = useForm<FreetextInputFormSchema>({
-    resolver: zodResolver(freetextInputFormSchema),
+}: TextInputProps) {
+  const [loading, setLoading] = useState(false);
+  const form = useForm<TextInputFormSchema>({
+    resolver: zodResolver(textInputFormSchema),
     defaultValues: {
       content: initial_content ?? "",
     },
     mode: "onChange",
   });
   const data = form.watch();
-  function onSubmit(data: FreetextInputFormSchema) {
+  function onSubmit(data: TextInputFormSchema) {
     if (transcript_id != undefined && data.content != initial_content) {
       updateTranscript({
         case_id: case_id,
         transcript_id: transcript_id,
         content: data.content,
       }).then(() => {
-        setUpdatedAt(DateTime.now());
+        setLoading(false);
       });
     } else if (data.content != initial_content) {
       postTranscript({
@@ -57,7 +53,7 @@ export default function FreetextInput({
         description: "Freetext input",
         content: data.content,
       }).then(() => {
-        setUpdatedAt(DateTime.now());
+        setLoading(false);
       });
     }
   }
@@ -68,7 +64,7 @@ export default function FreetextInput({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col w-full gap-2"
+        className="flex flex-col w-full gap-2 p-1"
       >
         <FormField
           control={form.control}
@@ -77,27 +73,33 @@ export default function FreetextInput({
             <FormItem>
               <FormControl>
                 <Textarea
-                  placeholder="Freetext input"
+                  className="flex-grow min-h-[calc(100vh-20rem)] resize-none"
+                  placeholder="Enter information for Quill to use when creating notes"
                   {...field}
                   onChange={(e) => {
                     field.onChange(e);
+                    setLoading(true);
                     onSubmitDebounced();
                   }}
-                  rows={30}
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        {updatedAt && (
-          <div className="w-full flex justify-end items-center gap-2">
-            <Check size={12} />
-            <span className="text-sm text-muted-foreground">{`Saved ${updatedAt.toLocaleString(
-              DateTime.DATETIME_SHORT_WITH_SECONDS
-            )}`}</span>
-          </div>
-        )}
+        <div className="w-full flex justify-end items-center gap-1">
+          {loading ? (
+            <>
+              <span className="font-medium text-sm">Saving...</span>
+              <LoaderCircle size={16} className="animate-spin" />
+            </>
+          ) : (
+            <>
+              <span className="font-medium text-sm">Saved</span>
+              <CircleCheck size={16} />
+            </>
+          )}
+        </div>
       </form>
     </Form>
   );

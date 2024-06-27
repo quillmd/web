@@ -52,27 +52,25 @@ export default function CasesSidebar({
   }, [initialCases]);
 
   useEffect(() => {
-    if (JSON.stringify(initialFetchParams) != JSON.stringify(fetchParams)) {
-      getCases({
-        days: fetchParams.query.length == 0 ? fetchParams.days : 9999,
-        query: fetchParams.query,
-      }).then((cases) =>
-        setCasesGroupedByDate(
-          Object.entries(
-            cases.reduce((acc: CasesGroupedByDate, current_case: Case) => {
-              const date: string = DateTime.fromISO(
-                current_case.inserted_at
-              ).toLocaleString(DateTime.DATE_SHORT);
-              if (!acc[date]) {
-                acc[date] = [];
-              }
-              acc[date].push(current_case);
-              return acc;
-            }, {} as CasesGroupedByDate)
-          )
+    getCases({
+      days: fetchParams.query.length == 0 ? fetchParams.days : 9999,
+      query: fetchParams.query,
+    }).then((cases) =>
+      setCasesGroupedByDate(
+        Object.entries(
+          cases.reduce((acc: CasesGroupedByDate, current_case: Case) => {
+            const date: string = DateTime.fromISO(
+              current_case.inserted_at
+            ).toLocaleString(DateTime.DATE_SHORT);
+            if (!acc[date]) {
+              acc[date] = [];
+            }
+            acc[date].push(current_case);
+            return acc;
+          }, {} as CasesGroupedByDate)
         )
-      );
-    }
+      )
+    );
   }, [fetchParams]);
 
   const handleLoadMore = () => {
@@ -85,7 +83,7 @@ export default function CasesSidebar({
   const handleQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFetchParams({
       ...fetchParams,
-      query: e.target.value,
+      query: e.target.value.length == 0 ? "" : e.target.value,
     });
   };
 

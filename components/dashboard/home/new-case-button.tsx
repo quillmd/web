@@ -35,8 +35,8 @@ export default function NewCaseButton({ variant, ...props }: ButtonProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant={variant} {...props}>
-          New Case +
+        <Button className="focus-visible:ring-0" variant={variant} {...props}>
+          + New Case
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
