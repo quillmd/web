@@ -27,7 +27,7 @@ export const newSessionFormSchema = z.object({
   name: z.string().min(1),
 });
 
-export const freetextInputFormSchema = z.object({
+export const textInputFormSchema = z.object({
   content: z.string(),
 });
 
@@ -60,7 +60,7 @@ export type ChangeCaseTitleFormSchema = z.infer<
   typeof changeCaseTitleFormSchema
 >;
 export type NewSessionFormSchema = z.infer<typeof newSessionFormSchema>;
-export type FreetextInputFormSchema = z.infer<typeof freetextInputFormSchema>;
+export type TextInputFormSchema = z.infer<typeof textInputFormSchema>;
 export type TemplateInputFormSchema = z.infer<typeof templateInputFormSchema>;
 export type ContactUsSchema = z.infer<typeof contactUsSchema>;
 export type FeedbackSchema = z.infer<typeof feedbackSchema>;
