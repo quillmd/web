@@ -9,10 +9,10 @@ interface CaseCardProps extends React.HTMLAttributes<HTMLElement> {
 
 export default function TranscriptCard({ transcript }: CaseCardProps) {
   return (
-    <div className="flex justify-between items-center p-4">
+    <div className="flex items-center justify-between p-4">
       <div className="flex flex-col justify-center w-full">
-        <div className="flex w-full justify-between">
-          <h4 className="scroll-m-20 font-semibold tracking-tight">
+        <div className="flex justify-between w-full">
+          <h4 className="font-semibold tracking-tight scroll-m-20">
             {transcript.type
               ? `${transcript.type
                   .charAt(0)

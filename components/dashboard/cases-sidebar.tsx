@@ -1,99 +1,35 @@
 "use client";
-import { Case, CasesGroupedByDate, getCases } from "@/lib/case";
+import { Case } from "@/lib/case";
+import { CaseFetchParams, useCases } from "@/lib/useCases";
 import { Search } from "lucide-react";
-import { DateTime } from "luxon";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
 import NewCaseButton from "./home/new-case-button";
 
-interface FetchParamsState {
-  days?: number;
-  query: string;
-  from?: string;
-  to?: string;
-}
-
 interface CasesSidebarProps {
   initialCases: Case[];
-  initialFetchParams: FetchParamsState;
+  initialFetchParams: CaseFetchParams;
 }
 
 export default function CasesSidebar({
   initialCases,
   initialFetchParams,
 }: CasesSidebarProps) {
-  const [fetchParams, setFetchParams] =
-    useState<FetchParamsState>(initialFetchParams);
-
-  const [casesGroupedByDate, setCasesGroupedByDate] = useState<
-    [string, Case[]][] | undefined
-  >();
-
-  useEffect(() => {
-    setCasesGroupedByDate(
-      Object.entries(
-        initialCases.reduce((acc: CasesGroupedByDate, current_case: Case) => {
-          const date: string = DateTime.fromISO(
-            current_case.inserted_at
-          ).toLocaleString(DateTime.DATE_SHORT);
-          if (!acc[date]) {
-            acc[date] = [];
-          }
-          acc[date].push(current_case);
-          return acc;
-        }, {} as CasesGroupedByDate)
-      )
-    );
-  }, [initialCases]);
-
-  useEffect(() => {
-    getCases({
-      days: fetchParams.query.length == 0 ? fetchParams.days : 9999,
-      query: fetchParams.query,
-    }).then((cases) =>
-      setCasesGroupedByDate(
-        Object.entries(
-          cases.reduce((acc: CasesGroupedByDate, current_case: Case) => {
-            const date: string = DateTime.fromISO(
-              current_case.inserted_at
-            ).toLocaleString(DateTime.DATE_SHORT);
-            if (!acc[date]) {
-              acc[date] = [];
-            }
-            acc[date].push(current_case);
-            return acc;
-          }, {} as CasesGroupedByDate)
-        )
-      )
-    );
-  }, [fetchParams]);
-
-  const handleLoadMore = () => {
-    setFetchParams({
-      ...fetchParams,
-      days: undefined,
-    });
-  };
-
-  const handleQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFetchParams({
-      ...fetchParams,
-      query: e.target.value.length == 0 ? "" : e.target.value,
-    });
-  };
+  const { casesGroupedByDate, fetchParams, handleLoadMore, handleQuery } =
+    useCases(initialCases, initialFetchParams);
 
   const pathname = usePathname();
   const regexCasesPathname = /\/cases\/[^/]+/;
+
   if (regexCasesPathname.test(pathname)) {
     return (
-      <aside className="top-16 z-50 fixed hidden md:sticky md:block h-[calc(100vh-4.5rem)] w-1/4 max-w-[300px] shrink-0">
+      <aside className="top-16 z-50 fixed hidden md:sticky md:block h-[calc(100vh-4.5rem)]">
         <ScrollArea className="h-full border rounded-lg p-2">
-          <div className="flex flex-col">
+          <div className="flex flex-col max-w-72">
             <div className="flex flex-col gap-2 mb-2">
               <NewCaseButton variant={"ghost"} />
               <div className="relative w-11/12 mx-auto">

@@ -81,21 +81,22 @@ export default function TextInput({
                     setLoading(true);
                     onSubmitDebounced();
                   }}
+                  autoFocus={true}
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <div className="w-full flex justify-end items-center gap-1">
+        <div className="flex items-center justify-end w-full gap-1">
           {loading ? (
             <>
-              <span className="font-medium text-sm">Saving...</span>
+              <span className="text-sm font-medium">Saving...</span>
               <LoaderCircle size={16} className="animate-spin" />
             </>
           ) : (
             <>
-              <span className="font-medium text-sm">Saved</span>
+              <span className="text-sm font-medium">Saved</span>
               <CircleCheck size={16} />
             </>
           )}

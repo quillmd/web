@@ -6,18 +6,18 @@ import FeedbackForm from "@/components/dashboard/feedback-form";
 import LogoutButton from "@/components/dashboard/logout-button";
 import { Account, getAccount } from "@/lib/account";
 import { Case, getCases } from "@/lib/case";
-import { DateTime } from "luxon";
+import { CaseFetchParams } from "@/lib/useCases";
 import Image from "next/image";
 import NextLink from "next/link";
 
-interface InitialFetchParamsProps {
-  days: number;
-  query: string;
-  from?: DateTime;
-  to?: DateTime;
-}
+export const initialFetchParams = {
+  days: 10,
+  query: "",
+  from: undefined,
+  to: undefined,
+};
 
-async function getData(initialFetchParams: InitialFetchParamsProps) {
+async function getData(initialFetchParams: CaseFetchParams) {
   const promiseArray = [getAccount(), getCases(initialFetchParams)];
   const results = await Promise.all(promiseArray);
   return {
@@ -31,25 +31,19 @@ export default async function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const initialFetchParams = {
-    days: 10,
-    query: "",
-    from: undefined,
-    to: undefined,
-  };
   const { account, initialCases } = await getData(initialFetchParams);
   return (
     <body>
       <CasesSocket />
-      <header className="sticky top-0 z-50 bg-background p-2 px-16">
-        <nav className="flex justify-between items-center w-full">
+      <header className="sticky top-0 z-50 p-2 px-16 bg-background">
+        <nav className="flex items-center justify-between w-full">
           <NextLink href={"/home"}>
             <Image
               src="/logo_text.svg"
               alt="Logo"
               width={70}
               height={36}
-              className="logo cursor-pointer"
+              className="cursor-pointer logo"
             />
           </NextLink>
           <ul className="flex items-center gap-6">
@@ -70,7 +64,7 @@ export default async function DashboardLayout({
           </ul>
         </nav>
       </header>
-      <div className="flex items-start max-w-screen-2xl mx-auto gap-2 p-2">
+      <div className="flex items-start max-w-screen-2xl mx-auto gap-2 p-2 max-h-[calc(100vh-18rem)]">
         <CasesSidebar
           initialCases={initialCases}
           initialFetchParams={initialFetchParams}

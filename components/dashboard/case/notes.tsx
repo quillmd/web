@@ -1,11 +1,18 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Note } from "@/lib/note";
 import { Template } from "@/lib/template";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { Transcript } from "@/lib/transcript";
+import { ChevronLeft, ChevronRight, TriangleAlert } from "lucide-react";
+import { DateTime } from "luxon";
+import { useEffect, useMemo, useState } from "react";
 import CopyButton from "../copy-button";
 import CreateNotes from "./create-notes";
 import ScribingEffect from "./scribing-effect";
@@ -15,6 +22,7 @@ interface NotesDisplayProps {
   templates: Template[];
   notes: Note[];
   notesDisabled: boolean;
+  transcripts: Transcript[];
 }
 
 export default function Notes({
@@ -22,9 +30,14 @@ export default function Notes({
   templates,
   notes,
   notesDisabled,
+  transcripts,
 }: NotesDisplayProps) {
   const [currentNoteIndex, setCurrentNoteIndex] = useState(0);
+  const current_note = notes[currentNoteIndex];
 
+  useEffect(() => {
+    setCurrentNoteIndex(0);
+  }, [notes]);
   const handlePreviousNote = () => {
     setCurrentNoteIndex((prevIndex) => Math.max(0, prevIndex - 1));
   };
@@ -35,10 +48,43 @@ export default function Notes({
     );
   };
 
+  const isNoteOutdated = useMemo(() => {
+    if (!current_note || transcripts.length === 0) return false;
+
+    const noteDateTime = DateTime.fromISO(current_note.inserted_at);
+
+    return transcripts
+      .filter((transcript) => transcript.status == "ready")
+      .some((transcript) => {
+        const transcriptDateTime = DateTime.fromISO(transcript.inserted_at);
+        return transcriptDateTime > noteDateTime;
+      });
+  }, [current_note, transcripts]);
+
   return (
-    <Card className="flex flex-col h-full relative">
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="text-xl">Notes</CardTitle>
+    <Card className="relative flex flex-col overflow-hidden h-[calc(100vh-10rem)]">
+      <CardHeader className={`flex flex-row items-center justify-between`}>
+        <div className="flex gap-2">
+          <CardTitle className="text-xl">
+            {notes.length > 0
+              ? `${current_note.template?.title || "Generic Note"} ${
+                  current_note.version != 1 ? `${current_note.version}` : ``
+                }`
+              : "Notes"}
+          </CardTitle>
+          {isNoteOutdated && (
+            <HoverCard openDelay={500}>
+              <HoverCardTrigger>
+                <TriangleAlert className="text-orange-500" />
+              </HoverCardTrigger>
+              <HoverCardContent>
+                {
+                  "One or more inputs have been added after this note was created. Scribe a new note to include all current inputs."
+                }
+              </HoverCardContent>
+            </HoverCard>
+          )}
+        </div>
         <CreateNotes
           case_id={case_id}
           templates={templates}
@@ -48,24 +94,21 @@ export default function Notes({
       <div className="flex flex-col h-full">
         {notes.length > 0 ? (
           <>
-            <div className="bg-gray-100 p-4 rounded-lg flex-grow overflow-hidden flex flex-col">
-              <div className="flex justify-between">
-                <h3 className="text-lg font-semibold mb-2">
-                  {notes[currentNoteIndex].template?.title || "Generic Note"}
-                </h3>
+            <div className="relative flex flex-col flex-grow overflow-hidden">
+              {current_note.status == "ready" && (
                 <CopyButton
-                  className="h-8 w-8"
-                  text={notes[currentNoteIndex].content}
+                  className="absolute z-10 w-8 h-8 top-2 right-6"
+                  text={current_note.content}
                 />
-              </div>
+              )}
               <ScrollArea
-                type="scroll"
-                className="flex-grow max-h-[calc(100vh-23rem)]"
+                type="auto"
+                className="bg-gray-100 py-2 px-4 max-h-[calc(100vh-20rem)]"
               >
-                <pre className="whitespace-pre-wrap font-mono text-sm">
-                  {notes[currentNoteIndex].status == "ready" ? (
-                    notes[currentNoteIndex].content
-                  ) : notes[currentNoteIndex].status == "processing" ? (
+                <pre className="font-mono text-sm whitespace-pre-wrap">
+                  {current_note.status == "ready" ? (
+                    current_note.content
+                  ) : current_note.status == "processing" ? (
                     <ScribingEffect />
                   ) : (
                     "Error processing note"
@@ -73,15 +116,15 @@ export default function Notes({
                 </pre>
               </ScrollArea>
             </div>
-            <div className="flex items-center justify-between mt-2">
+            <div className="flex items-center justify-between p-2">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={handlePreviousNote}
                 disabled={currentNoteIndex === 0}
               >
-                <ChevronLeft className="h-4 w-4 mr-1" />
-                Previous
+                <ChevronLeft className="w-4 h-4 mr-1" />
+                Newer
               </Button>
               <span className="text-sm text-gray-500">{`${
                 currentNoteIndex + 1
@@ -92,14 +135,14 @@ export default function Notes({
                 onClick={handleNextNote}
                 disabled={currentNoteIndex === notes.length - 1}
               >
-                Next
-                <ChevronRight className="h-4 w-4 ml-1" />
+                Older
+                <ChevronRight className="w-4 h-4 ml-1" />
               </Button>
             </div>
           </>
         ) : (
           <div className="flex flex-col items-center justify-center h-full">
-            <p className="text-muted-foreground mb-4">
+            <p className="mb-4 text-muted-foreground">
               {notesDisabled
                 ? `At least one input is needed to create a note`
                 : `Click "Create Note" to have Quill scribe a note`}

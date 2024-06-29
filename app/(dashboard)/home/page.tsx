@@ -1,33 +1,26 @@
-import CaseCard from "@/components/dashboard/home/case-card";
-import NewCaseButton from "@/components/dashboard/home/new-case-button";
-import { Case, getCasesGroupedByDate } from "@/lib/case";
+import CasesGrid from "@/components/dashboard/home/cases-grid";
+import NewCase from "@/components/dashboard/home/new-case";
+import { getCases } from "@/lib/case";
+import NextLink from "next/link";
+import { initialFetchParams } from "../layout";
 
 export default async function HomePage() {
-  const cases = await getCasesGroupedByDate({ days: 5 });
-  const casesArray = Object.entries(cases);
-
+  const cases = await getCases(initialFetchParams);
   return (
-    <main className="mx-auto pt-4">
-      <h2 className="mt-10 scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
-        All Cases
-      </h2>
-      <NewCaseButton variant={"outline"} />
-      {casesArray.map(([date, casesForDate]) => (
-        <div key={date}>
-          <h3 className="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">
-            {date}
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {casesForDate.map((current_case: Case) => (
-              <CaseCard
-                key={`case-${current_case.id}`}
-                current_case={current_case}
-              />
-            ))}
-          </div>
-          <hr className="my-8 border-t border-gray-200" />
+    <div className="flex flex-col max-w-3xl mx-auto">
+      <div className="max-w-md mx-auto mb-12">
+        <NewCase />
+      </div>
+      <CasesGrid
+        initialCases={cases}
+        initialFetchParams={initialFetchParams}
+        showSearch={false}
+      />
+      <div>
+        <div className="flex justify-center w-full h-20">
+          <NextLink href={"/home/all"}>{`View all ->`}</NextLink>
         </div>
-      ))}
-    </main>
+      </div>
+    </div>
   );
 }

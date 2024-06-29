@@ -19,13 +19,19 @@ import {
   CircleX,
   LoaderCircle,
   Mic,
+  NotebookText,
   ScreenShare,
   Square,
   UploadCloud,
 } from "lucide-react";
 import Image from "next/image";
 
-export default function AddInput({ case_id }: { case_id: string }) {
+interface AddInputProps {
+  case_id: string;
+  setShowAudio: (showAudio: boolean) => void;
+}
+
+export default function AddInput({ case_id, setShowAudio }: AddInputProps) {
   const {
     startRecording: startMicRecording,
     stopRecording: stopMicRecording,
@@ -56,14 +62,17 @@ export default function AddInput({ case_id }: { case_id: string }) {
       : null;
 
   const handleMicrophoneClick = () => {
+    setShowAudio(true);
     startMicRecording();
   };
 
   const handleShareClick = () => {
+    setShowAudio(true);
     startShareRecording();
   };
 
   const handleUploadClick = () => {
+    setShowAudio(true);
     document.getElementById("file-upload")?.click();
   };
 
@@ -172,7 +181,7 @@ export default function AddInput({ case_id }: { case_id: string }) {
           <DropdownMenuContent className="w-40">
             <HoverCard openDelay={500}>
               <DropdownMenuItem onClick={handleMicrophoneClick}>
-                <Mic className="mr-2 h-4 w-4" />
+                <Mic className="w-4 h-4 mr-2" />
                 <span>Microphone</span>
                 <DropdownMenuShortcut>
                   <HoverCardTrigger>
@@ -193,7 +202,7 @@ export default function AddInput({ case_id }: { case_id: string }) {
 
             <HoverCard openDelay={500}>
               <DropdownMenuItem onClick={handleShareClick}>
-                <ScreenShare className="mr-2 h-4 w-4" />
+                <ScreenShare className="w-4 h-4 mr-2" />
                 <span>Share Screen</span>
                 <DropdownMenuShortcut>
                   <HoverCardTrigger>
@@ -229,7 +238,7 @@ export default function AddInput({ case_id }: { case_id: string }) {
             </HoverCard>
             <HoverCard openDelay={500}>
               <DropdownMenuItem onClick={handleUploadClick}>
-                <UploadCloud className="mr-2 h-4 w-4" />
+                <UploadCloud className="w-4 h-4 mr-2" />
                 <span>Upload Audio</span>
                 <DropdownMenuShortcut>
                   <HoverCardTrigger>
@@ -240,6 +249,22 @@ export default function AddInput({ case_id }: { case_id: string }) {
               <HoverCardContent side="right" sideOffset={15}>
                 <div className="flex flex-col gap-1">
                   <span>{`Upload audio for Quill to listen to`}</span>
+                </div>
+              </HoverCardContent>
+            </HoverCard>
+            <HoverCard openDelay={500}>
+              <DropdownMenuItem onClick={() => setShowAudio(false)}>
+                <NotebookText className="w-4 h-4 mr-2" />
+                <span>Free Text</span>
+                <DropdownMenuShortcut>
+                  <HoverCardTrigger>
+                    <CircleHelp size={14} />
+                  </HoverCardTrigger>
+                </DropdownMenuShortcut>
+              </DropdownMenuItem>
+              <HoverCardContent side="right" sideOffset={15}>
+                <div className="flex flex-col gap-1">
+                  <span>{`Enter text-based information for Quill to use when scribing`}</span>
                 </div>
               </HoverCardContent>
             </HoverCard>

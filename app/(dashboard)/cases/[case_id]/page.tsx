@@ -37,10 +37,10 @@ export default async function CasePage({
   const notesDisabled =
     transcripts.find((transcript) => transcript.status == "ready") == undefined;
   return (
-    <div className="flex flex-col gap-4 h-[calc(100vh-4.5rem)]">
+    <div className="flex flex-col gap-4">
       <BreadcrumbNav current_case={current_case} />
       <CaseTitle case_id={case_id} initial_title={current_case.title} />
-      <div className="grid grid-cols-2 w-full flex-1 gap-2">
+      <div className="grid flex-1 w-full grid-cols-2 gap-2">
         <Inputs
           case_id={case_id}
           transcripts={transcripts}
@@ -52,6 +52,7 @@ export default async function CasePage({
           templates={templates}
           notes={notes}
           notesDisabled={notesDisabled}
+          transcripts={transcripts}
         />
       </div>
     </div>

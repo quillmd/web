@@ -14,11 +14,7 @@ interface AccountSidebarProps extends React.HTMLAttributes<HTMLElement> {
   }[];
 }
 
-export function AccountSidebar({
-  className,
-  items,
-  ...props
-}: AccountSidebarProps) {
+export function AccountSidebar({ items }: AccountSidebarProps) {
   const pathname = usePathname();
 
   return (

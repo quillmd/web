@@ -25,7 +25,7 @@ export default function CaseTitle({ case_id, initial_title }: CaseTitleProps) {
     <Input
       value={title}
       onChange={handleChange}
-      className="border-hidden hover:border-solid text-2xl font-semibold tracking-tight transition-colors shadow-none"
+      className="text-2xl font-semibold tracking-tight transition-colors shadow-none border-hidden hover:border-solid"
       placeholder="Case Title"
     />
   );
