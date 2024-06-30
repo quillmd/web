@@ -1,14 +1,8 @@
-import Subscribe from "@/components/account/subscribe";
-import AccountButton from "@/components/dashboard/account-button";
-import CasesSidebar from "@/components/dashboard/cases-sidebar";
 import CasesSocket from "@/components/dashboard/cases-socket";
-import FeedbackForm from "@/components/dashboard/feedback-form";
-import LogoutButton from "@/components/dashboard/logout-button";
+import DashboardSidebar from "@/components/dashboard/dashboard-sidebar";
 import { Account, getAccount } from "@/lib/account";
 import { Case, getCases } from "@/lib/case";
 import { CaseFetchParams } from "@/lib/useCases";
-import Image from "next/image";
-import NextLink from "next/link";
 
 export const initialFetchParams = {
   days: 10,
@@ -33,43 +27,14 @@ export default async function DashboardLayout({
 }>) {
   const { account, initialCases } = await getData(initialFetchParams);
   return (
-    <body>
+    <body className="min-h-screen tracking-tight">
       <CasesSocket />
-      <header className="sticky top-0 z-50 p-2 px-16 bg-background">
-        <nav className="flex items-center justify-between w-full">
-          <NextLink href={"/home"}>
-            <Image
-              src="/logo_text.svg"
-              alt="Logo"
-              width={70}
-              height={36}
-              className="cursor-pointer logo"
-            />
-          </NextLink>
-          <ul className="flex items-center gap-6">
-            <li className="block">
-              <FeedbackForm />
-            </li>
-            {!account.subscription_exempt && !account.subscription && (
-              <li className="block">
-                <Subscribe />
-              </li>
-            )}
-            <li className="block">
-              <AccountButton />
-            </li>
-            <li className="block">
-              <LogoutButton />
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <div className="flex items-start max-w-screen-2xl mx-auto gap-2 p-2 max-h-[calc(100vh-18rem)]">
-        <CasesSidebar
+      <div className="flex w-full min-h-screen">
+        <DashboardSidebar
           initialCases={initialCases}
           initialFetchParams={initialFetchParams}
         />
-        <div className="flex-1">{children}</div>
+        <div className="flex-1 py-10">{children}</div>
       </div>
     </body>
   );

@@ -29,7 +29,7 @@ export default function Inputs({
   );
 
   return (
-    <Card className="relative flex flex-col h-[calc(100vh-10rem)]">
+    <Card className="relative flex flex-col h-[calc(100vh-9rem)]">
       <CardHeader className="flex flex-row items-center justify-between">
         <div className="flex items-center gap-1">
           <CardTitle className="text-xl">

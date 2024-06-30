@@ -1,4 +1,3 @@
-import BreadcrumbNav from "@/components/dashboard/breadcrumb-nav";
 import CaseTitle from "@/components/dashboard/case/case-title";
 import Inputs from "@/components/dashboard/case/inputs";
 import Notes from "@/components/dashboard/case/notes";
@@ -37,8 +36,7 @@ export default async function CasePage({
   const notesDisabled =
     transcripts.find((transcript) => transcript.status == "ready") == undefined;
   return (
-    <div className="flex flex-col gap-4">
-      <BreadcrumbNav current_case={current_case} />
+    <div className="max-w-7xl mx-auto flex flex-col gap-4">
       <CaseTitle case_id={case_id} initial_title={current_case.title} />
       <div className="grid flex-1 w-full grid-cols-2 gap-2">
         <Inputs

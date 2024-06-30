@@ -27,7 +27,7 @@ export default function NewCase() {
   return (
     <div className="flex flex-col items-center justify-center space-y-6 text-center">
       <h1 className="text-4xl font-bold tracking-tight font-garamond">
-        Create a case to get started
+        Create a case to begin
       </h1>
       <Input
         placeholder="Title"
