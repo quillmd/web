@@ -2,7 +2,6 @@
 import { Button } from "@/components/ui/button";
 import { Check, Clipboard } from "lucide-react";
 import { useState } from "react";
-import Markdown from "react-markdown";
 
 interface NoteTextProps extends React.HTMLAttributes<HTMLElement> {
   text: string;
@@ -20,14 +19,19 @@ export default function CopyButton({ text, className }: NoteTextProps) {
   };
 
   return (
-      <Button
-        className={className}
-        variant={"outline"}
-        size={"icon"}
-        onClick={handleCopyClick}
-        aria-label="Copy"
-      >
-        {copied ? <Check size={16} /> : <Clipboard size={16} />}
-      </Button>
+    <Button
+      className={className}
+      variant={"outline"}
+      size={"sm"}
+      onClick={handleCopyClick}
+      aria-label="Copy"
+    >
+      {"Copy"}
+      {copied ? (
+        <Check className={"ml-0.5"} size={16} />
+      ) : (
+        <Clipboard className={"ml-0.5"} size={16} />
+      )}
+    </Button>
   );
 }

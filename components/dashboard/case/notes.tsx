@@ -63,8 +63,8 @@ export default function Notes({
 
   return (
     <Card className="relative flex flex-col overflow-hidden h-[calc(100vh-10rem)]">
-      <CardHeader className={`flex flex-row items-center justify-between`}>
-        <div className="flex gap-2">
+      <CardHeader className="px-8 py-6">
+        <div className="mx-auto flex gap-2">
           <CardTitle className="text-xl">
             {notes.length > 0
               ? `${current_note.template?.title || "Generic Note"} ${
@@ -85,40 +85,39 @@ export default function Notes({
             </HoverCard>
           )}
         </div>
+      </CardHeader>
+      <div className="flex flex-col h-full items-center gap-6">
         <CreateNotes
           case_id={case_id}
           templates={templates}
           disabled={notesDisabled}
         />
-      </CardHeader>
-      <div className="flex flex-col h-full">
         {notes.length > 0 ? (
-          <>
-            <div className="relative flex flex-col flex-grow overflow-hidden">
-              {current_note.status == "ready" && (
-                <CopyButton
-                  className="absolute z-10 w-8 h-8 top-2 right-6"
-                  text={current_note.content}
-                />
-              )}
-              <ScrollArea
-                type="auto"
-                className="bg-gray-100 py-2 px-4 max-h-[calc(100vh-20rem)]"
-              >
-                <pre className="font-mono text-sm whitespace-pre-wrap">
-                  {current_note.status == "ready" ? (
-                    current_note.content
-                  ) : current_note.status == "processing" ? (
-                    <ScribingEffect />
-                  ) : (
-                    "Error processing note"
-                  )}
-                </pre>
-              </ScrollArea>
-            </div>
-            <div className="flex items-center justify-between p-2">
+          <div className="relative w-full border-t">
+            {current_note.status == "ready" && (
+              <CopyButton
+                className="absolute z-30 h-8 -top-8 right-0 text-sm border-b-0 border-r-0 rounded-none rounded-ss-sm"
+                text={current_note.content}
+              />
+            )}
+            <ScrollArea
+              type="auto"
+              className="bg-gray-100 p-4 h-[calc(100vh-21.5rem)]"
+            >
+              <pre className="font-mono text-sm whitespace-pre-wrap">
+                {current_note.status == "ready" ? (
+                  current_note.content
+                ) : current_note.status == "processing" ? (
+                  <ScribingEffect />
+                ) : (
+                  "Error processing note"
+                )}
+              </pre>
+            </ScrollArea>
+            <div className="flex items-center justify-between mt-0.5">
               <Button
-                variant="ghost"
+                className="text-inherit"
+                variant="link"
                 size="sm"
                 onClick={handlePreviousNote}
                 disabled={currentNoteIndex === 0}
@@ -130,7 +129,8 @@ export default function Notes({
                 currentNoteIndex + 1
               } / ${notes.length}`}</span>
               <Button
-                variant="ghost"
+                variant="link"
+                className="text-inherit"
                 size="sm"
                 onClick={handleNextNote}
                 disabled={currentNoteIndex === notes.length - 1}
@@ -139,10 +139,10 @@ export default function Notes({
                 <ChevronRight className="w-4 h-4 ml-1" />
               </Button>
             </div>
-          </>
+          </div>
         ) : (
-          <div className="flex flex-col items-center justify-center h-full">
-            <p className="mb-4 text-muted-foreground">
+          <div className="flex flex-col items-center border-t w-full">
+            <p className="pt-5 text-muted-foreground">
               {notesDisabled
                 ? `At least one input is needed to create a note`
                 : `Click "Create Note" to have Quill scribe a note`}

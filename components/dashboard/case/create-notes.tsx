@@ -8,12 +8,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { Case } from "@/lib/case";
 import { postNote } from "@/lib/note";
 import { Template } from "@/lib/template";
@@ -42,25 +36,9 @@ export default function CreateNotes({
 
   return (
     <DropdownMenu>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              className="w-36"
-              variant={"outline"}
-              disabled={disabled}
-              asChild
-            >
-              <DropdownMenuTrigger>{`+ Create Note`}</DropdownMenuTrigger>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <span>
-              {disabled ? `No ready inputs available` : `Create a new note`}
-            </span>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <Button className="w-36" variant={"outline"} disabled={disabled} asChild>
+        <DropdownMenuTrigger>{`+ Create Note`}</DropdownMenuTrigger>
+      </Button>
       <DropdownMenuContent>
         {defaultTemplates.length > 0 && (
           <>

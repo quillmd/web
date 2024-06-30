@@ -3,12 +3,10 @@
 import AddInput from "@/components/dashboard/case/add-input";
 import TextInput from "@/components/dashboard/case/text-input";
 import TranscriptCard from "@/components/dashboard/case/transcript-card";
-import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Transcript } from "@/lib/transcript";
-import { ArrowRight } from "lucide-react";
 import React, { useState } from "react";
 
 interface InputsProps {
@@ -29,50 +27,41 @@ export default function Inputs({
   );
 
   return (
-    <Card className="relative flex flex-col h-[calc(100vh-10rem)]">
-      <CardHeader className="flex flex-row items-center justify-between">
-        <div className="flex items-center gap-1">
-          <CardTitle className="text-xl">
-            {showAudio ? "Audio Inputs" : "Text Input"}
-          </CardTitle>
-          <Button
-            className="text-muted-foreground"
-            variant="link"
-            size={"sm"}
-            onClick={() => setShowAudio(!showAudio)}
-          >
-            {showAudio ? "Text Input" : "Audio Inputs"} <ArrowRight size={14} />
-          </Button>
-        </div>
-        <AddInput case_id={case_id} setShowAudio={setShowAudio} />
-      </CardHeader>
-      {showAudio ? (
-        <div className="relative flex-grow overflow-hidden ">
-          {audioTranscripts.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full">
-              <p className="mb-4 text-muted-foreground">
-                {`Add an input to get started`}
-              </p>
-            </div>
-          ) : (
-            <ScrollArea type="auto" className="h-full">
+    <Tabs defaultValue="audio">
+      <Card className="relative flex flex-col h-[calc(100vh-10rem)]">
+        <CardHeader className="px-8 py-4">
+          <TabsList className="grid grid-cols-2">
+            <TabsTrigger value="audio">
+              <CardTitle className="text-xl">Audio Inputs</CardTitle>
+            </TabsTrigger>
+            <TabsTrigger value="text">
+              <CardTitle className="text-xl">Text Input</CardTitle>
+            </TabsTrigger>
+          </TabsList>
+        </CardHeader>
+        <TabsContent value="audio">
+          <div className="relative flex-grow overflow-hidden flex flex-col items-center gap-6">
+            <AddInput case_id={case_id} />
+            <ScrollArea
+              type="auto"
+              className="w-full h-[calc(100vh-19.5rem)] border-t"
+            >
               {audioTranscripts.map((transcript) => (
                 <React.Fragment key={`transcript-${transcript.id}`}>
-                  <Separator />
                   <TranscriptCard transcript={transcript} />
                 </React.Fragment>
               ))}
-              <Separator />
             </ScrollArea>
-          )}
-        </div>
-      ) : (
-        <TextInput
-          case_id={case_id}
-          transcript_id={textInput?.id}
-          initial_content={textInput?.content}
-        />
-      )}
-    </Card>
+          </div>
+        </TabsContent>
+        <TabsContent value="text">
+          <TextInput
+            case_id={case_id}
+            transcript_id={textInput?.id}
+            initial_content={textInput?.content}
+          />
+        </TabsContent>
+      </Card>
+    </Tabs>
   );
 }

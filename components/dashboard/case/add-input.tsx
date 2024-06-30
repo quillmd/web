@@ -19,7 +19,6 @@ import {
   CircleX,
   LoaderCircle,
   Mic,
-  NotebookText,
   ScreenShare,
   Square,
   UploadCloud,
@@ -28,10 +27,9 @@ import Image from "next/image";
 
 interface AddInputProps {
   case_id: string;
-  setShowAudio: (showAudio: boolean) => void;
 }
 
-export default function AddInput({ case_id, setShowAudio }: AddInputProps) {
+export default function AddInput({ case_id }: AddInputProps) {
   const {
     startRecording: startMicRecording,
     stopRecording: stopMicRecording,
@@ -62,17 +60,14 @@ export default function AddInput({ case_id, setShowAudio }: AddInputProps) {
       : null;
 
   const handleMicrophoneClick = () => {
-    setShowAudio(true);
     startMicRecording();
   };
 
   const handleShareClick = () => {
-    setShowAudio(true);
     startShareRecording();
   };
 
   const handleUploadClick = () => {
-    setShowAudio(true);
     document.getElementById("file-upload")?.click();
   };
 
@@ -175,7 +170,7 @@ export default function AddInput({ case_id, setShowAudio }: AddInputProps) {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="w-36">
-              + Add Input
+              + Add Audio
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-40">
@@ -249,22 +244,6 @@ export default function AddInput({ case_id, setShowAudio }: AddInputProps) {
               <HoverCardContent side="right" sideOffset={15}>
                 <div className="flex flex-col gap-1">
                   <span>{`Upload audio for Quill to listen to`}</span>
-                </div>
-              </HoverCardContent>
-            </HoverCard>
-            <HoverCard openDelay={500}>
-              <DropdownMenuItem onClick={() => setShowAudio(false)}>
-                <NotebookText className="w-4 h-4 mr-2" />
-                <span>Free Text</span>
-                <DropdownMenuShortcut>
-                  <HoverCardTrigger>
-                    <CircleHelp size={14} />
-                  </HoverCardTrigger>
-                </DropdownMenuShortcut>
-              </DropdownMenuItem>
-              <HoverCardContent side="right" sideOffset={15}>
-                <div className="flex flex-col gap-1">
-                  <span>{`Enter text-based information for Quill to use when scribing`}</span>
                 </div>
               </HoverCardContent>
             </HoverCard>
