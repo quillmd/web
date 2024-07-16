@@ -6,7 +6,7 @@ type RecorderStatus = "idle" | "recording" | "uploading" | "success" | "error";
 
 type RecorderControls = {
   recorderStatus: RecorderStatus;
-  startRecording: () => void;
+  startRecording: (type: string) => void;
   stopRecording: () => void;
 };
 
@@ -21,11 +21,13 @@ export function useAudioRecorder({
   const [recorderStatus, setRecorderStatus] = useState<RecorderStatus>("idle");
   const [recorder, setRecorder] = useState<MediaRecorder | null>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
+  const [recordType, setRecordType] = useState<string | null>(null);
 
-  const startRecording = async () => {
+  const startRecording = async (type: string) => {
     const [stream, recorder] = await requestRecorder(mode);
     setStream(stream);
     setRecorder(recorder);
+    setRecordType(type);
     recorder.start();
     setRecorderStatus("recording");
   };
@@ -68,6 +70,7 @@ export function useAudioRecorder({
     const formData = new FormData();
     formData.append("file", audio_file, "audio.opus");
     formData.append("case_id", case_id.toString());
+    formData.append("type", recordType || "");
     await fetch(
       `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/transcripts`,
       {

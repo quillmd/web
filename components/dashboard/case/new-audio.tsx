@@ -18,6 +18,7 @@ import {
   CircleHelp,
   CircleX,
   LoaderCircle,
+  MessagesSquare,
   Mic,
   ScreenShare,
   Square,
@@ -59,12 +60,16 @@ export default function NewAudio({ case_id }: NewAudioProps) {
       ? "upload"
       : null;
 
-  const handleMicrophoneClick = () => {
-    startMicRecording();
+  const handleInterviewClick = () => {
+    startMicRecording("interview");
+  };
+
+  const handleNarrationClick = () => {
+    startMicRecording("narration");
   };
 
   const handleShareClick = () => {
-    startShareRecording();
+    startShareRecording("interview");
   };
 
   const handleUploadClick = () => {
@@ -170,14 +175,14 @@ export default function NewAudio({ case_id }: NewAudioProps) {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="w-36">
-              + New Audio
+              + Add Audio Input
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-40">
             <HoverCard openDelay={500}>
-              <DropdownMenuItem onClick={handleMicrophoneClick}>
-                <Mic className="w-4 h-4 mr-2" />
-                <span>Microphone</span>
+              <DropdownMenuItem onClick={handleInterviewClick}>
+                <MessagesSquare className="w-4 h-4 mr-2" />
+                <span>Interview</span>
                 <DropdownMenuShortcut>
                   <HoverCardTrigger>
                     <CircleHelp size={14} />
@@ -187,10 +192,47 @@ export default function NewAudio({ case_id }: NewAudioProps) {
 
               <HoverCardContent side="right" sideOffset={15}>
                 <div className="flex flex-col gap-1">
-                  <span>{`Have Quill listen to your PC's microphone`}</span>
+                  <span>{`Quill will listen to the interview using your PC's microphone`}</span>
                   <span className="text-xs text-muted-foreground">
-                    {`Useful for in-person conversations or dictation`}
+                    {`Position microphone to hear all speakers. Click 'Allow' when prompted.`}
                   </span>
+                </div>
+                <div className="flex flex-col mt-2">
+                  <Image
+                    src="/allow-microphone.png"
+                    alt="Allow microphone"
+                    width={400}
+                    height={361}
+                  />
+                </div>
+              </HoverCardContent>
+            </HoverCard>
+
+            <HoverCard openDelay={500}>
+              <DropdownMenuItem onClick={handleNarrationClick}>
+                <Mic className="w-4 h-4 mr-2" />
+                <span>Narration</span>
+                <DropdownMenuShortcut>
+                  <HoverCardTrigger>
+                    <CircleHelp size={14} />
+                  </HoverCardTrigger>
+                </DropdownMenuShortcut>
+              </DropdownMenuItem>
+
+              <HoverCardContent side="right" sideOffset={15}>
+                <div className="flex flex-col gap-1">
+                  <span>{`Tell Quill about the case using your PC's microphone`}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {`Click 'Allow' when prompted.`}
+                  </span>
+                </div>
+                <div className="flex flex-col mt-2">
+                  <Image
+                    src="/allow-microphone.png"
+                    alt="Allow microphone"
+                    width={400}
+                    height={361}
+                  />
                 </div>
               </HoverCardContent>
             </HoverCard>
@@ -198,7 +240,7 @@ export default function NewAudio({ case_id }: NewAudioProps) {
             <HoverCard openDelay={500}>
               <DropdownMenuItem onClick={handleShareClick}>
                 <ScreenShare className="w-4 h-4 mr-2" />
-                <span>Share Screen</span>
+                <span>Telehealth</span>
                 <DropdownMenuShortcut>
                   <HoverCardTrigger>
                     <CircleHelp size={14} />
@@ -207,9 +249,9 @@ export default function NewAudio({ case_id }: NewAudioProps) {
               </DropdownMenuItem>
               <HoverCardContent side="right" align="start" sideOffset={15}>
                 <div className="flex flex-col gap-1">
-                  <span>{`Share your screen with Quill`}</span>
+                  <span>{`Share your screen with Quill and it will listen to the interview`}</span>
                   <span className="text-xs text-muted-foreground">
-                    {`Useful for telehealth visits - Quill will listen to the conversation`}
+                    {`Quill will only listen to the conversation and does not record your screen`}
                   </span>
                 </div>
                 <div className="flex flex-col mt-2">
@@ -234,7 +276,7 @@ export default function NewAudio({ case_id }: NewAudioProps) {
             <HoverCard openDelay={500}>
               <DropdownMenuItem onClick={handleUploadClick}>
                 <UploadCloud className="w-4 h-4 mr-2" />
-                <span>Upload Audio</span>
+                <span>Upload</span>
                 <DropdownMenuShortcut>
                   <HoverCardTrigger>
                     <CircleHelp size={14} />
@@ -243,7 +285,7 @@ export default function NewAudio({ case_id }: NewAudioProps) {
               </DropdownMenuItem>
               <HoverCardContent side="right" sideOffset={15}>
                 <div className="flex flex-col gap-1">
-                  <span>{`Upload audio for Quill to listen to`}</span>
+                  <span>{`Upload an audio file for Quill to listen to`}</span>
                 </div>
               </HoverCardContent>
             </HoverCard>

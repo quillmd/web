@@ -31,7 +31,6 @@ export async function getAccount(): Promise<Account> {
     next: { tags },
   });
   const data = await response.json();
-  console.log(data)
   return data as Account;
 }
 
