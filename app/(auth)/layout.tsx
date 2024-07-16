@@ -1,5 +1,6 @@
 import Image from "next/image";
 import NextLink from "next/link";
+import logotype from "../../public/logotype_light.webp";
 
 export default function AuthLayout({
   children,
@@ -12,11 +13,11 @@ export default function AuthLayout({
         <nav className="flex justify-between items-center w-full">
           <NextLink href={"/"}>
             <Image
-              src="/logo_text.svg"
+              src={logotype}
+              width={100}
+              height={100}
               alt="Logo"
-              width={70}
-              height={36}
-              className="logo cursor-pointer"
+              className="cursor-pointer logo object-contain"
             />
           </NextLink>
         </nav>

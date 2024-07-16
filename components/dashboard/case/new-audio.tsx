@@ -14,7 +14,9 @@ import {
 } from "@/components/ui/hover-card";
 import { useAudioRecorder } from "@/lib/useAudioRecorder";
 import { useAudioUpload } from "@/lib/useAudioUpload";
+import { cn } from "@/lib/utils";
 import {
+  AudioLines,
   CircleHelp,
   CircleX,
   LoaderCircle,
@@ -90,32 +92,36 @@ export default function NewAudio({ case_id }: NewAudioProps) {
         return {
           Icon:
             micStatus === "recording"
-              ? Square
+              ? AudioLines
               : micStatus === "uploading"
               ? LoaderCircle
               : CircleX,
           text:
             micStatus === "recording"
-              ? "Stop"
+              ? "Listening"
               : micStatus === "uploading"
               ? "Submitting"
               : "Error",
+          hoverText: micStatus === "recording" ? "Stop" : null,
+          HoverIcon: Square,
           onClick: micStatus === "recording" ? handleStopRecording : () => {},
         };
       case "share":
         return {
           Icon:
             shareStatus === "recording"
-              ? Square
+              ? AudioLines
               : shareStatus === "uploading"
               ? LoaderCircle
               : CircleX,
           text:
             shareStatus === "recording"
-              ? "Stop Sharing"
+              ? "Listening"
               : shareStatus === "uploading"
               ? "Submitting"
               : "Error",
+          hoverText: micStatus === "recording" ? "Stop Sharing" : null,
+          HoverIcon: Square,
           onClick: shareStatus === "recording" ? handleStopRecording : () => {},
         };
       case "upload":
@@ -132,6 +138,7 @@ export default function NewAudio({ case_id }: NewAudioProps) {
               : uploaderStatus === "error"
               ? "Error"
               : "Upload",
+          HoverIcon: Square,
           onClick: handleUploadClick,
         };
       default:
@@ -154,20 +161,52 @@ export default function NewAudio({ case_id }: NewAudioProps) {
       />
       {activeInput ? (
         <Button
-          className="w-36"
+          className="w-36 group"
           variant="outline"
           onClick={buttonContent?.onClick}
         >
           {buttonContent && (
             <>
               <buttonContent.Icon
+                className={cn(
+                  buttonContent.hoverText
+                    ? "inline group-hover:hidden"
+                    : "inline",
+                  buttonContent.text === "Listening"
+                    ? "animate-pulse"
+                    : buttonContent.text === "Submitting"
+                    ? "animate-spin"
+                    : ""
+                )}
+                size={14}
+              />
+              <buttonContent.HoverIcon
                 className={
-                  buttonContent.text === "Submitting" ? "animate-spin" : ""
+                  buttonContent.hoverText
+                    ? "hidden group-hover:inline"
+                    : "hidden"
                 }
                 size={14}
               />
               &nbsp;
-              {buttonContent.text}
+              <span
+                className={
+                  buttonContent.hoverText
+                    ? "inline group-hover:hidden"
+                    : "inline"
+                }
+              >
+                {buttonContent.text}
+              </span>
+              <span
+                className={
+                  buttonContent.hoverText
+                    ? "hidden group-hover:inline"
+                    : "hidden"
+                }
+              >
+                {buttonContent.hoverText}
+              </span>
             </>
           )}
         </Button>

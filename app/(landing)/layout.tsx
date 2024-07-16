@@ -2,6 +2,7 @@ import MobileMenu from "@/components/landing/mobile-menu";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import NextLink from "next/link";
+import logotype from "../../public/logotype_light.webp";
 
 export default function HomepageLayout({
   children,
@@ -9,17 +10,17 @@ export default function HomepageLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <body className="font-garamond">
+    <div className="font-garamond">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background p-2 px-16 mb-12">
         <nav className="flex justify-between items-center w-full">
           <NextLink href={"/"}>
             <Image
-              src="/logo_text.svg"
+              src={logotype}
+              width={100}
+              height={100}
               alt="Logo"
-              width={70}
-              height={36}
-              className="logo cursor-pointer"
+              className="cursor-pointer logo object-contain"
             />
           </NextLink>
 
@@ -106,6 +107,6 @@ export default function HomepageLayout({
         </div>
         <div className="w-1/4 hidden md:block" />
       </footer>
-    </body>
+    </div>
   );
 }

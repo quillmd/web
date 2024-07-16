@@ -26,7 +26,7 @@ export default async function Landing() {
               size={"lg"}
               asChild
             >
-              <NextLink href={"/signup"}>Try Quill</NextLink>
+              <NextLink href={"/login"}>Try Quill</NextLink>
             </Button>
           </div>
         </div>
@@ -64,14 +64,14 @@ export default async function Landing() {
             </p>
           </div>
         </div>
-        <div className="w-full flex justify-center col-span-3">
+        {/* <div className="w-full flex justify-center col-span-3">
           <Image
             src={"/multiple_inputs.png"}
             alt="Multiple Inputs"
             width={800}
             height={500}
           />
-        </div>
+        </div> */}
       </section>
       <section className="w-full md:text-center flex flex-col justify-center gap-8">
         <div className="max-w-6xl mx-auto flex flex-col gap-8">

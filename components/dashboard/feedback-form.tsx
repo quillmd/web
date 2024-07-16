@@ -17,10 +17,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { feedback } from "@/lib/contact";
 import { FeedbackSchema, feedbackSchema } from "@/lib/form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, LoaderCircle } from "lucide-react";
+import { Check, LoaderCircle, MessageCircleCode } from "lucide-react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
@@ -51,9 +57,20 @@ export default function FeedbackForm() {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="ghost">Feedback</Button>
-      </DialogTrigger>
+      <TooltipProvider delayDuration={250}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="icon">
+                <MessageCircleCode />
+              </Button>
+            </DialogTrigger>
+          </TooltipTrigger>
+          <TooltipContent>
+            <span>Give us feedback</span>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Give us feedback</DialogTitle>

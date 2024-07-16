@@ -20,7 +20,7 @@ const config = {
     },
     extend: {
       fontFamily: {
-        garamond: "var(--font-serif)",
+        garamond: "var(--font-garamond)",
         inter: "var(--font-sans)",
         ...fontFamily,
       },

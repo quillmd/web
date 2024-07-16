@@ -18,7 +18,7 @@ export default function Subscribe() {
       <DialogTrigger asChild>
         <Button variant="outline">Subscribe</Button>
       </DialogTrigger>
-      <DialogContent className="font-inter">
+      <DialogContent className="font-sans">
         <DialogHeader>
           <DialogTitle>Quill Unlimited</DialogTitle>
           <DialogDescription>

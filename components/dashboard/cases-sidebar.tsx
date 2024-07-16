@@ -9,6 +9,7 @@ import { Input } from "../ui/input";
 import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
 import NewCaseButton from "./home/new-case-button";
+import { useTheme } from "next-themes";
 
 interface CasesSidebarProps {
   initialCases: Case[];
@@ -99,9 +100,10 @@ function SidebarLabel({
   text: string;
   active: boolean;
 }) {
+  const {theme} = useTheme()
   if (active) {
     return (
-      <Button className="w-full justify-start p-2" variant={"outline"}>
+      <Button className="w-full justify-start p-2" variant={theme=="dark"?"outline":"default"}>
         <span className="font-semibold">{text}</span>
       </Button>
     );

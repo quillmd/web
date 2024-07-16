@@ -9,6 +9,10 @@ import { Case, getCases } from "@/lib/case";
 import { CaseFetchParams } from "@/lib/useCases";
 import Image from "next/image";
 import NextLink from "next/link";
+import ThemeToggle from "../../components/dashboard/theme-toggle";
+import logotypeDark from "../../public/logotype_dark.webp";
+import logotypeLight from "../../public/logotype_light.webp";
+import { ThemeProvider } from "../theme-provider";
 
 export const initialFetchParams = {
   days: 10,
@@ -35,42 +39,59 @@ export default async function DashboardLayout({
   return (
     <body>
       <CasesSocket />
-      <header className="sticky top-0 z-50 p-2 px-16 bg-background">
-        <nav className="flex items-center justify-between w-full">
-          <NextLink href={"/home"}>
-            <Image
-              src="/logo_text.svg"
-              alt="Logo"
-              width={70}
-              height={36}
-              className="cursor-pointer logo"
-            />
-          </NextLink>
-          <ul className="flex items-center gap-6">
-            <li className="block">
-              <FeedbackForm />
-            </li>
-            {!account.subscription_exempt && !account.subscription && (
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <header className="sticky top-0 z-50 p-2 px-16 bg-background">
+          <nav className="flex items-center justify-between w-full">
+            <NextLink href={"/home"}>
+              <Image
+                src={logotypeLight}
+                width={100}
+                height={100}
+                alt="Logo"
+                className="cursor-pointer logo dark:hidden object-contain"
+              />
+              <Image
+                src={logotypeDark}
+                width={100}
+                height={100}
+                alt="Logo"
+                className="cursor-pointer logo hidden dark:block object-contain"
+              />
+            </NextLink>
+            <ul className="flex items-center gap-4">
               <li className="block">
-                <Subscribe />
+                <FeedbackForm />
               </li>
-            )}
-            <li className="block">
-              <AccountButton />
-            </li>
-            <li className="block">
-              <LogoutButton />
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <div className="flex items-start max-w-screen-2xl mx-auto gap-2 p-2 max-h-[calc(100vh-18rem)]">
-        <CasesSidebar
-          initialCases={initialCases}
-          initialFetchParams={initialFetchParams}
-        />
-        <div className="flex-1">{children}</div>
-      </div>
+              {!account.subscription_exempt && !account.subscription && (
+                <li className="block">
+                  <Subscribe />
+                </li>
+              )}
+              <li className="block">
+                <AccountButton />
+              </li>
+              <li className="block">
+                <ThemeToggle />
+              </li>
+              <li className="block">
+                <LogoutButton />
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <div className="flex items-start max-w-screen-2xl mx-auto gap-2 p-2 max-h-[calc(100vh-18rem)]">
+          <CasesSidebar
+            initialCases={initialCases}
+            initialFetchParams={initialFetchParams}
+          />
+          <div className="flex-1">{children}</div>
+        </div>
+      </ThemeProvider>
     </body>
   );
 }

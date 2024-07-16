@@ -1,7 +1,7 @@
 import NewAudio from "@/components/dashboard/case/new-audio";
 import TextInput from "@/components/dashboard/case/text-input";
 import TranscriptCard from "@/components/dashboard/case/transcript-card";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Transcript } from "@/lib/transcript";
@@ -24,13 +24,13 @@ export default function Inputs({
   return (
     <Tabs defaultValue="audio">
       <Card className="relative flex flex-col h-[calc(100vh-10rem)]">
-        <CardHeader className="px-8 py-4">
-          <TabsList className="grid grid-cols-2">
+        <CardHeader className="px-8 py-3">
+          <TabsList className="grid grid-cols-2 h-11">
             <TabsTrigger value="audio">
-              <CardTitle className="text-xl">Audio Inputs</CardTitle>
+              <span className="text-xl font-semibold">Audio Inputs</span>
             </TabsTrigger>
             <TabsTrigger value="text">
-              <CardTitle className="text-xl">Text Input</CardTitle>
+              <span className="text-xl font-semibold">Text Input</span>
             </TabsTrigger>
           </TabsList>
         </CardHeader>
@@ -51,7 +51,7 @@ export default function Inputs({
           </div>
         </TabsContent>
         <TabsContent value="text">
-          <div className="mt-6">
+          <div className="mt-14">
             <TextInput
               case_id={case_id}
               transcript_id={textInput?.id}
