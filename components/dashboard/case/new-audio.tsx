@@ -25,11 +25,11 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-interface AddInputProps {
+interface NewAudioProps {
   case_id: string;
 }
 
-export default function AddInput({ case_id }: AddInputProps) {
+export default function NewAudio({ case_id }: NewAudioProps) {
   const {
     startRecording: startMicRecording,
     stopRecording: stopMicRecording,
@@ -170,7 +170,7 @@ export default function AddInput({ case_id }: AddInputProps) {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="w-36">
-              + Add Audio
+              + New Audio
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-40">

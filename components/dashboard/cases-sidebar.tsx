@@ -29,7 +29,7 @@ export default function CasesSidebar({
     return (
       <aside className="top-16 z-50 fixed hidden md:sticky md:block h-[calc(100vh-4.5rem)]">
         <ScrollArea className="h-full border rounded-lg p-2">
-          <div className="flex flex-col max-w-72">
+          <div className="flex flex-col w-72">
             <div className="flex flex-col gap-2 mb-2">
               <NewCaseButton variant={"ghost"} />
               <div className="relative w-11/12 mx-auto">

@@ -13,17 +13,17 @@ import { postNote } from "@/lib/note";
 import { Template } from "@/lib/template";
 import Nextlink from "next/link";
 
-interface CreateNotesProps {
+interface NewNoteProps {
   case_id: Case["id"];
   templates: Template[];
   disabled: boolean;
 }
 
-export default function CreateNotes({
+export default function NewNote({
   case_id,
   templates,
   disabled,
-}: CreateNotesProps) {
+}: NewNoteProps) {
   const createNote = (template_id: Template["id"]) => {
     postNote({ case_id, template_id }).then(() => {});
   };
@@ -37,7 +37,7 @@ export default function CreateNotes({
   return (
     <DropdownMenu>
       <Button className="w-36" variant={"outline"} disabled={disabled} asChild>
-        <DropdownMenuTrigger>{`+ Create Note`}</DropdownMenuTrigger>
+        <DropdownMenuTrigger>{`+ New Note`}</DropdownMenuTrigger>
       </Button>
       <DropdownMenuContent>
         {defaultTemplates.length > 0 && (

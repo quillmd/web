@@ -14,7 +14,7 @@ import { ChevronLeft, ChevronRight, TriangleAlert } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useMemo, useState } from "react";
 import CopyButton from "../copy-button";
-import CreateNotes from "./create-notes";
+import NewNote from "./new-note";
 import ScribingEffect from "./scribing-effect";
 
 interface NotesDisplayProps {
@@ -64,7 +64,7 @@ export default function Notes({
   return (
     <Card className="relative flex flex-col overflow-hidden h-[calc(100vh-10rem)]">
       <CardHeader className="px-8 py-6">
-        <div className="mx-auto flex gap-2">
+        <div className="mx-auto flex gap-2 items-center">
           <CardTitle className="text-xl">
             {notes.length > 0
               ? `${current_note.template?.title || "Generic Note"} ${
@@ -87,7 +87,7 @@ export default function Notes({
         </div>
       </CardHeader>
       <div className="flex flex-col h-full items-center gap-6">
-        <CreateNotes
+        <NewNote
           case_id={case_id}
           templates={templates}
           disabled={notesDisabled}
@@ -96,14 +96,11 @@ export default function Notes({
           <div className="relative w-full border-t">
             {current_note.status == "ready" && (
               <CopyButton
-                className="absolute z-30 h-8 -top-8 right-0 text-sm border-b-0 border-r-0 rounded-none rounded-ss-sm"
+                className="bg-card absolute z-30 h-8 -top-8 right-0 text-sm border-b-0 border-r-0 rounded-none rounded-ss-md"
                 text={current_note.content}
               />
             )}
-            <ScrollArea
-              type="auto"
-              className="bg-gray-100 p-4 h-[calc(100vh-21.5rem)]"
-            >
+            <ScrollArea type="auto" className="p-4 h-[calc(100vh-21.5rem)]">
               <pre className="font-mono text-sm whitespace-pre-wrap">
                 {current_note.status == "ready" ? (
                   current_note.content
@@ -145,7 +142,7 @@ export default function Notes({
             <p className="pt-5 text-muted-foreground">
               {notesDisabled
                 ? `At least one input is needed to create a note`
-                : `Click "Create Note" to have Quill scribe a note`}
+                : `Click "New Note" to have Quill scribe a note`}
             </p>
           </div>
         )}
