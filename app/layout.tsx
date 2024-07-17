@@ -2,8 +2,13 @@ import { cn } from "@/lib/utils";
 import localFont from "next/font/local";
 import "./globals.css";
 import {EB_Garamond} from "next/font/google"
+import type { Metadata } from "next";
 
-// const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+export const metadata: Metadata = {
+  title: "Quill",
+  description: "AI Medical Scribe",
+};
+
 const garamond = EB_Garamond({ subsets: ["latin"], variable: "--font-garamond" });
 const sansFont = localFont({
   src: "./IBMPlexSans-Medium.ttf",
