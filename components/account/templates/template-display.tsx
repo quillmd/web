@@ -113,7 +113,7 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Instructions - Tell Quill how you would like your note written
+                  Instructions - Tell MedSquire how you would like your note written
                 </FormLabel>
                 <FormControl>
                   <Textarea
@@ -140,7 +140,7 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Examples - Give Quill examples of notes that you like
+                  Examples - Give MedSquire examples of notes that you like
                 </FormLabel>
                 {field.value.map((example, i) => (
                   <FormField

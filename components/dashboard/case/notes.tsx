@@ -142,7 +142,7 @@ export default function Notes({
             <p className="pt-5 text-muted-foreground">
               {notesDisabled
                 ? `At least one input is needed to create a note`
-                : `Click "New Note" to have Quill scribe a note`}
+                : `Click "New Note" to have MedSquire scribe a note`}
             </p>
           </div>
         )}

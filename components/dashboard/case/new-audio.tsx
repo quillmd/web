@@ -231,7 +231,7 @@ export default function NewAudio({ case_id }: NewAudioProps) {
 
               <HoverCardContent side="right" sideOffset={15}>
                 <div className="flex flex-col gap-1">
-                  <span>{`Quill will listen to the interview using your PC's microphone`}</span>
+                  <span>{`MedSquire will listen to the interview using your PC's microphone`}</span>
                   <span className="text-xs text-muted-foreground">
                     {`Position microphone to hear all speakers. Click 'Allow' when prompted.`}
                   </span>
@@ -260,7 +260,7 @@ export default function NewAudio({ case_id }: NewAudioProps) {
 
               <HoverCardContent side="right" sideOffset={15}>
                 <div className="flex flex-col gap-1">
-                  <span>{`Tell Quill about the case using your PC's microphone`}</span>
+                  <span>{`Tell MedSquire about the case using your PC's microphone`}</span>
                   <span className="text-xs text-muted-foreground">
                     {`Click 'Allow' when prompted.`}
                   </span>
@@ -288,9 +288,9 @@ export default function NewAudio({ case_id }: NewAudioProps) {
               </DropdownMenuItem>
               <HoverCardContent side="right" align="start" sideOffset={15}>
                 <div className="flex flex-col gap-1">
-                  <span>{`Share your screen with Quill and it will listen to the interview`}</span>
+                  <span>{`Share your screen with MedSquire and it will listen to the interview`}</span>
                   <span className="text-xs text-muted-foreground">
-                    {`Quill will only listen to the conversation and does not record your screen`}
+                    {`MedSquire will only listen to the conversation and does not record your screen`}
                   </span>
                 </div>
                 <div className="flex flex-col mt-2">
@@ -324,7 +324,7 @@ export default function NewAudio({ case_id }: NewAudioProps) {
               </DropdownMenuItem>
               <HoverCardContent side="right" sideOffset={15}>
                 <div className="flex flex-col gap-1">
-                  <span>{`Upload an audio file for Quill to listen to`}</span>
+                  <span>{`Upload an audio file for MedSquire to listen to`}</span>
                 </div>
               </HoverCardContent>
             </HoverCard>

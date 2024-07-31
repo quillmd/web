@@ -69,7 +69,7 @@ function RequestForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <CardDescription className="text-lg text-foreground text-center font-garamond">
-          Access Quill using just your email
+          Access MedSquire using just your email
         </CardDescription>
         <FormField
           control={form.control}
@@ -231,7 +231,7 @@ export function LoginForm() {
       </CardContent>
       <CardFooter>
         <div className="text-center leading-tight max-w-sm">
-          <span className="text-xs text-muted-foreground">{`By continuing, you agree to Quill's `}</span>
+          <span className="text-xs text-muted-foreground">{`By continuing, you agree to MedSquire's `}</span>
           <NextLink
             href={"/terms"}
             className="text-xs text-muted-foreground underline"

@@ -18,10 +18,10 @@ export default function SubscriptionOverview({ exempt }: { exempt: boolean }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Thanks for your subscription to Quill</CardTitle>
+        <CardTitle>Thanks for your subscription to MedSquire</CardTitle>
         <CardDescription>
           Your subscription gives you access to unlimited notes and helps
-          support Quill.
+          support MedSquire.
         </CardDescription>
       </CardHeader>
       <CardContent>

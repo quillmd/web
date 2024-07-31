@@ -30,7 +30,7 @@ export default function HomepageLayout({
                     href={"/howquillworks"}
                     className="text-lg font-semibold hover:underline"
                   >
-                    How Quill Works
+                    How MedSquire Works
                   </NextLink>
                 </li>
                 <li>

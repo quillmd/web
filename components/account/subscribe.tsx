@@ -20,9 +20,9 @@ export default function Subscribe() {
       </DialogTrigger>
       <DialogContent className="font-sans">
         <DialogHeader>
-          <DialogTitle>Quill Unlimited</DialogTitle>
+          <DialogTitle>MedSquire Unlimited</DialogTitle>
           <DialogDescription>
-            Simple, fair pricing to access Quill and support our mission.
+            Simple, fair pricing to access MedSquire and support our mission.
           </DialogDescription>
         </DialogHeader>
         <div className="w-full grid grid-cols-3 items-center gap-4 py-1">
@@ -54,7 +54,7 @@ export default function Subscribe() {
           method="post"
         >
           <input type="hidden" name="authorization" value={authToken} />
-          <input type="hidden" name="plan_id" value={"quill-monthly"} />
+          <input type="hidden" name="plan_id" value={"medsquire-monthly"} />
           <Button className={"w-full"} size="lg">
             Subscribe
           </Button>

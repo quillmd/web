@@ -4,10 +4,10 @@ export default async function PrivacyPage() {
       <main className="flex flex-col items-center justify-start pt-24 px-6 md:px-0">
         <div className="max-w-3xl">
           <h1 className="text-4xl text-center font-bold mb-8">
-            {`How Quill protects your privacy`}
+            {`How MedSquire protects your privacy`}
           </h1>
           <p className="text-xl mb-12">
-            {`Quill does NOT retain recordings of conversations between doctors and patients. Quill
+            {`MedSquire does NOT retain recordings of conversations between doctors and patients. MedSquire
 creates notes for physicians’ eyes only by compiling key data without collecting the
 entirety of the doctor/patient interaction.`}
           </p>
@@ -34,27 +34,27 @@ data we collect.`}
             {`
             Privacy Policy
             Effective June 6, 2024
-            Quill was created to help people get structured documentation from health conversations. Quill
-            provides services through the Quill Service (“Quill App”, “App”, “the Quill Services,” “Quill” or
-            “the Services”). Our goal with this Privacy Policy is to inform you about how Quill works by
+            MedSquire was created to help people get structured documentation from health conversations. MedSquire
+            provides services through the MedSquire Service (“MedSquire App”, “App”, “the MedSquire Services,” “MedSquire” or
+            “the Services”). Our goal with this Privacy Policy is to inform you about how MedSquire works by
             explaining the data you provide, data we collect, how we use it to provide the Services and
             when it is shared.
-            What personal data does Quill collect when used?
+            What personal data does MedSquire collect when used?
             Account Information. We may collect contact information such as your phone number, email,
             address, or single sign-on login information to create an account and allow you to access it.
-            Health Information. When you utilize Quill for a doctor/patient conversation, we process the
+            Health Information. When you utilize MedSquire for a doctor/patient conversation, we process the
             audio into a readable note that we store. We use the audio to create a recording summary
             tailored to you or your health professional which may include content from the audio.
             Activity. You can interact with your recordings in several ways in the Services to help you with
             organization. For example, you can add a title, the name of the patient you spoke with, use a
             suggested tag, edit a medical mention to improve accuracy, or highlight a particular moment for
             easy access. We store Your Activity in association with your account.
-            Analytics and Passively Collected Data. We collect data about how you use Quill through pixel
+            Analytics and Passively Collected Data. We collect data about how you use MedSquire through pixel
             tags and cookies including your IP address, mobile device ID, click or tap history, type of OS or
             browser and other actions on the Services. This information is collected from your phone or web
             browser as you interact with web and mobile apps and helps us improve your experience with
             the Services.
-            Feedback and Support. We love to hear from you! Whether you have an idea to make Quill
+            Feedback and Support. We love to hear from you! Whether you have an idea to make MedSquire
             better or need a little help, we store the emails you send us and use them to help us prioritize
             how to improve our product.
             De-identified Data. De-identified Data is non-personal information that is aggregated or
@@ -64,19 +64,19 @@ data we collect.`}
             may disclose such information publicly and to third parties, for example, in public reports about
             health, to partners under agreement with us, or in benchmarking information we provide to the
             medical community.
-            How does Quill use personal data?
+            How does MedSquire use personal data?
             We process personal data to provide the Service to you:
             We use machine learning to process your audio and create a note of relevant medical mentions
             that we provide to you.
             We use your name, email address, and mobile phone number to manage your account, contact
-            you about your use of Quill, respond to your requests, and inform you of new features or
+            you about your use of MedSquire, respond to your requests, and inform you of new features or
             products.
-            We use Analytics and Passively Collected Data to understand how you use Quill, to test
-            features and tools, ensure Quill is working properly, and protect it from bad actors.
-            We use personal data to improve Quill. For example: to troubleshoot and protect against errors;
+            We use Analytics and Passively Collected Data to understand how you use MedSquire, to test
+            features and tools, ensure MedSquire is working properly, and protect it from bad actors.
+            We use personal data to improve MedSquire. For example: to troubleshoot and protect against errors;
             perform data analysis and testing; conduct research and surveys; develop new products or
             tools; and refine our algorithms and machine learning applications.
-            We use your email address to send you information about Quill or our Partners. You can opt-out
+            We use your email address to send you information about MedSquire or our Partners. You can opt-out
             from receiving messages at any time by clicking “unsubscribe” in any email you receive.
             We use your contact information and information about how you use the Services to send
             promotional communications that may be of specific interest to you. These communications are
@@ -88,7 +88,7 @@ data we collect.`}
             and useful to you. To that end, we use collective learnings about how people use our Services
             and feedback provided directly to us to troubleshoot and to identify trends, usage, activity
             patterns and areas for integration and improvement of the Services.
-            We use personal data to promote the safety and security of Quill, our users, and other parties.
+            We use personal data to promote the safety and security of MedSquire, our users, and other parties.
             For example, to protect against fraud and abuse, respond to a legal request or claim, conduct
             audits, and enforce our terms and other policies.
             When is personal data shared?
@@ -96,14 +96,14 @@ data we collect.`}
             law.
             Here are the circumstances under which your personal data may be shared:
             When you consent, agree or direct us to share it.
-            The Quill Service includes links and interactions with third parties that aren’t controlled by Quill.
-            We partner with these organizations because they provide benefits that we think makes the Quill
+            The MedSquire Service includes links and interactions with third parties that aren’t controlled by MedSquire.
+            We partner with these organizations because they provide benefits that we think makes the MedSquire
             experience more beneficial to you. We do not share personal data with partners unless you
             direct us to do so and we include a link to the partner’s privacy policy in the Services so you will
             know how your data will be used by that partner.
             Please note that once data is shared with a third party, it is covered by any policies that apply to
             that third party and you will have to contact them directly to access or delete your personal data.
-            To provide the Quill Services. We transfer data to service providers and other partners who
+            To provide the MedSquire Services. We transfer data to service providers and other partners who
             process it for us, based on our instructions and in compliance with this Privacy Policy and other
             confidentiality and security measures enforced by legal contract. This processing can include
             services such as customer support, cloud storage, marketing, data analysis, research, and
@@ -125,7 +125,7 @@ data we collect.`}
             To Protect Us and Others. We may disclose the information we collect where we believe it is
             necessary to investigate, prevent, or take action regarding illegal activities, suspected fraud,
             situations involving potential threats to the safety of any person, violations of our Terms of Use
-            or this Policy, or as evidence in litigation in which Quill is involved.
+            or this Policy, or as evidence in litigation in which MedSquire is involved.
             Business Transfers. If we are acquired by or merged with another company, if substantially all of
             our assets are transferred to another company, or as part of a bankruptcy proceeding or
             reorganization, we will give affected users notice before transferring any personal data to a new
@@ -146,7 +146,7 @@ data we collect.`}
             cloud.
             We store information associated with your account until your account is deleted. You can delete
             your account at any time from the settings menu in the Services or by contacting us at
-            help@Quill.com. Please note that it may take 24 hours to delete your account information, and
+            help@MedSquire.com. Please note that it may take 24 hours to delete your account information, and
             we may preserve it for legal reasons or to prevent harm, including as described in the “When Is
             My Personal Data Shared?” section.
             Your California privacy rights
@@ -158,17 +158,17 @@ data we collect.`}
             you exercise these rights;
             More information regarding the:
             sources from which we collect personal information can be found above in the
-            section titled “What Personal Data Does Quill Collect About Me?”; business and
+            section titled “What Personal Data Does MedSquire Collect About Me?”; business and
             commercial purposes for which we collect your personal information can be
             found above in the section titled “How We Use Your Information”; categories of
             recipients with whom personal information is shared or sold can be found in the
             section above titled “When Is My Personal Data Shared?”
-            We do not sell any personal information collected from your use of the Quill Service.
+            We do not sell any personal information collected from your use of the MedSquire Service.
             To make a request under the California Consumer Privacy Act, or for any questions or concerns
-            about our Privacy Policy or practices, please contact us at help@Quill.com.
+            about our Privacy Policy or practices, please contact us at help@MedSquire.com.
             Changes to this policy
             We will notify you before we make material changes to this policy and give you an opportunity to
-            review the revised policy before deciding to continue using Quill. You can review previous
+            review the revised policy before deciding to continue using MedSquire. You can review previous
             versions of the policy in our Archive of Previous Privacy Policies.
             `}
           </p>

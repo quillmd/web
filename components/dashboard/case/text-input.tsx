@@ -74,7 +74,7 @@ export default function TextInput({
               <FormControl>
                 <Textarea
                   className="flex-grow min-h-[calc(100vh-21rem)] resize-none"
-                  placeholder="Enter information for Quill to use when creating notes"
+                  placeholder="Enter information for MedSquire to use when creating notes"
                   {...field}
                   onChange={(e) => {
                     field.onChange(e);

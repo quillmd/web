@@ -75,7 +75,7 @@ export default function FeedbackForm() {
         <DialogHeader>
           <DialogTitle>Give us feedback</DialogTitle>
           <DialogDescription>
-            {`We appreciate your thoughts about Quill! If you've encountered a problem, please include details like what you were trying to do, and what happened. We'll respond by email.`}
+            {`We appreciate your thoughts about MedSquire! If you've encountered a problem, please include details like what you were trying to do, and what happened. We'll respond by email.`}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

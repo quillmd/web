@@ -5,7 +5,7 @@ import {EB_Garamond} from "next/font/google"
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Quill",
+  title: "MedSquire",
   description: "AI Medical Scribe",
 };
 

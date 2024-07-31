@@ -21,7 +21,7 @@ export default function MobileMenu() {
           <NavigationMenuContent>
             {/* <NextLink href={"/howquillworks"}>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                <span className="text-lg font-semibold">How Quill Works</span>
+                <span className="text-lg font-semibold">How MedSquire Works</span>
               </NavigationMenuLink>
             </NextLink>
             <NextLink href={"/testimonials"}>
