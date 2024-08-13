@@ -42,7 +42,7 @@ const GlobalError: React.FC<GlobalErrorProps> = ({ error, reset }) => {
       </div>
 
       <div className="logo flex-shrink-0">
-        <Image src="/logo.svg" alt="Logo" width={400} height={400} />
+        <Image src="/logotype_green.webp" alt="Logo" width={400} height={400} />
       </div>
     </div>
   );

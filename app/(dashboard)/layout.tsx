@@ -10,8 +10,8 @@ import { CaseFetchParams } from "@/lib/useCases";
 import Image from "next/image";
 import NextLink from "next/link";
 import ThemeToggle from "../../components/dashboard/theme-toggle";
-import logotypeDark from "../../public/logotype_dark.webp";
-import logotypeLight from "../../public/logotype_light.webp";
+import logotypeLight from "../../public/logotype_green.webp";
+import logotypeDark from "../../public/logotype_white.webp";
 import { ThemeProvider } from "../theme-provider";
 
 export const initialFetchParams = {
