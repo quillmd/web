@@ -1,18 +1,18 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  TemplateInputFormSchema,
-  templateInputFormSchema,
+    TemplateInputFormSchema,
+    templateInputFormSchema,
 } from "@/lib/form-schema";
 import { Template, postTemplate, updateTemplate } from "@/lib/template";
 import { useDebounce } from "@/lib/useDebounce";
@@ -113,7 +113,7 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Instructions - Tell Quill how you would like your note written
+                  Instructions - Tell Squire how you would like your note written
                 </FormLabel>
                 <FormControl>
                   <Textarea
@@ -140,7 +140,7 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Examples - Give Quill examples of notes that you like
+                  Examples - Give Squire examples of notes that you like
                 </FormLabel>
                 {field.value.map((example, i) => (
                   <FormField

@@ -1,10 +1,10 @@
 "use client";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { Case } from "@/lib/case";
@@ -74,7 +74,7 @@ export default function TextInput({
               <FormControl>
                 <Textarea
                   className="flex-grow min-h-[calc(100vh-21rem)] resize-none"
-                  placeholder="Enter information for Quill to use when creating notes"
+                  placeholder="Enter information for Squire to use when creating notes"
                   {...field}
                   onChange={(e) => {
                     field.onChange(e);

@@ -8,12 +8,12 @@ export default async function Landing() {
     <main className="px-8 flex flex-col gap-48">
       <section className="w-full h-svh flex flex-col-reverse items-center md:flex-row justify-center gap-4 pb-24">
         <div className="flex flex-col gap-2 md:gap-6 max-w-2xl text-center md:text-left">
-          <h1 className="text-3xl md:text-6xl font-bold">Introducing Quill:</h1>
+          <h1 className="text-3xl md:text-6xl font-bold">Introducing Squire:</h1>
           <h1 className="text-3xl md:text-6xl font-bold">
             Effortless Documentation for the Modern Physician
           </h1>
           <span className="text-xl md:text-3xl">
-            Quill is an AI scribe that listens to doctor-patient interactions
+            Squire is an AI scribe that listens to doctor-patient interactions
             and writes accurate, complete notes. Replace the computer and
             keyboard with better conversations and more time.
           </span>
@@ -26,7 +26,7 @@ export default async function Landing() {
               size={"lg"}
               asChild
             >
-              <NextLink href={"/login"}>Try Quill</NextLink>
+              <NextLink href={"/login"}>Try Squire</NextLink>
             </Button>
           </div>
         </div>
@@ -36,21 +36,21 @@ export default async function Landing() {
       </section>
       <section className="w-full flex flex-col justify-center gap-8">
         <h2 className="text-2xl md:text-4xl font-bold text-center">
-          How Quill Works
+          How Squire Works
         </h2>
         <div className="flex flex-col md:grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           <div>
             <h3 className="text-xl md:text-3xl font-bold mb-2">1. Consent</h3>
             <p className="text-base md:text-2xl">
-              Quill is introduced and everyone in the room agrees to let it
-              scribe. Like a human scribe, Quill listens and doesn&apos;t save
+              Squire is introduced and everyone in the room agrees to let it
+              scribe. Like a human scribe, Squire listens and doesn&apos;t save
               audio.
             </p>
           </div>
           <div>
             <h3 className="text-xl md:text-3xl font-bold mb-2">2. Listen</h3>
             <p className="text-base md:text-2xl">
-              Quill listens to the conversation and writes the draft based on
+              Squire listens to the conversation and writes the draft based on
               the selected template. No changes need to be made to your
               interviewing style.
             </p>
@@ -58,7 +58,7 @@ export default async function Landing() {
           <div>
             <h3 className="text-xl md:text-3xl font-bold mb-2">3. Verify</h3>
             <p className="text-base md:text-2xl">
-              The scribed note draft is available on the Quill website. Copy and
+              The scribed note draft is available on the Squire website. Copy and
               paste from the website to your EMR, review and edit where
               appropriate.
             </p>
@@ -76,7 +76,7 @@ export default async function Landing() {
       <section className="w-full md:text-center flex flex-col justify-center gap-8">
         <div className="max-w-6xl mx-auto flex flex-col gap-8">
           <h2 className="text-2xl md:text-4xl font-bold text-center">
-            Why Quill?
+            Why Squire?
           </h2>
           <div className="w-full">
             <table className="divide-y divide-gray-200 mx-auto">
@@ -138,7 +138,7 @@ export default async function Landing() {
         <div className="space-y-2 max-w-md">
           <h2 className="text-2xl md:text-4xl font-bold">Drop us a line</h2>
           <p className="text-base md:text-2xl">
-            {`Have a new feature idea or want to know something about the project? Know someone who could benefit from Quill? Tell us.`}
+            {`Have a new feature idea or want to know something about the project? Know someone who could benefit from Squire? Tell us.`}
           </p>
         </div>
         <div>

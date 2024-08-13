@@ -29,7 +29,7 @@ export default function TestimonialsComponent() {
       name: "Sami",
       rating: 5,
       date: "Oct 6, 2023",
-      text: "I have been using Quill for about a month now, totally changed my everyday experience. I am no longer bothered by charting, having more time to spend with patients, seeing more patients, and going home on time. I highly recommend this app. It gives me peace of mind. It literally resolved my carpet tunnel cause apparently that's how much I was typing in the past.",
+      text: "I have been using Squire for about a month now, totally changed my everyday experience. I am no longer bothered by charting, having more time to spend with patients, seeing more patients, and going home on time. I highly recommend this app. It gives me peace of mind. It literally resolved my carpet tunnel cause apparently that's how much I was typing in the past.",
     },
     // Add more testimonials...
   ];

@@ -2,9 +2,9 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
+    HoverCard,
+    HoverCardContent,
+    HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Note } from "@/lib/note";
@@ -142,7 +142,7 @@ export default function Notes({
             <p className="pt-5 text-muted-foreground">
               {notesDisabled
                 ? `At least one input is needed to create a note`
-                : `Click "New Note" to have Quill scribe a note`}
+                : `Click "New Note" to have Squire scribe a note`}
             </p>
           </div>
         )}

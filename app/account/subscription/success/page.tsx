@@ -7,7 +7,7 @@ export default async function SubscriptionSuccessPage() {
         <h3 className="text-lg font-medium">Success!</h3>
       </div>
       <Separator />
-      <h3 className="text-lg font-medium">Thank you for supporting Quill!</h3>
+      <h3 className="text-lg font-medium">Thank you for supporting Squire!</h3>
     </div>
   );
 }

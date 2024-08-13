@@ -7,7 +7,7 @@ export default function Pricing() {
         <div className="text-center max-w-xl">
           <h1 className="text-6xl font-bold mb-8">Pricing</h1>
           <p className="text-xl mb-12">
-            At Quill, we believe in price transparency. Our mission is to
+            At Squire, we believe in price transparency. Our mission is to
             deliver the best product at the most affordable rate. If you find
             lower prices from any of our competitors, please bring them to our
             attention, and we will gladly match or beat their rate.
@@ -58,7 +58,7 @@ export default function Pricing() {
           </div>
         </div>
         <p className="mt-12 text-lg text-center">
-          We are dedicated to making Quill accessible to all aspiring
+          We are dedicated to making Squire accessible to all aspiring
           clinicians. If you are a student or trainee, please{" "}
           <a href="/contactus" className="text-blue-500 hover:underline">
             contact us

@@ -1,32 +1,32 @@
 "use client";
 
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
 } from "@/components/ui/card";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
-  InputOTPSlot,
+    InputOTP,
+    InputOTPGroup,
+    InputOTPSeparator,
+    InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { requestAuth, validateAuth } from "@/lib/auth";
 import {
-  AuthRequestSchema,
-  AuthValidateSchema,
-  authRequestSchema,
-  authValidateSchema,
+    AuthRequestSchema,
+    AuthValidateSchema,
+    authRequestSchema,
+    authValidateSchema,
 } from "@/lib/form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, LoaderCircle } from "lucide-react";
@@ -69,7 +69,7 @@ function RequestForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <CardDescription className="text-lg text-foreground text-center font-garamond">
-          Access Quill using just your email
+          Access Squire using just your email
         </CardDescription>
         <FormField
           control={form.control}
@@ -231,7 +231,7 @@ export function LoginForm() {
       </CardContent>
       <CardFooter>
         <div className="text-center leading-tight max-w-sm">
-          <span className="text-xs text-muted-foreground">{`By continuing, you agree to Quill's `}</span>
+          <span className="text-xs text-muted-foreground">{`By continuing, you agree to Squire's `}</span>
           <NextLink
             href={"/terms"}
             className="text-xs text-muted-foreground underline"

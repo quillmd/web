@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default function ScribingEffect({
-  text = "Quill is scribing this note...",
+  text = "Squire is scribing this note...",
   speed = 150,
 }) {
   const [displayText, setDisplayText] = useState("");

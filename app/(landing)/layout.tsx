@@ -27,10 +27,10 @@ export default function HomepageLayout({
           <ul className="hidden md:flex md:items-center md:gap-6">
             {/* <li>
                   <NextLink
-                    href={"/howquillworks"}
+                    href={"/howsquireworks"}
                     className="text-lg font-semibold hover:underline"
                   >
-                    How Quill Works
+                    How Squire Works
                   </NextLink>
                 </li>
                 <li>

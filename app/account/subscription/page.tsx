@@ -10,10 +10,10 @@ export default async function SubscriptionPage() {
         <h3 className="text-lg font-medium">Subscription</h3>
         <span className="text-sm text-muted-foreground">
           {account.subscription_exempt
-            ? "Quill Unlimited activated"
+            ? "Squire Unlimited activated"
             : account.subscription
-            ? `Manage your Quill Unlimited subscription`
-            : `Subscribe to Quill Unlimited`}
+            ? `Manage your Squire Unlimited subscription`
+            : `Subscribe to Squire Unlimited`}
         </span>
       </div>
       <Separator />

@@ -10,7 +10,7 @@ export default async function LoginPage() {
         <span className="text-3xl md:text-6xl font-garamond">with</span>
         &nbsp;
         <span className="text-3xl md:text-6xl font-bold font-garamond">
-          Quill
+          Squire
         </span>
       </div>
       <LoginForm />
