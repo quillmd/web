@@ -2,12 +2,14 @@ import LocalDateTime from "@/components/local-datetime";
 import { Badge } from "@/components/ui/badge";
 import { Transcript } from "@/lib/transcript";
 import { Check, LoaderCircle, X } from "lucide-react";
+import TranscriptDeleteButton from "./transcript-delete-button";
 
 interface CaseCardProps extends React.HTMLAttributes<HTMLElement> {
+  case_id: string;
   transcript: Transcript;
 }
 
-export default function TranscriptCard({ transcript }: CaseCardProps) {
+export default function TranscriptCard({ case_id, transcript }: CaseCardProps) {
   return (
     <div className="flex items-center justify-between p-4">
       <div className="flex flex-col justify-center w-full">
@@ -36,17 +38,25 @@ export default function TranscriptCard({ transcript }: CaseCardProps) {
             )}
           </Badge>
         </div>
-        <LocalDateTime
-          className="text-sm text-muted-foreground"
-          isoString={transcript.inserted_at}
-        />
-        <span className="text-sm text-muted-foreground">
-          {`${transcript.status == "error" ? `Error:` : `Description:`} ${
-            transcript.status == "ready" || transcript.status == "error"
-              ? transcript.description
-              : "New input queued for processing"
-          }`}
-        </span>
+        <div className="flex justify-between">
+          <div className="flex flex-col">
+            <LocalDateTime
+              className="text-sm text-muted-foreground"
+              isoString={transcript.inserted_at}
+            />
+            <span className="text-sm text-muted-foreground">
+              {`${transcript.status == "error" ? `Error:` : `Description:`} ${
+                transcript.status == "ready" || transcript.status == "error"
+                  ? transcript.description
+                  : "New input queued for processing"
+              }`}
+            </span>
+          </div>
+          <TranscriptDeleteButton
+            case_id={case_id}
+            transcript_id={transcript.id}
+          />
+        </div>
       </div>
     </div>
   );

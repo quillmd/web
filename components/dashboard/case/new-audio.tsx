@@ -1,36 +1,39 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuShortcut,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-    HoverCard,
-    HoverCardContent,
-    HoverCardTrigger,
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { useAudioRecorder } from "@/lib/useAudioRecorder";
 import { useAudioUpload } from "@/lib/useAudioUpload";
 import { cn } from "@/lib/utils";
 import {
-    AudioLines,
-    CircleHelp,
-    CircleX,
-    LoaderCircle,
-    MessagesSquare,
-    Mic,
-    ScreenShare,
-    Square,
-    UploadCloud,
+  AudioLines,
+  CircleHelp,
+  CircleX,
+  LoaderCircle,
+  MessagesSquare,
+  Mic,
+  ScreenShare,
+  Square,
+  UploadCloud,
 } from "lucide-react";
 import Image from "next/image";
 
 interface NewAudioProps {
   case_id: string;
 }
+const Overlay = () => (
+  <div className="fixed inset-0 bg-black bg-opacity-50 z-50" />
+);
 
 export default function NewAudio({ case_id }: NewAudioProps) {
   const {
@@ -54,10 +57,10 @@ export default function NewAudio({ case_id }: NewAudioProps) {
   const { uploaderStatus, handleUpload } = useAudioUpload({ case_id });
 
   const activeInput =
-    micStatus != "idle"
-      ? "microphone"
-      : shareStatus != "idle"
+    shareStatus != "idle"
       ? "share"
+      : micStatus != "idle"
+      ? "microphone"
       : uploaderStatus != "idle"
       ? "upload"
       : null;
@@ -120,7 +123,7 @@ export default function NewAudio({ case_id }: NewAudioProps) {
               : shareStatus === "uploading"
               ? "Submitting"
               : "Error",
-          hoverText: micStatus === "recording" ? "Stop Sharing" : null,
+          hoverText: shareStatus === "recording" ? "Stop Sharing" : null,
           HoverIcon: Square,
           onClick: shareStatus === "recording" ? handleStopRecording : () => {},
         };
@@ -150,6 +153,7 @@ export default function NewAudio({ case_id }: NewAudioProps) {
 
   return (
     <>
+      {activeInput && <Overlay />}
       <input
         id="file-upload"
         type="file"
@@ -161,7 +165,7 @@ export default function NewAudio({ case_id }: NewAudioProps) {
       />
       {activeInput ? (
         <Button
-          className="w-36 group"
+          className="w-36 group z-50"
           variant="outline"
           onClick={buttonContent?.onClick}
         >

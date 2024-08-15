@@ -2,9 +2,9 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-    HoverCard,
-    HoverCardContent,
-    HoverCardTrigger,
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Note } from "@/lib/note";
@@ -15,6 +15,7 @@ import { DateTime } from "luxon";
 import { useEffect, useMemo, useState } from "react";
 import CopyButton from "../copy-button";
 import NewNote from "./new-note";
+import NoteDeleteButton from "./note-delete-button";
 import ScribingEffect from "./scribing-effect";
 
 interface NotesDisplayProps {
@@ -56,15 +57,30 @@ export default function Notes({
     return transcripts
       .filter((transcript) => transcript.status == "ready")
       .some((transcript) => {
-        const transcriptDateTime = DateTime.fromISO(transcript.inserted_at);
+        console.log(transcript)
+        const transcriptDateTime = DateTime.fromISO(transcript.updated_at);
         return transcriptDateTime > noteDateTime;
       });
   }, [current_note, transcripts]);
 
+  const extractNoteContent = (content: string) => {
+    const startTag = "(start of note)";
+    const endTag = "(end of note)";
+    const startIndex = content.indexOf(startTag);
+    const endIndex = content.lastIndexOf(endTag);
+
+    if (startIndex !== -1 && endIndex !== -1 && startIndex < endIndex) {
+      return content.slice(startIndex + startTag.length, endIndex).trim();
+    }
+    return content;
+  };
+
+  const noteContent = current_note?.content ? extractNoteContent(current_note.content) : '';
+
   return (
-    <Card className="relative flex flex-col overflow-hidden h-[calc(100vh-10rem)]">
+    <Card className="relative flex flex-col overflow-hidden h-[calc(100vh-8rem)]">
       <CardHeader className="px-8 py-6">
-        <div className="mx-auto flex gap-2 items-center">
+        <div className="mx-auto flex gap-2 items-center justify-center">
           <CardTitle className="text-xl">
             {notes.length > 0
               ? `${current_note.template?.title || "Generic Note"} ${
@@ -84,6 +100,11 @@ export default function Notes({
               </HoverCardContent>
             </HoverCard>
           )}
+          {current_note && (
+            <div className="absolute right-0 top-0">
+              <NoteDeleteButton case_id={case_id} note_id={current_note.id} />
+            </div>
+          )}
         </div>
       </CardHeader>
       <div className="flex flex-col h-full items-center gap-6">
@@ -97,15 +118,17 @@ export default function Notes({
             {current_note.status == "ready" && (
               <CopyButton
                 className="bg-card absolute z-30 h-8 -top-8 right-0 text-sm border-b-0 border-r-0 rounded-none rounded-ss-md"
-                text={current_note.content}
+                text={noteContent}
               />
             )}
-            <ScrollArea type="auto" className="p-4 h-[calc(100vh-21.5rem)]">
+            <ScrollArea type="auto" className="p-4 h-[calc(100vh-19.5rem)]">
               <pre className="font-mono text-sm whitespace-pre-wrap">
                 {current_note.status == "ready" ? (
-                  current_note.content
+                  noteContent
                 ) : current_note.status == "processing" ? (
                   <ScribingEffect />
+                ) : current_note.status == "editing" ? (
+                  <ScribingEffect text="Squire is editing this note..."/>
                 ) : (
                   "Error processing note"
                 )}

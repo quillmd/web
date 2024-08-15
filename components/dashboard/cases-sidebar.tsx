@@ -2,14 +2,15 @@
 import { Case } from "@/lib/case";
 import { CaseFetchParams, useCases } from "@/lib/useCases";
 import { Search } from "lucide-react";
+import { useTheme } from "next-themes";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
+import CaseDeleteButton from "./case/case-delete-button";
 import NewCaseButton from "./home/new-case-button";
-import { useTheme } from "next-themes";
 
 interface CasesSidebarProps {
   initialCases: Case[];
@@ -58,6 +59,9 @@ export default function CasesSidebar({
                           .match(regexCasesPathname)?.[0]
                           .replace("/cases/", "") == `${current_case.id}`
                       }
+                      next_case_id={
+                        casesForDate.find((c) => c.id != current_case.id)?.id
+                      }
                     />
                   ))}
                 </div>
@@ -95,24 +99,33 @@ function SidebarLabel({
   id,
   text,
   active,
+  next_case_id,
 }: {
   id: string;
   text: string;
   active: boolean;
+  next_case_id?: string;
 }) {
-  const {theme} = useTheme()
+  const { theme } = useTheme();
   if (active) {
     return (
-      <Button className="w-full justify-start p-2" variant={theme=="dark"?"outline":"default"}>
-        <span className="font-semibold">{text}</span>
+      <Button
+        className="w-full justify-between p-2"
+        // variant={theme == "dark" ? "outline" : "default"}
+      >
+        <NextLink className="w-full justify-start flex" href={`/cases/${id}`}>
+          <span className="font-semibold">{text}</span>
+        </NextLink>
+        <CaseDeleteButton case_id={id} next_case_id={next_case_id} />
       </Button>
     );
   }
   return (
-    <NextLink href={`/cases/${id}`}>
-      <Button className="w-full justify-start p-2" variant={"ghost"}>
+    <Button className="w-full justify-between p-2" variant={"ghost"}>
+      <NextLink className="w-full justify-start flex" href={`/cases/${id}`}>
         <span>{text}</span>
-      </Button>
-    </NextLink>
+      </NextLink>
+      <CaseDeleteButton case_id={id} next_case_id={next_case_id} />
+    </Button>
   );
 }

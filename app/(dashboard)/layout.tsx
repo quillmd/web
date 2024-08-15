@@ -50,15 +50,15 @@ export default async function DashboardLayout({
             <NextLink href={"/home"}>
               <Image
                 src={logotypeLight}
-                width={100}
-                height={100}
+                width={120}
+                height={120}
                 alt="Logo"
                 className="cursor-pointer logo dark:hidden object-contain"
               />
               <Image
                 src={logotypeDark}
-                width={100}
-                height={100}
+                width={120}
+                height={120}
                 alt="Logo"
                 className="cursor-pointer logo hidden dark:block object-contain"
               />
