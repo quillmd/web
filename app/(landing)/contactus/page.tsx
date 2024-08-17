@@ -7,7 +7,7 @@ export default function Contact() {
         <div className="space-y-2 max-w-md">
           <h2 className="text-2xl md:text-4xl font-bold">Drop us a line</h2>
           <p className="text-base md:text-2xl">
-            {`Have a new feature idea or want to know something about the project? Know someone who could benefit from Quill? Tell us.`}
+            {`Have a new feature idea or want to know something about the project? Know someone who could benefit from Squire? Tell us.`}
           </p>
         </div>
         <div>

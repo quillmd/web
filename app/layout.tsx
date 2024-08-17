@@ -1,11 +1,11 @@
 import { cn } from "@/lib/utils";
+import type { Metadata } from "next";
+import { EB_Garamond } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import {EB_Garamond} from "next/font/google"
-import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Quill",
+  title: "Squire",
   description: "AI Medical Scribe",
 };
 

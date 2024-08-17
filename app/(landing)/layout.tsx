@@ -2,7 +2,7 @@ import MobileMenu from "@/components/landing/mobile-menu";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import NextLink from "next/link";
-import logotype from "../../public/logotype_light.webp";
+import logotype from "../../public/logotype_green.webp";
 
 export default function HomepageLayout({
   children,
@@ -27,10 +27,10 @@ export default function HomepageLayout({
           <ul className="hidden md:flex md:items-center md:gap-6">
             {/* <li>
                   <NextLink
-                    href={"/howquillworks"}
+                    href={"/howsquireworks"}
                     className="text-lg font-semibold hover:underline"
                   >
-                    How Quill Works
+                    How Squire Works
                   </NextLink>
                 </li>
                 <li>

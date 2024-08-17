@@ -1,12 +1,12 @@
 "use client";
 import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
+    NavigationMenu,
+    NavigationMenuContent,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    NavigationMenuTrigger,
+    navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import NextLink from "next/link";
 
@@ -19,9 +19,9 @@ export default function MobileMenu() {
             <span className="text-lg font-semibold">Learn More</span>
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            {/* <NextLink href={"/howquillworks"}>
+            {/* <NextLink href={"/howsquireworks"}>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                <span className="text-lg font-semibold">How Quill Works</span>
+                <span className="text-lg font-semibold">How Squire Works</span>
               </NavigationMenuLink>
             </NextLink>
             <NextLink href={"/testimonials"}>

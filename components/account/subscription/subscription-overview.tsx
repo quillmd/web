@@ -1,12 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
 import { cancelSubscription } from "@/lib/account";
 import { Check } from "lucide-react";
@@ -18,10 +18,10 @@ export default function SubscriptionOverview({ exempt }: { exempt: boolean }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Thanks for your subscription to Quill</CardTitle>
+        <CardTitle>Thanks for your subscription to Squire</CardTitle>
         <CardDescription>
           Your subscription gives you access to unlimited notes and helps
-          support Quill.
+          support Squire.
         </CardDescription>
       </CardHeader>
       <CardContent>

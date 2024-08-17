@@ -1,6 +1,6 @@
 import Image from "next/image";
 import NextLink from "next/link";
-import logotype from "../../public/logotype_light.webp";
+import logotype from "../../public/logotype_green.webp";
 
 export default function AuthLayout({
   children,

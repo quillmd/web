@@ -15,6 +15,7 @@ export interface Note {
   version: number;
   template: Template;
   inserted_at: string;
+  updated_at: string;
 }
 
 export async function getNotes({

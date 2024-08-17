@@ -1,18 +1,18 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  TemplateInputFormSchema,
-  templateInputFormSchema,
+    TemplateInputFormSchema,
+    templateInputFormSchema,
 } from "@/lib/form-schema";
 import { Template, postTemplate, updateTemplate } from "@/lib/template";
 import { useDebounce } from "@/lib/useDebounce";
@@ -113,11 +113,12 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Instructions - Tell Quill how you would like your note written
+                  Instructions - Tell Squire how you would like your note written
                 </FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder={`-'Subjective' section that describes the patient's symptoms and history.
+                    placeholder={`Example instructions:
+-'Subjective' section that describes the patient's symptoms and history.
 -'Objective' section (physical exam, vitals, labs, imaging, procedure findings, etc).
 -'Assessment and Plan' section divided by problem.
 -For each problem, write a short paragraph explaining reasoning for the problem's assessment.
@@ -140,7 +141,7 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Examples - Give Quill examples of notes that you like
+                  Examples - Give Squire examples of notes that fit this template
                 </FormLabel>
                 {field.value.map((example, i) => (
                   <FormField
@@ -148,7 +149,7 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
                     name={`examples.${i}`}
                     control={form.control}
                     render={({ field: nestedField }) => (
-                      <FormItem className="flex flex-row items-start justify-center gap-2">
+                      <FormItem className="flex flex-row items-start justify-center gap-2 relative">
                         <FormControl>
                           <Textarea
                             {...nestedField}
@@ -157,9 +158,11 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
                               onSubmitDebounced();
                             }}
                             placeholder="Example note goes here"
+                            rows={10}
                           />
                         </FormControl>
                         <Button
+                        className="absolute right-1 -top-1 hover:text-destructive-foreground hover:bg-destructive/90"
                           type="button"
                           variant="ghost"
                           size={"icon"}

@@ -31,6 +31,9 @@ import Image from "next/image";
 interface NewAudioProps {
   case_id: string;
 }
+const Overlay = () => (
+  <div className="fixed inset-0 bg-black bg-opacity-50 z-50" />
+);
 
 export default function NewAudio({ case_id }: NewAudioProps) {
   const {
@@ -54,10 +57,10 @@ export default function NewAudio({ case_id }: NewAudioProps) {
   const { uploaderStatus, handleUpload } = useAudioUpload({ case_id });
 
   const activeInput =
-    micStatus != "idle"
-      ? "microphone"
-      : shareStatus != "idle"
+    shareStatus != "idle"
       ? "share"
+      : micStatus != "idle"
+      ? "microphone"
       : uploaderStatus != "idle"
       ? "upload"
       : null;
@@ -120,7 +123,7 @@ export default function NewAudio({ case_id }: NewAudioProps) {
               : shareStatus === "uploading"
               ? "Submitting"
               : "Error",
-          hoverText: micStatus === "recording" ? "Stop Sharing" : null,
+          hoverText: shareStatus === "recording" ? "Stop Sharing" : null,
           HoverIcon: Square,
           onClick: shareStatus === "recording" ? handleStopRecording : () => {},
         };
@@ -150,6 +153,7 @@ export default function NewAudio({ case_id }: NewAudioProps) {
 
   return (
     <>
+      {activeInput && <Overlay />}
       <input
         id="file-upload"
         type="file"
@@ -161,7 +165,7 @@ export default function NewAudio({ case_id }: NewAudioProps) {
       />
       {activeInput ? (
         <Button
-          className="w-36 group"
+          className="w-36 group z-50"
           variant="outline"
           onClick={buttonContent?.onClick}
         >
@@ -231,7 +235,7 @@ export default function NewAudio({ case_id }: NewAudioProps) {
 
               <HoverCardContent side="right" sideOffset={15}>
                 <div className="flex flex-col gap-1">
-                  <span>{`Quill will listen to the interview using your PC's microphone`}</span>
+                  <span>{`Squire will listen to the interview using your PC's microphone`}</span>
                   <span className="text-xs text-muted-foreground">
                     {`Position microphone to hear all speakers. Click 'Allow' when prompted.`}
                   </span>
@@ -260,7 +264,7 @@ export default function NewAudio({ case_id }: NewAudioProps) {
 
               <HoverCardContent side="right" sideOffset={15}>
                 <div className="flex flex-col gap-1">
-                  <span>{`Tell Quill about the case using your PC's microphone`}</span>
+                  <span>{`Tell Squire about the case using your PC's microphone`}</span>
                   <span className="text-xs text-muted-foreground">
                     {`Click 'Allow' when prompted.`}
                   </span>
@@ -288,9 +292,9 @@ export default function NewAudio({ case_id }: NewAudioProps) {
               </DropdownMenuItem>
               <HoverCardContent side="right" align="start" sideOffset={15}>
                 <div className="flex flex-col gap-1">
-                  <span>{`Share your screen with Quill and it will listen to the interview`}</span>
+                  <span>{`Share your screen with Squire and it will listen to the interview`}</span>
                   <span className="text-xs text-muted-foreground">
-                    {`Quill will only listen to the conversation and does not record your screen`}
+                    {`Squire will only listen to the conversation and does not record your screen`}
                   </span>
                 </div>
                 <div className="flex flex-col mt-2">
@@ -324,7 +328,7 @@ export default function NewAudio({ case_id }: NewAudioProps) {
               </DropdownMenuItem>
               <HoverCardContent side="right" sideOffset={15}>
                 <div className="flex flex-col gap-1">
-                  <span>{`Upload an audio file for Quill to listen to`}</span>
+                  <span>{`Upload an audio file for Squire to listen to`}</span>
                 </div>
               </HoverCardContent>
             </HoverCard>

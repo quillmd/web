@@ -30,6 +30,9 @@ export default function NewNote({
   const defaultTemplates = templates.filter(
     (template) => template.user_id == undefined
   );
+  const conciseTemplates = defaultTemplates.filter(template => template.title.includes('(concise)'));
+  const comprehensiveTemplates = defaultTemplates.filter(template => template.title.includes('(comprehensive)'));
+  const otherTemplates = defaultTemplates.filter(template => !template.title.includes('(concise)') && !template.title.includes('(comprehensive)'));
   const customTemplates = templates.filter(
     (template) => template.user_id != undefined
   );
@@ -40,22 +43,43 @@ export default function NewNote({
         <DropdownMenuTrigger>{`+ New Note`}</DropdownMenuTrigger>
       </Button>
       <DropdownMenuContent>
-        {defaultTemplates.length > 0 && (
+      {conciseTemplates.length > 0 && (
           <>
-            <DropdownMenuLabel>Default templates</DropdownMenuLabel>
-
-            {defaultTemplates.map((template, i) => {
-              return (
-                <DropdownMenuItem
-                  key={`default-template-option-${i}`}
-                  onClick={() => createNote(template.id)}
-                >
-                  {template.title}
-                </DropdownMenuItem>
-              );
-            })}
+            <DropdownMenuLabel>Default (concise)</DropdownMenuLabel>
+            {conciseTemplates.map((template, i) => (
+              <DropdownMenuItem
+                key={`concise-template-option-${i}`}
+                onClick={() => createNote(template.id)}
+              >
+                {template.title.replace(' (concise)', '')}
+              </DropdownMenuItem>
+            ))}
           </>
         )}
+        
+        {comprehensiveTemplates.length > 0 && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel>Default (comprehensive)</DropdownMenuLabel>
+            {comprehensiveTemplates.map((template, i) => (
+              <DropdownMenuItem
+                key={`comprehensive-template-option-${i}`}
+                onClick={() => createNote(template.id)}
+              >
+                {template.title.replace(' (comprehensive)', '')}
+              </DropdownMenuItem>
+            ))}
+             {otherTemplates.map((template, i) => (
+              <DropdownMenuItem
+                key={`other-template-option-${i}`}
+                onClick={() => createNote(template.id)}
+              >
+                {template.title}
+              </DropdownMenuItem>
+            ))}
+          </>
+        )}
+        
         <DropdownMenuSeparator />
         <DropdownMenuLabel>Custom templates</DropdownMenuLabel>
         {customTemplates.map((template, i) => {

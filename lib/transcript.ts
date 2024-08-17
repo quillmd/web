@@ -13,6 +13,7 @@ export interface Transcript {
   description: string;
   content: string;
   inserted_at: string;
+  updated_at: string;
 }
 
 export async function getTranscripts({
