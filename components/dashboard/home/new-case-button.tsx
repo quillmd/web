@@ -1,8 +1,4 @@
 "use client";
-import { postCase } from "@/lib/case";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-
 import { Button, ButtonProps } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,8 +11,13 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { postCase } from "@/lib/case";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useAccount } from "../account-provider";
 
 export default function NewCaseButton({ variant, ...props }: ButtonProps) {
+  const { account } = useAccount();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [newTitle, setNewTitle] = useState("");
@@ -35,7 +36,12 @@ export default function NewCaseButton({ variant, ...props }: ButtonProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="focus-visible:ring-0" variant={variant} {...props}>
+        <Button
+          className="focus-visible:ring-0"
+          variant={variant}
+          {...props}
+          disabled={account.status == "trial_ended"}
+        >
           + New Case
         </Button>
       </DialogTrigger>

@@ -57,7 +57,7 @@ export default function Notes({
     return transcripts
       .filter((transcript) => transcript.status == "ready")
       .some((transcript) => {
-        console.log(transcript)
+        console.log(transcript);
         const transcriptDateTime = DateTime.fromISO(transcript.updated_at);
         return transcriptDateTime > noteDateTime;
       });
@@ -75,10 +75,12 @@ export default function Notes({
     return content;
   };
 
-  const noteContent = current_note?.content ? extractNoteContent(current_note.content) : '';
+  const noteContent = current_note?.content
+    ? extractNoteContent(current_note.content)
+    : "";
 
   return (
-    <Card className="relative flex flex-col overflow-hidden h-[calc(100vh-8rem)]">
+    <Card className="relative flex flex-col overflow-hidden h-[calc(100vh-7.5rem)]">
       <CardHeader className="px-8 py-6">
         <div className="mx-auto flex gap-2 items-center justify-center">
           <CardTitle className="text-xl">
@@ -121,14 +123,14 @@ export default function Notes({
                 text={noteContent}
               />
             )}
-            <ScrollArea type="auto" className="p-4 h-[calc(100vh-19.5rem)]">
+            <ScrollArea type="auto" className="p-4 h-[calc(100vh-19rem)]">
               <pre className="font-mono text-sm whitespace-pre-wrap">
                 {current_note.status == "ready" ? (
                   noteContent
                 ) : current_note.status == "processing" ? (
                   <ScribingEffect />
                 ) : current_note.status == "editing" ? (
-                  <ScribingEffect text="Squire is editing this note..."/>
+                  <ScribingEffect text="Squire is editing this note..." />
                 ) : (
                   "Error processing note"
                 )}

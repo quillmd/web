@@ -12,6 +12,7 @@ import { Case } from "@/lib/case";
 import { postNote } from "@/lib/note";
 import { Template } from "@/lib/template";
 import Nextlink from "next/link";
+import { useAccount } from "../account-provider";
 
 interface NewNoteProps {
   case_id: Case["id"];
@@ -24,26 +25,42 @@ export default function NewNote({
   templates,
   disabled,
 }: NewNoteProps) {
+  const { account } = useAccount();
   const createNote = (template_id: Template["id"]) => {
     postNote({ case_id, template_id }).then(() => {});
   };
   const defaultTemplates = templates.filter(
     (template) => template.user_id == undefined
   );
-  const conciseTemplates = defaultTemplates.filter(template => template.title.includes('(concise)'));
-  const comprehensiveTemplates = defaultTemplates.filter(template => template.title.includes('(comprehensive)'));
-  const otherTemplates = defaultTemplates.filter(template => !template.title.includes('(concise)') && !template.title.includes('(comprehensive)'));
+  const conciseTemplates = defaultTemplates.filter((template) =>
+    template.title.includes("(concise)")
+  );
+  const comprehensiveTemplates = defaultTemplates.filter((template) =>
+    template.title.includes("(comprehensive)")
+  );
+  const otherTemplates = defaultTemplates.filter(
+    (template) =>
+      !template.title.includes("(concise)") &&
+      !template.title.includes("(comprehensive)")
+  );
   const customTemplates = templates.filter(
     (template) => template.user_id != undefined
   );
 
   return (
     <DropdownMenu>
-      <Button className="w-36" variant={"outline"} disabled={disabled} asChild>
-        <DropdownMenuTrigger>{`+ New Note`}</DropdownMenuTrigger>
+      <Button
+        className="w-36"
+        variant={"outline"}
+        disabled={disabled || account.status == "trial_ended"}
+        asChild
+      >
+        <DropdownMenuTrigger>
+          {account.status == "trial_ended" ? "Trial ended" : `+ New Note`}
+        </DropdownMenuTrigger>
       </Button>
       <DropdownMenuContent>
-      {conciseTemplates.length > 0 && (
+        {conciseTemplates.length > 0 && (
           <>
             <DropdownMenuLabel>Default (concise)</DropdownMenuLabel>
             {conciseTemplates.map((template, i) => (
@@ -51,12 +68,12 @@ export default function NewNote({
                 key={`concise-template-option-${i}`}
                 onClick={() => createNote(template.id)}
               >
-                {template.title.replace(' (concise)', '')}
+                {template.title.replace(" (concise)", "")}
               </DropdownMenuItem>
             ))}
           </>
         )}
-        
+
         {comprehensiveTemplates.length > 0 && (
           <>
             <DropdownMenuSeparator />
@@ -66,10 +83,10 @@ export default function NewNote({
                 key={`comprehensive-template-option-${i}`}
                 onClick={() => createNote(template.id)}
               >
-                {template.title.replace(' (comprehensive)', '')}
+                {template.title.replace(" (comprehensive)", "")}
               </DropdownMenuItem>
             ))}
-             {otherTemplates.map((template, i) => (
+            {otherTemplates.map((template, i) => (
               <DropdownMenuItem
                 key={`other-template-option-${i}`}
                 onClick={() => createNote(template.id)}
@@ -79,7 +96,7 @@ export default function NewNote({
             ))}
           </>
         )}
-        
+
         <DropdownMenuSeparator />
         <DropdownMenuLabel>Custom templates</DropdownMenuLabel>
         {customTemplates.map((template, i) => {
