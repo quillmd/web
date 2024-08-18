@@ -43,8 +43,7 @@ export async function getAccount(): Promise<Account> {
       : data.note_count !== undefined && data.note_count < 10
       ? "trial"
       : "trial_ended";
-  data.status = "trial";
-  data.note_count = 4;
+  data.status = accountStatus;
   return data as Account;
 }
 
