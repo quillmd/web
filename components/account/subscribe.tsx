@@ -1,22 +1,23 @@
-"use client";
 import { Button } from "@/components/ui/button";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
+import { getAccount } from "@/lib/account";
 import { getCookie } from "cookies-next";
 import { Check } from "lucide-react";
 
-export default function Subscribe() {
+export default async function Subscribe() {
   const authToken = getCookie("accessToken");
+  const account = await getAccount();
   return (
-    <Dialog>
+    <Dialog defaultOpen={account.status == "trial_ended"}>
       <DialogTrigger asChild>
-        <Button variant="outline">Subscribe</Button>
+        <Button>Unlock Unlimited</Button>
       </DialogTrigger>
       <DialogContent className="font-sans">
         <DialogHeader>
@@ -27,7 +28,7 @@ export default function Subscribe() {
         </DialogHeader>
         <div className="w-full grid grid-cols-3 items-center gap-4 py-1">
           <div className="flex justify-end items-baseline">
-            <span className="text-5xl">$50</span>
+            <span className="text-5xl">$99</span>
             <span className="text-muted-foreground">/mo</span>
           </div>
           <ul className="col-span-2 text-foreground">

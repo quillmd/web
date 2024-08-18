@@ -1,4 +1,3 @@
-"use client";
 import NewAudio from "@/components/dashboard/case/new-audio";
 import TextInput from "@/components/dashboard/case/text-input";
 import TranscriptCard from "@/components/dashboard/case/transcript-card";
@@ -6,7 +5,6 @@ import { Card, CardHeader } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Transcript } from "@/lib/transcript";
-import { useState } from "react";
 
 interface InputsProps {
   case_id: string;
@@ -22,16 +20,15 @@ export default function Inputs({
   const audioTranscripts = transcripts.filter(
     (transcript) => transcript.type !== "freetext"
   );
-  const [tabsDisabled, setTabsDisabled] = useState(false)
   return (
     <Tabs defaultValue="audio">
-      <Card className="relative flex flex-col h-[calc(100vh-8rem)]">
+      <Card className="relative flex flex-col h-[calc(100vh-7.5rem)]">
         <CardHeader className="px-8 py-3">
           <TabsList className="grid grid-cols-2 h-11">
-            <TabsTrigger value="audio" disabled={tabsDisabled}>
+            <TabsTrigger value="audio">
               <span className="text-xl font-semibold">Audio Inputs</span>
             </TabsTrigger>
-            <TabsTrigger value="text" disabled={tabsDisabled}>
+            <TabsTrigger value="text">
               <span className="text-xl font-semibold">Text Input</span>
             </TabsTrigger>
           </TabsList>

@@ -36,7 +36,7 @@ export default async function CasePage({
   const notesDisabled =
     transcripts.find((transcript) => transcript.status == "ready") == undefined;
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-3">
       <CaseTitle case_id={case_id} initial_title={current_case.title} />
       <div className="grid flex-1 w-full grid-cols-2 gap-2">
         <Inputs

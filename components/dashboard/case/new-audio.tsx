@@ -27,6 +27,7 @@ import {
   UploadCloud,
 } from "lucide-react";
 import Image from "next/image";
+import { useAccount } from "../account-provider";
 
 interface NewAudioProps {
   case_id: string;
@@ -36,6 +37,7 @@ const Overlay = () => (
 );
 
 export default function NewAudio({ case_id }: NewAudioProps) {
+  const { account } = useAccount();
   const {
     startRecording: startMicRecording,
     stopRecording: stopMicRecording,
@@ -217,8 +219,14 @@ export default function NewAudio({ case_id }: NewAudioProps) {
       ) : (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="w-36">
-              + Add Audio Input
+            <Button
+              variant="outline"
+              className="w-36"
+              disabled={account.status == "trial_ended"}
+            >
+              {account.status == "trial_ended"
+                ? "Trial ended"
+                : `+ Add Audio Input`}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-40">
