@@ -8,26 +8,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { cancelSubscription } from "@/lib/account";
+import { getCookie } from "cookies-next";
 import { Check } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 
-export default function SubscriptionOverview({ exempt }: { exempt: boolean }) {
-  const router = useRouter();
-  const [loadingCancel, setLoadingCancel] = useState(false);
-  const handleCancel = async () => {
-    setLoadingCancel(true);
-    await cancelSubscription();
-    setTimeout(() => router.refresh(), 10_000);
-  };
+export default function SubscriptionPitch() {
+  const authToken = getCookie("accessToken");
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Thanks for your subscription to Squire</CardTitle>
+        <CardTitle>Squire Unlimited</CardTitle>
         <CardDescription>
-          Your subscription gives you access to unlimited notes and helps
-          support Squire.
+          Simple, fair pricing to access Squire and support our mission.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -51,9 +42,14 @@ export default function SubscriptionOverview({ exempt }: { exempt: boolean }) {
         </ul>
       </CardContent>
       <CardFooter>
-        <Button className={exempt ? "hidden" : ""} onClick={handleCancel}>
-          {loadingCancel ? "Cancelling..." : "Cancel Plan"}
-        </Button>
+        <form
+          action={`${process.env.NEXT_PUBLIC_API}/api/account/subscription/subscribe`}
+          method="post"
+        >
+          <input type="hidden" name="authorization" value={authToken} />
+          <input type="hidden" name="plan_id" value={"squire-monthly"} />
+          <Button size="lg">Subscribe</Button>
+        </form>
       </CardFooter>
     </Card>
   );

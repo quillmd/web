@@ -1,5 +1,4 @@
 "use server";
-import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -48,7 +47,6 @@ export async function getAccount(): Promise<Account> {
 }
 
 export async function cancelSubscription() {
-  const tags = ["account"];
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
@@ -60,10 +58,28 @@ export async function cancelSubscription() {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
-      next: { tags },
     }
   );
-  tags.forEach((tag) => {
-    revalidateTag(tag);
+}
+
+export async function deleteAccount() {
+  const authToken = cookies().get("accessToken")?.value;
+  if (!authToken) {
+    redirect(`/login`);
+  }
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/account`, {
+    method: "delete",
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
   });
+  if (response.status < 300) {
+    cookies().delete({
+      name: "accessToken",
+    });
+    cookies().delete({
+      name: "userId",
+    });
+    redirect(`/login`);
+  }
 }

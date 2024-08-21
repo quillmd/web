@@ -1,9 +1,11 @@
+import SubscriptionPitch from "@/components/account/subscription-pitch";
 import SubscriptionOverview from "@/components/account/subscription/subscription-overview";
 import { Separator } from "@/components/ui/separator";
 import { getAccount } from "@/lib/account";
 
 export default async function SubscriptionPage() {
   const account = await getAccount();
+  console.log(account)
   return (
     <div className="space-y-6">
       <div>
@@ -13,11 +15,13 @@ export default async function SubscriptionPage() {
             ? "Squire Unlimited activated"
             : account.subscription
             ? `Manage your Squire Unlimited subscription`
-            : `Subscribe to Squire Unlimited`}
+            : ``}
         </span>
       </div>
       <Separator />
-      {(account.subscription_exempt || account.subscription) && (
+      {account.status == "trial" || account.status == "trial_ended" ? (
+        <SubscriptionPitch />
+      ) : (
         <SubscriptionOverview exempt={account.subscription_exempt} />
       )}
     </div>

@@ -1,3 +1,4 @@
+import DeleteAccount from "@/components/account/delete-account";
 import ProfileForm from "@/components/account/profile-form";
 import { Separator } from "@/components/ui/separator";
 import { getAccount } from "@/lib/account";
@@ -15,6 +16,7 @@ export default async function AccountProfilePage() {
       </div>
       <Separator />
       <ProfileForm email={account.email} />
+      <DeleteAccount account={account} />
     </div>
   );
 }

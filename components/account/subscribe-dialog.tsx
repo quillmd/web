@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -7,13 +8,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { getAccount } from "@/lib/account";
 import { getCookie } from "cookies-next";
 import { Check } from "lucide-react";
+import { useAccount } from "../dashboard/account-provider";
 
-export default async function Subscribe() {
+export default async function SubscribeDialog() {
   const authToken = getCookie("accessToken");
-  const account = await getAccount();
+  const { account } = useAccount();
   return (
     <Dialog defaultOpen={account.status == "trial_ended"}>
       <DialogTrigger asChild>
