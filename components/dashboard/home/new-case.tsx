@@ -1,5 +1,5 @@
 "use client";
-import Subscribe from "@/components/account/subscribe";
+import SubscribeDialog from "@/components/account/subscribe-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { postCase } from "@/lib/case";
@@ -53,7 +53,7 @@ export default function NewCase() {
           )}
         </Button>
       ) : (
-        <Subscribe />
+        <SubscribeDialog />
       )}
     </div>
   );

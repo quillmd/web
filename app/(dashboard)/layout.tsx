@@ -1,5 +1,5 @@
 import AccountStatusBadge from "@/components/account/account-status-badge";
-import Subscribe from "@/components/account/subscribe";
+import SubscribeDialog from "@/components/account/subscribe-dialog";
 import AccountButton from "@/components/dashboard/account-button";
 import { AccountProvider } from "@/components/dashboard/account-provider";
 import CasesSidebar from "@/components/dashboard/cases-sidebar";
@@ -73,7 +73,7 @@ export default async function DashboardLayout({
               <ul className="flex items-center gap-4">
                 {account.status != "active" && (
                   <li className="block">
-                    <Subscribe />
+                    <SubscribeDialog />
                   </li>
                 )}
                 <li className="block">
