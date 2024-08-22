@@ -15,6 +15,7 @@ import ThemeToggle from "../../components/dashboard/theme-toggle";
 import logotypeLight from "../../public/logotype_green.webp";
 import logotypeDark from "../../public/logotype_white.webp";
 import { ThemeProvider } from "../theme-provider";
+import AppStoreQrDialog from "@/components/dashboard/app-store-qr-dialog";
 
 export const initialFetchParams = {
   days: 10,
@@ -76,6 +77,9 @@ export default async function DashboardLayout({
                     <SubscribeDialog />
                   </li>
                 )}
+                <li className="block">
+                  <AppStoreQrDialog />
+                </li>
                 <li className="block">
                   <FeedbackForm />
                 </li>
