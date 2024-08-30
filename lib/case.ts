@@ -4,6 +4,7 @@ import { DateTime } from "luxon";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { API_URL } from "./api-config";
 
 export interface Case {
   id: string;
@@ -38,7 +39,7 @@ export async function getCases({
   days !== undefined && params.append("days", days.toString());
   query && params.append("query", query);
 
-  const url = new URL(`${process.env.NEXT_PUBLIC_API}/api/cases`);
+  const url = new URL(`${API_URL}/api/cases`);
   url.search = params.toString();
 
   const response = await fetch(url, {
@@ -86,7 +87,7 @@ export async function getCase({ id }: { id: Case["id"] }): Promise<Case> {
     redirect(`/login`);
   }
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/cases/${id}`,
+    `${API_URL}/api/cases/${id}`,
     {
       method: "GET",
       headers: {
@@ -108,7 +109,7 @@ export async function postCase({ title }: { title: Case["title"] }) {
     redirect(`/login`);
   }
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/cases/`, {
+  const response = await fetch(`${API_URL}/api/cases/`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -137,7 +138,7 @@ export async function updateCase({
     redirect(`/login`);
   }
   data.title = title;
-  await fetch(`${process.env.NEXT_PUBLIC_API}/api/cases/${id}`, {
+  await fetch(`${API_URL}/api/cases/${id}`, {
     method: "PATCH",
     body: JSON.stringify(data),
     headers: {
@@ -155,7 +156,7 @@ export async function deleteCase({ id }: { id: Case["id"] }) {
   if (!authToken) {
     redirect(`/login`);
   }
-  await fetch(`${process.env.NEXT_PUBLIC_API}/api/cases/${id}`, {
+  await fetch(`${API_URL}/api/cases/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${authToken}`,

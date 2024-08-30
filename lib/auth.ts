@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { API_URL } from "./api-config";
 
 interface AuthResponse {
   token?: string;
@@ -14,7 +15,7 @@ export async function refreshToken(): Promise<AuthResponse> {
   if (!authToken) {
     throw "Not Logged in";
   }
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/auth/refresh`, {
+  const response = await fetch(`${API_URL}/auth/refresh`, {
     method: "get",
     headers: {
       Authorization: `Bearer ${authToken}`,
@@ -37,7 +38,7 @@ export async function refreshToken(): Promise<AuthResponse> {
 }
 
 export async function requestAuth(email: string): Promise<AuthResponse> {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/auth/request`, {
+  const response = await fetch(`${API_URL}/auth/request`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -52,7 +53,7 @@ export async function validateAuth(
   email: string,
   otp: string
 ): Promise<AuthResponse> {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/auth/validate`, {
+  const response = await fetch(`${API_URL}/auth/validate`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

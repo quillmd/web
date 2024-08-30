@@ -106,19 +106,19 @@ function SidebarLabel({
   const { theme } = useTheme();
   if (active) {
     return (
-      <Button className="w-full justify-between p-2">
-        <NextLink className="w-full justify-start flex" href={`/cases/${id}`}>
+      <div className="px-2 h-14 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full justify-between bg-primary text-primary-foreground hover:bg-primary/90">
+        <NextLink className="w-full h-full items-center justify-start flex" href={`/cases/${id}`}>
           <span className="font-semibold">{text}</span>
         </NextLink>
         <CaseDeleteButton case_id={id} next_case_id={next_case_id} />
-      </Button>
+      </div>
     );
   }
   return (
-    <Button className="w-full justify-between p-2" variant={"ghost"}>
-      <NextLink className="w-full justify-start flex" href={`/cases/${id}`}>
+    <div className="px-2 h-14 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full justify-between hover:bg-accent hover:text-accent-foreground">
+      <NextLink className="w-full h-full items-center justify-start flex" href={`/cases/${id}`}>
         <span>{text}</span>
       </NextLink>
-    </Button>
+    </div>
   );
 }

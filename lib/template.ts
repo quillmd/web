@@ -3,6 +3,7 @@
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { API_URL } from "./api-config";
 
 export interface Template {
   id: string;
@@ -20,7 +21,7 @@ export async function getTemplates(): Promise<Template[]> {
   if (!authToken) {
     redirect(`/login`);
   }
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/templates`, {
+  const response = await fetch(`${API_URL}/api/templates`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${authToken}`,
@@ -42,7 +43,7 @@ export async function getTemplate({
     redirect(`/login`);
   }
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/templates/${template_id}`,
+    `${API_URL}/api/templates/${template_id}`,
     {
       method: "GET",
       headers: {
@@ -75,7 +76,7 @@ export async function postTemplate({
     redirect(`/login`);
   }
 
-  await fetch(`${process.env.NEXT_PUBLIC_API}/api/templates/`, {
+  await fetch(`${API_URL}/api/templates/`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -114,7 +115,7 @@ export async function updateTemplate({
   if (examples !== undefined) {
     data.examples = examples;
   }
-  await fetch(`${process.env.NEXT_PUBLIC_API}/api/templates/${template_id}`, {
+  await fetch(`${API_URL}/api/templates/${template_id}`, {
     method: "PATCH",
     body: JSON.stringify(data),
     headers: {
@@ -137,7 +138,7 @@ export async function deleteTemplate({
   if (!authToken) {
     redirect(`/login`);
   }
-  await fetch(`${process.env.NEXT_PUBLIC_API}/api/templates/${template_id}`, {
+  await fetch(`${API_URL}/api/templates/${template_id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${authToken}`,

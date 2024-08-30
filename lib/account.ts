@@ -1,6 +1,7 @@
 "use server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { API_URL } from "./api-config";
 
 interface Subscription {
   plan_id: string;
@@ -24,7 +25,7 @@ export async function getAccount(): Promise<Account> {
   if (!authToken) {
     redirect(`/login`);
   }
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/account/`, {
+  const response = await fetch(`${API_URL}/api/account/`, {
     method: "get",
     headers: {
       Authorization: `Bearer ${authToken}`,
@@ -52,7 +53,7 @@ export async function cancelSubscription() {
     redirect(`/login`);
   }
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/account/subscription/cancel`,
+    `${API_URL}/api/account/subscription/cancel`,
     {
       method: "post",
       headers: {
@@ -67,7 +68,7 @@ export async function deleteAccount() {
   if (!authToken) {
     redirect(`/login`);
   }
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/account`, {
+  const response = await fetch(`${API_URL}/api/account`, {
     method: "delete",
     headers: {
       Authorization: `Bearer ${authToken}`,

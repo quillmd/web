@@ -5,6 +5,7 @@ import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Case } from "./case";
+import { API_URL } from "./api-config";
 
 export interface Transcript {
   id: string;
@@ -27,7 +28,7 @@ export async function getTranscripts({
     redirect(`/login`);
   }
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/transcripts`,
+    `${API_URL}/api/cases/${case_id}/transcripts`,
     {
       method: "GET",
       headers: {
@@ -60,7 +61,7 @@ export async function getTranscript({
     redirect(`/login`);
   }
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/transcripts/${transcript_id}`,
+    `${API_URL}/api/cases/${case_id}/transcripts/${transcript_id}`,
     {
       method: "GET",
       headers: {
@@ -99,7 +100,7 @@ export async function postTranscript({
   }
 
   await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/transcripts`,
+    `${API_URL}/api/cases/${case_id}/transcripts`,
     {
       method: "POST",
       body: JSON.stringify(data),
@@ -138,7 +139,7 @@ export async function updateTranscript({
     data.content = content;
   }
   await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/transcripts/${transcript_id}`,
+    `${API_URL}/api/cases/${case_id}/transcripts/${transcript_id}`,
     {
       method: "PATCH",
       body: JSON.stringify(data),
@@ -167,7 +168,7 @@ export async function deleteTranscript({
     redirect(`/login`);
   }
   await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/transcripts/${transcript_id}`,
+    `${API_URL}/api/cases/${case_id}/transcripts/${transcript_id}`,
     {
       method: "DELETE",
       headers: {

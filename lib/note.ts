@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Case } from "./case";
 import { Template } from "./template";
+import { API_URL } from "./api-config";
 
 export interface Note {
   id: string;
@@ -29,7 +30,7 @@ export async function getNotes({
     redirect(`/login`);
   }
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/notes`,
+    `${API_URL}/api/cases/${case_id}/notes`,
     {
       method: "GET",
       headers: {
@@ -62,7 +63,7 @@ export async function getNote({
     redirect(`/login`);
   }
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/notes/${note_id}`,
+    `${API_URL}/api/cases/${case_id}/notes/${note_id}`,
     {
       method: "GET",
       headers: {
@@ -91,7 +92,7 @@ export async function postNote({
   if (template_id !== undefined) {
     data.template_id = template_id;
   }
-  await fetch(`${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/notes`, {
+  await fetch(`${API_URL}/api/cases/${case_id}/notes`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -123,7 +124,7 @@ export async function updateNote({
     data.content = content;
   }
   await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/notes/${note_id}`,
+    `${API_URL}/api/cases/${case_id}/notes/${note_id}`,
     {
       method: "PATCH",
       body: JSON.stringify(data),
@@ -152,7 +153,7 @@ export async function deleteNote({
     redirect(`/login`);
   }
   await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/cases/${case_id}/notes/${note_id}`,
+    `${API_URL}/api/cases/${case_id}/notes/${note_id}`,
     {
       method: "DELETE",
       headers: {
