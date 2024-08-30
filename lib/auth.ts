@@ -23,19 +23,22 @@ export async function refreshToken(): Promise<AuthResponse> {
   });
   if (response.ok) {
     const data = await response.json();
-    cookies().set({
-      name: "accessToken",
-      value: data.token,
+    const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+    cookies().set("accessToken", data.token, {
+      httpOnly: true,
+      secure: true,
+      expires: expires,
     });
-    cookies().set({
-      name: "userId",
-      value: data.user_id,
+    cookies().set("userId", data.user_id, {
+      httpOnly: true,
+      secure: true,
+      expires: expires,
     });
     return data;
   } else {
-    await logout()
+    await logout();
   }
-  return {}
+  return {};
 }
 
 export async function requestAuth(email: string): Promise<AuthResponse> {
@@ -63,13 +66,18 @@ export async function validateAuth(
   });
   const data = await response.json();
   if (response.ok) {
-    cookies().set({
-      name: "accessToken",
-      value: data.token,
+    const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+    cookies().set("accessToken", data.token, 
+    {
+      httpOnly: true,
+      secure: true,
+      expires: expires
     });
-    cookies().set({
-      name: "userId",
-      value: data.user_id,
+    cookies().set("userId", data.user_id, 
+      {
+      httpOnly: true,
+      secure: true,
+      expires: expires
     });
   }
   return data;

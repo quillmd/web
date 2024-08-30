@@ -1,4 +1,5 @@
 "use client";
+import { refreshToken } from "@/lib/auth";
 import { revalidateCase, revalidateCases } from "@/lib/case";
 import { revalidateNotes } from "@/lib/note";
 import { revalidateTranscripts } from "@/lib/transcript";
@@ -11,6 +12,10 @@ const CasesSocket = () => {
   const userId = getCookie("userId");
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
   const [channel, setChannel] = useState<Channel | undefined>(undefined);
+
+  useEffect(()=> {
+    refreshToken().then()
+  }, [])
 
   useEffect(() => {
     if (authToken && userId && !socket) {
