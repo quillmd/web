@@ -21,8 +21,8 @@ export async function refreshToken(): Promise<AuthResponse> {
       Authorization: `Bearer ${authToken}`,
     },
   });
-  const data = await response.json();
   if (response.ok) {
+    const data = await response.json();
     cookies().set({
       name: "accessToken",
       value: data.token,
@@ -31,10 +31,11 @@ export async function refreshToken(): Promise<AuthResponse> {
       name: "userId",
       value: data.user_id,
     });
+    return data;
   } else {
-    throw "Not logged in";
+    await logout()
   }
-  return data;
+  return {}
 }
 
 export async function requestAuth(email: string): Promise<AuthResponse> {
