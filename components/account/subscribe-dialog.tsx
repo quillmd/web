@@ -12,7 +12,7 @@ import { getCookie } from "cookies-next";
 import { Check } from "lucide-react";
 import { useAccount } from "../dashboard/account-provider";
 
-export default async function SubscribeDialog() {
+export default function SubscribeDialog() {
   const authToken = getCookie("accessToken");
   const { account } = useAccount();
   return (

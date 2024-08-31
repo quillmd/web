@@ -26,8 +26,8 @@ export default function ScribeSelection({
   preferred_scribe,
   scribes,
 }: ScribeSelectionProps) {
-  const handleSetScribe = async (id: string) => {
-    await setScribe({ id: id });
+  const handleSetScribe = (id: string) => {
+    setScribe({ id: id }).then();
   };
 
   const scribesWithIcons = scribes.map((scribe) => ({
