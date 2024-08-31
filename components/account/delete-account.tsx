@@ -18,7 +18,7 @@ export default function DeleteAccount({account} : {account: Account}) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant={"ghost"}>Delete account</Button>
+        <Button variant={"destructive"}>Delete account</Button>
       </DialogTrigger>
       <DialogContent className="font-sans">
         <DialogHeader>
@@ -29,7 +29,7 @@ export default function DeleteAccount({account} : {account: Account}) {
             }
           </DialogDescription>
         </DialogHeader>
-        <Button onClick={handleDelete}>{`${
+        <Button variant={"destructive"} onClick={handleDelete}>{`${
           account.subscription ? "Cancel subscription and " : ""
         }Delete account`}</Button>
       </DialogContent>

@@ -73,7 +73,7 @@ export default function TextInput({
             <FormItem>
               <FormControl>
                 <Textarea
-                  className="flex-grow min-h-[calc(100vh-21rem)] resize-none"
+                  className="flex-grow min-h-[calc(100vh-18.5rem)] resize-none"
                   placeholder="Enter information for Squire to use when creating notes"
                   {...field}
                   onChange={(e) => {

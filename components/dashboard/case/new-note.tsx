@@ -42,7 +42,6 @@ export default function NewNote({
     <DropdownMenu>
       <Button
         className="w-36"
-        variant={"outline"}
         disabled={disabled || account.status == "trial_ended"}
         asChild
       >

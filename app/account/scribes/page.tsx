@@ -1,5 +1,11 @@
 import ScribeSelection from "@/components/account/scribe-selection";
-import { Separator } from "@/components/ui/separator";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Account, getAccount } from "@/lib/account";
 import { getScribes, Scribe } from "@/lib/scribe";
 
@@ -15,15 +21,16 @@ async function getData() {
 export default async function AccountScribesePage() {
   const { account, scribes } = await getData();
   return (
-    <div className="space-y-8">
-      <div>
-        <h3 className="text-lg font-medium">Choose Your Squire</h3>
-        <span className="text-sm text-muted-foreground">
-        Select a squire that best fits your note-taking needs
-        </span>
-      </div>
-      <Separator />
-      <ScribeSelection preferred_scribe={account.scribe} scribes={scribes} />
-    </div>
+    <Card className="h-[calc(100vh-4.5rem)]">
+      <CardHeader>
+        <CardTitle>Choose Your Squire</CardTitle>
+        <CardDescription>
+          Select a squire that best fits your note-taking needs
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ScribeSelection preferred_scribe={account.scribe} scribes={scribes} />
+      </CardContent>
+    </Card>
   );
 }

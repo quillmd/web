@@ -1,13 +1,16 @@
-import { Separator } from "@/components/ui/separator";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function SubscriptionSuccessPage() {
   return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-medium">Success!</h3>
-      </div>
-      <Separator />
-      <h3 className="text-lg font-medium">Thank you for supporting Squire!</h3>
-    </div>
+    <Card className="h-[calc(100vh-4.5rem)]">
+      <CardHeader>
+        <CardTitle>Success!</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <h3 className="text-lg font-medium">
+          Thank you for supporting Squire!
+        </h3>
+      </CardContent>
+    </Card>
   );
 }

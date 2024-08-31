@@ -168,7 +168,6 @@ export default function NewAudio({ case_id }: NewAudioProps) {
       {activeInput ? (
         <Button
           className="w-36 group z-50"
-          variant="outline"
           onClick={buttonContent?.onClick}
         >
           {buttonContent && (
@@ -220,7 +219,6 @@ export default function NewAudio({ case_id }: NewAudioProps) {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
-              variant="outline"
               className="w-36"
               disabled={account.status == "trial_ended"}
             >

@@ -1,6 +1,12 @@
 import NewTemplateButton from "@/components/account/templates/new-template-button";
 import TemplateList from "@/components/account/templates/template-list";
-import { Separator } from "@/components/ui/separator";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { getTemplates } from "@/lib/template";
 
 export default async function TemplatePage() {
@@ -9,16 +15,15 @@ export default async function TemplatePage() {
     (template) => template.user_id != null
   );
   return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-medium">Templates</h3>
-        <span className="text-sm text-muted-foreground">
-          Create custom note templates.
-        </span>
-      </div>
-      <Separator />
-      <NewTemplateButton />
-      <TemplateList templates={filteredTemplates} />
-    </div>
+    <Card className="h-[calc(100vh-4.5rem)]">
+      <CardHeader>
+        <CardTitle>Templates</CardTitle>
+        <CardDescription>Create a custom note template</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <NewTemplateButton />
+        <TemplateList templates={filteredTemplates} />
+      </CardContent>
+    </Card>
   );
 }

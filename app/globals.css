@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --background: 240 4% 90%;
+  --background: 240 5% 85%;
   --foreground: 190.5 51.28% 15.29%;
   --muted: 0 1.41% 86.08%;
   --muted-foreground: 187.5 49.32% 28.63%;
   --popover: 0 0% 97%;
   --popover-foreground: 190.5 51.28% 15.29%;
-  --card: 0 0% 97%;
+  --card: 240 4% 89%;
   --card-foreground: 190.5 51.28% 15.29%;
   --border: 180 34.65% 80.2%;
   --input: 0 1.41% 86.08%;
@@ -25,11 +25,11 @@
   --radius: 0.5rem;
 }
 .dark {
-  --background: 182 0% 6%;
+  --background: 182 0% 10%;
   --foreground: 182 0% 90%;
-  --card: 182 0% 10%;
+  --card: 182 0% 15%;
   --card-foreground: 182 0% 90%;
-  --popover: 182 10% 5%;
+  --popover: 182 0% 15%;
   --popover-foreground: 182 0% 90%;
   --primary: 182 29.2% 81.2%;
   --primary-foreground: 0 0% 0%;

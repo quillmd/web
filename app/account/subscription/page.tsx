@@ -1,29 +1,36 @@
 import SubscriptionPitch from "@/components/account/subscription-pitch";
 import SubscriptionOverview from "@/components/account/subscription/subscription-overview";
-import { Separator } from "@/components/ui/separator";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { getAccount } from "@/lib/account";
 
 export default async function SubscriptionPage() {
   const account = await getAccount();
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-medium">Subscription</h3>
-        <span className="text-sm text-muted-foreground">
+    <Card className="h-[calc(100vh-4.5rem)]">
+      <CardHeader>
+        <CardTitle>Subscription</CardTitle>
+        <CardDescription>
           {account.subscription_exempt
             ? "Squire Unlimited activated"
             : account.subscription
             ? `Manage your Squire Unlimited subscription`
             : ``}
-        </span>
-      </div>
-      <Separator />
-      {account.status == "trial" || account.status == "trial_ended" ? (
-        <SubscriptionPitch />
-      ) : (
-        <SubscriptionOverview exempt={account.subscription_exempt} />
-      )}
-    </div>
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        {account.status == "trial" || account.status == "trial_ended" ? (
+          <SubscriptionPitch />
+        ) : (
+          <SubscriptionOverview exempt={account.subscription_exempt} />
+        )}
+      </CardContent>
+    </Card>
   );
 }
