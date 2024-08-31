@@ -19,9 +19,9 @@ export default async function ScribeSelectionDialog({
     <AlertDialog open={!account.scribe}>
       <AlertDialogContent className={"w-fit max-w-screen-xl"}>
         <AlertDialogHeader>
-          <AlertDialogTitle>Choose Your Scribe</AlertDialogTitle>
+          <AlertDialogTitle>Choose Your Squire</AlertDialogTitle>
           <AlertDialogDescription>
-            Select a scribe that best fits your note-taking needs. You can
+            Select a squire that best fits your note-taking needs. You can
             switch at any time.
           </AlertDialogDescription>
         </AlertDialogHeader>

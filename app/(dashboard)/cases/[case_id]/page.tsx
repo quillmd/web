@@ -3,8 +3,10 @@ import Inputs from "@/components/dashboard/case/inputs";
 import Notes from "@/components/dashboard/case/notes";
 import { Case, getCase } from "@/lib/case";
 import { Note, getNotes } from "@/lib/note";
+import { getScribes } from "@/lib/scribe";
 import { Template, getTemplates } from "@/lib/template";
 import { Transcript, getTranscripts } from "@/lib/transcript";
+import { Scribe } from "@/lib/scribe";
 
 async function getData(case_id: string) {
   const promiseArray = [
@@ -12,6 +14,7 @@ async function getData(case_id: string) {
     getNotes({ case_id: case_id }),
     getTranscripts({ case_id: case_id }),
     getTemplates(),
+    getScribes()
   ];
   const results = await Promise.all(promiseArray);
   return {
@@ -19,6 +22,7 @@ async function getData(case_id: string) {
     notes: results[1] as Note[],
     transcripts: results[2] as Transcript[],
     templates: results[3] as Template[],
+    scribes: results[4] as Scribe[]
   };
 }
 
@@ -27,7 +31,7 @@ export default async function CasePage({
 }: {
   params: { case_id: string };
 }) {
-  const { current_case, notes, transcripts, templates } = await getData(
+  const { current_case, notes, transcripts, templates, scribes } = await getData(
     case_id
   );
   const textInput = transcripts.find(
@@ -51,6 +55,7 @@ export default async function CasePage({
           notes={notes}
           notesDisabled={notesDisabled}
           transcripts={transcripts}
+          scribes={scribes}
         />
       </div>
     </div>

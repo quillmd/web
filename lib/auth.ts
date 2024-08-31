@@ -25,13 +25,9 @@ export async function refreshToken(): Promise<AuthResponse> {
     const data = await response.json();
     const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
     cookies().set("accessToken", data.token, {
-      httpOnly: true,
-      secure: true,
       expires: expires,
     });
     cookies().set("userId", data.user_id, {
-      httpOnly: true,
-      secure: true,
       expires: expires,
     });
     return data;
@@ -69,14 +65,10 @@ export async function validateAuth(
     const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
     cookies().set("accessToken", data.token, 
     {
-      httpOnly: true,
-      secure: true,
       expires: expires
     });
     cookies().set("userId", data.user_id, 
       {
-      httpOnly: true,
-      secure: true,
       expires: expires
     });
   }

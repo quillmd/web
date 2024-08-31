@@ -17,9 +17,9 @@ export default async function AccountScribesePage() {
   return (
     <div className="space-y-8">
       <div>
-        <h3 className="text-lg font-medium">Scribes</h3>
+        <h3 className="text-lg font-medium">Choose Your Squire</h3>
         <span className="text-sm text-muted-foreground">
-          Choose a scribe that matches your preferred note style
+        Select a squire that best fits your note-taking needs
         </span>
       </div>
       <Separator />

@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/hover-card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Note } from "@/lib/note";
+import { Scribe } from "@/lib/scribe";
 import { Template } from "@/lib/template";
 import { Transcript } from "@/lib/transcript";
 import { ChevronLeft, ChevronRight, TriangleAlert } from "lucide-react";
@@ -16,6 +17,7 @@ import { useEffect, useMemo, useState } from "react";
 import CopyButton from "../copy-button";
 import NewNote from "./new-note";
 import NoteDeleteButton from "./note-delete-button";
+import NoteOptions from "./note-options";
 import ScribingEffect from "./scribing-effect";
 
 interface NotesDisplayProps {
@@ -24,6 +26,7 @@ interface NotesDisplayProps {
   notes: Note[];
   notesDisabled: boolean;
   transcripts: Transcript[];
+  scribes: Scribe[];
 }
 
 export default function Notes({
@@ -32,6 +35,7 @@ export default function Notes({
   notes,
   notesDisabled,
   transcripts,
+  scribes,
 }: NotesDisplayProps) {
   const [currentNoteIndex, setCurrentNoteIndex] = useState(0);
   const current_note = notes[currentNoteIndex];
@@ -57,7 +61,6 @@ export default function Notes({
     return transcripts
       .filter((transcript) => transcript.status == "ready")
       .some((transcript) => {
-        console.log(transcript);
         const transcriptDateTime = DateTime.fromISO(transcript.updated_at);
         return transcriptDateTime > noteDateTime;
       });
@@ -75,10 +78,15 @@ export default function Notes({
     return content;
   };
 
+  const disclaimer =
+    "\n\nThe Squire clinical documentation tool was used in creating this documentation. Variations in content may occur, and healthcare providers must review and verify all information before making clinical decisions. ";
   const noteContent = current_note?.content
-    ? extractNoteContent(current_note.content)
+    ? extractNoteContent(current_note.content) + disclaimer
     : "";
 
+  const current_scribe = scribes.find(
+    (scribe) => scribe.id == current_note?.scribe_id
+  );
   return (
     <Card className="relative flex flex-col overflow-hidden h-[calc(100vh-7.5rem)]">
       <CardHeader className="px-8 py-6">
@@ -97,15 +105,10 @@ export default function Notes({
               </HoverCardTrigger>
               <HoverCardContent>
                 {
-                  "One or more inputs have been added after this note was created. Scribe a new note to include all current inputs."
+                  "One or more inputs have been added after this note was created. Create a new note to include all current inputs."
                 }
               </HoverCardContent>
             </HoverCard>
-          )}
-          {current_note && (
-            <div className="absolute right-0 top-0">
-              <NoteDeleteButton case_id={case_id} note_id={current_note.id} />
-            </div>
           )}
         </div>
       </CardHeader>
@@ -123,7 +126,23 @@ export default function Notes({
                 text={noteContent}
               />
             )}
-            <ScrollArea type="auto" className="p-4 h-[calc(100vh-19rem)]">
+            {current_note.status == "ready" && (
+              <div className="bg-card absolute z-30 h-8 top-1 right-0 text-sm border-b-0 border-r-0 rounded-none rounded-ss-md">
+                <NoteOptions
+                  case_id={case_id}
+                  note={current_note}
+                  scribes={scribes}
+                />
+              </div>
+            )}
+            {current_scribe && (
+              <div className="w-full text-center">
+                <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+                  {`Squire: ${current_scribe.name} (${current_scribe.short_description.charAt(0).toUpperCase() + current_scribe.short_description.slice(1).toLowerCase()})`}
+                </code>
+              </div>
+            )}
+            <ScrollArea type="auto" className="p-4 h-[calc(100vh-20.5rem)]">
               <pre className="font-mono text-sm whitespace-pre-wrap">
                 {current_note.status == "ready" ? (
                   noteContent

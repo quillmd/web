@@ -39,7 +39,6 @@ export async function getAccount(): Promise<Account> {
     redirect(`/login`);
   }
   const data = await response.json();
-  console.log(data)
   const accountStatus =
     data.subscription !== undefined || data.subscription_exempt
       ? "active"

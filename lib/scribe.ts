@@ -48,7 +48,6 @@ export async function setScribe({ id }: { id: string }) {
   if (!authToken) {
     redirect(`/login`);
   }
-  console.log(data)
   await fetch(`${API_URL}/api/account/scribe`, {
     method: "POST",
     body: JSON.stringify(data),
