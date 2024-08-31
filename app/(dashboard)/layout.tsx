@@ -1,7 +1,9 @@
 import AccountStatusBadge from "@/components/account/account-status-badge";
+import ScribeSelectionDialog from "@/components/account/scribe-selection-dialog";
 import SubscribeDialog from "@/components/account/subscribe-dialog";
 import AccountButton from "@/components/dashboard/account-button";
 import { AccountProvider } from "@/components/dashboard/account-provider";
+import AppStoreQrDialog from "@/components/dashboard/app-store-qr-dialog";
 import CasesSidebar from "@/components/dashboard/cases-sidebar";
 import CasesSocket from "@/components/dashboard/cases-socket";
 import FeedbackForm from "@/components/dashboard/feedback-form";
@@ -15,7 +17,6 @@ import ThemeToggle from "../../components/dashboard/theme-toggle";
 import logotypeLight from "../../public/logotype_green.webp";
 import logotypeDark from "../../public/logotype_white.webp";
 import { ThemeProvider } from "../theme-provider";
-import AppStoreQrDialog from "@/components/dashboard/app-store-qr-dialog";
 
 export const initialFetchParams = {
   days: 10,
@@ -69,7 +70,7 @@ export default async function DashboardLayout({
                     className="cursor-pointer logo hidden dark:block object-contain"
                   />
                 </NextLink>
-                <AccountStatusBadge />
+                <AccountStatusBadge account={account} />
               </div>
               <ul className="flex items-center gap-4">
                 {account.status != "active" && (
@@ -103,6 +104,7 @@ export default async function DashboardLayout({
             <div className="flex-1">{children}</div>
           </div>
         </AccountProvider>
+        <ScribeSelectionDialog account={account} />
       </ThemeProvider>
     </body>
   );

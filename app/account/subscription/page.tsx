@@ -5,7 +5,7 @@ import { getAccount } from "@/lib/account";
 
 export default async function SubscriptionPage() {
   const account = await getAccount();
-  console.log(account)
+
   return (
     <div className="space-y-6">
       <div>

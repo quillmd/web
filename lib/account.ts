@@ -2,6 +2,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { API_URL } from "./api-config";
+import { Scribe } from "./scribe";
 
 interface Subscription {
   plan_id: string;
@@ -13,6 +14,7 @@ type AccountStatus = "active" | "trial" | "trial_ended";
 export interface Account {
   id: string;
   email: string;
+  scribe?: Scribe;
   subscription_exempt: boolean;
   subscription?: Subscription;
   note_count?: number;
@@ -37,6 +39,7 @@ export async function getAccount(): Promise<Account> {
     redirect(`/login`);
   }
   const data = await response.json();
+  console.log(data)
   const accountStatus =
     data.subscription !== undefined || data.subscription_exempt
       ? "active"

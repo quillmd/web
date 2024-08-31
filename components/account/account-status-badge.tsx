@@ -1,8 +1,11 @@
-import { getAccount } from "@/lib/account";
+import { Account } from "@/lib/account";
 import { Badge } from "../ui/badge";
 
-export default async function AccountStatusBadge() {
-  const account = await getAccount();
+export default async function AccountStatusBadge({
+  account,
+}: {
+  account: Account;
+}) {
   if (account.status == "active")
     return (
       <Badge className="hover:cursor-default hover:bg-primary">Unlimited</Badge>

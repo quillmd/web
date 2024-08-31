@@ -14,6 +14,10 @@ const sidebarNavItems = [
     href: "/account/subscription",
   },
   {
+    title: "Scribes",
+    href: "/account/scribes",
+  },
+  {
     title: "Templates",
     href: "/account/templates",
   },

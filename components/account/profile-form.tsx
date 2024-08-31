@@ -6,16 +6,17 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { Account } from "@/lib/account";
 import { AccountProfileSchema, accountProfileSchema } from "@/lib/form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "../ui/input";
 
-export default function ProfileForm(defaultValues: AccountProfileSchema) {
+export default function ProfileForm({ account }: { account: Account }) {
   const form = useForm<AccountProfileSchema>({
     resolver: zodResolver(accountProfileSchema),
-    defaultValues: defaultValues,
+    defaultValues: { email: account.email },
   });
   const isSubmitSuccessful = form.formState.isSubmitSuccessful;
   const onSubmit = async (values: AccountProfileSchema) => {

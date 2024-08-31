@@ -13,6 +13,7 @@ import { postNote } from "@/lib/note";
 import { Template } from "@/lib/template";
 import Nextlink from "next/link";
 import { useAccount } from "../account-provider";
+import { Scribe } from "@/lib/scribe";
 
 interface NewNoteProps {
   case_id: Case["id"];
@@ -26,23 +27,13 @@ export default function NewNote({
   disabled,
 }: NewNoteProps) {
   const { account } = useAccount();
-  const createNote = (template_id: Template["id"]) => {
-    postNote({ case_id, template_id }).then(() => {});
+  const createNote = (template_id: Template["id"], scribe_id?: Scribe["id"]) => {
+    postNote({ case_id, template_id, scribe_id }).then(() => {});
   };
   const defaultTemplates = templates.filter(
     (template) => template.user_id == undefined
   );
-  const conciseTemplates = defaultTemplates.filter((template) =>
-    template.title.includes("(concise)")
-  );
-  const comprehensiveTemplates = defaultTemplates.filter((template) =>
-    template.title.includes("(comprehensive)")
-  );
-  const otherTemplates = defaultTemplates.filter(
-    (template) =>
-      !template.title.includes("(concise)") &&
-      !template.title.includes("(comprehensive)")
-  );
+
   const customTemplates = templates.filter(
     (template) => template.user_id != undefined
   );
@@ -60,50 +51,26 @@ export default function NewNote({
         </DropdownMenuTrigger>
       </Button>
       <DropdownMenuContent>
-        {conciseTemplates.length > 0 && (
+        {defaultTemplates.length > 0 && (
           <>
-            <DropdownMenuLabel>Default (concise)</DropdownMenuLabel>
-            {conciseTemplates.map((template, i) => (
+            <DropdownMenuLabel>Default</DropdownMenuLabel>
+            {defaultTemplates.map((template, i) => (
               <DropdownMenuItem
                 key={`concise-template-option-${i}`}
-                onClick={() => createNote(template.id)}
+                onClick={() => createNote(template.id, account.scribe?.id)}
               >
                 {template.title.replace(" (concise)", "")}
               </DropdownMenuItem>
             ))}
           </>
         )}
-
-        {comprehensiveTemplates.length > 0 && (
-          <>
-            <DropdownMenuSeparator />
-            <DropdownMenuLabel>Default (comprehensive)</DropdownMenuLabel>
-            {comprehensiveTemplates.map((template, i) => (
-              <DropdownMenuItem
-                key={`comprehensive-template-option-${i}`}
-                onClick={() => createNote(template.id)}
-              >
-                {template.title.replace(" (comprehensive)", "")}
-              </DropdownMenuItem>
-            ))}
-            {otherTemplates.map((template, i) => (
-              <DropdownMenuItem
-                key={`other-template-option-${i}`}
-                onClick={() => createNote(template.id)}
-              >
-                {template.title}
-              </DropdownMenuItem>
-            ))}
-          </>
-        )}
-
         <DropdownMenuSeparator />
         <DropdownMenuLabel>Custom templates</DropdownMenuLabel>
         {customTemplates.map((template, i) => {
           return (
             <DropdownMenuItem
               key={`custom-template-option-${i}`}
-              onClick={() => createNote(template.id)}
+              onClick={() => createNote(template.id, account.scribe?.id)}
             >
               {template.title}
             </DropdownMenuItem>

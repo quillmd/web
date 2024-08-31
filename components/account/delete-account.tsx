@@ -10,7 +10,8 @@ import {
 } from "@/components/ui/dialog";
 import { Account, deleteAccount } from "@/lib/account";
 
-export default function DeleteAccount({ account }: { account: Account }) {
+export default function DeleteAccount({account} : {account: Account}) {
+
   const handleDelete = async () => {
     await deleteAccount();
   };
@@ -28,7 +29,9 @@ export default function DeleteAccount({ account }: { account: Account }) {
             }
           </DialogDescription>
         </DialogHeader>
-        <Button onClick={handleDelete}>{`${account.subscription? "Cancel subscription and ":""}Delete account`}</Button>
+        <Button onClick={handleDelete}>{`${
+          account.subscription ? "Cancel subscription and " : ""
+        }Delete account`}</Button>
       </DialogContent>
     </Dialog>
   );

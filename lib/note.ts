@@ -7,10 +7,12 @@ import { redirect } from "next/navigation";
 import { Case } from "./case";
 import { Template } from "./template";
 import { API_URL } from "./api-config";
+import { Scribe } from "./scribe";
 
 export interface Note {
   id: string;
   template_id: Template["id"];
+  scribe_id: Scribe["id"];
   content: string;
   status: string;
   version: number;
@@ -79,19 +81,22 @@ export async function getNote({
 export async function postNote({
   case_id,
   template_id,
+  scribe_id
 }: {
   case_id: Case["id"];
   template_id: Template["id"];
+  scribe_id?: Scribe["id"]
 }) {
   const tags = [`notes-${case_id}`];
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
   }
-  const data: Partial<Note> = {};
-  if (template_id !== undefined) {
-    data.template_id = template_id;
-  }
+  const data: Partial<Note> = {
+    template_id: template_id,
+    scribe_id: scribe_id
+  };
+
   await fetch(`${API_URL}/api/cases/${case_id}/notes`, {
     method: "POST",
     body: JSON.stringify(data),
