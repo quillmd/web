@@ -23,7 +23,7 @@ export default function Error({
       <Card className="w-full max-w-md mx-auto">
         <CardContent className="flex flex-col gap-4 p-6">
           <p className="text-center text-muted-foreground">
-            We're sorry, but an error occurred while processing your request.
+            {`We're sorry, but an error occurred while processing your request.`}
           </p>
           {error.digest && (
             <p className="text-center text-sm text-muted-foreground">
