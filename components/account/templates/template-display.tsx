@@ -28,7 +28,12 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
     resolver: zodResolver(templateInputFormSchema),
     defaultValues: {
       title: template?.title ?? "",
-      instructions: template?.instructions ?? "",
+      instructions: template?.instructions ?? `Example instructions:
+-'Subjective' section that describes the patient's symptoms and history.
+-'Objective' section (physical exam, vitals, labs, imaging, procedure findings, etc).
+-'Assessment and Plan' section divided by problem.
+-For each problem, write a short paragraph explaining reasoning for the problem's assessment.
+-The plan for each problem should be bullet point format.`,
       examples:
         template?.examples?.length && template?.examples?.length > 0
           ? template?.examples
@@ -117,12 +122,7 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
                 </FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder={`Example instructions:
--'Subjective' section that describes the patient's symptoms and history.
--'Objective' section (physical exam, vitals, labs, imaging, procedure findings, etc).
--'Assessment and Plan' section divided by problem.
--For each problem, write a short paragraph explaining reasoning for the problem's assessment.
--The plan for each problem should be bullet point format.`}
+                    placeholder={``}
                     {...field}
                     onChange={(e) => {
                       field.onChange(e);
