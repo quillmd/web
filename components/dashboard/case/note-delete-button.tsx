@@ -18,12 +18,11 @@ export default function NoteDeleteButton({
 
   return (
     <Button
-      className="hover:text-destructive-foreground hover:bg-destructive/90"
-      variant="ghost"
-      size="icon"
+      className="hover:text-destructive-foreground hover:bg-destructive/90 w-full"
+      variant="outline"
       onClick={handleDelete}
     >
-      <Trash className="h-4 w-4" />
+      Delete note
     </Button>
   );
 }

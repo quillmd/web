@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,24 +20,28 @@ import {
   AudioLines,
   CircleHelp,
   CircleX,
+  ClipboardType,
   LoaderCircle,
   MessagesSquare,
   Mic,
   ScreenShare,
   Square,
-  UploadCloud,
+  UploadCloud
 } from "lucide-react";
 import Image from "next/image";
 import { useAccount } from "../account-provider";
+import TextInput from "./text-input";
+import { Case } from "@/lib/case";
 
-interface NewAudioProps {
-  case_id: string;
+interface NewInputProps {
+  case_id: Case["id"];
+  disabled: boolean;
 }
 const Overlay = () => (
   <div className="fixed inset-0 bg-black bg-opacity-50 z-50" />
 );
 
-export default function NewAudio({ case_id }: NewAudioProps) {
+export default function NewInput({ case_id, disabled }: NewInputProps) {
   const { account } = useAccount();
   const {
     startRecording: startMicRecording,
@@ -216,15 +221,16 @@ export default function NewAudio({ case_id }: NewAudioProps) {
           )}
         </Button>
       ) : (
+        <Dialog>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               className="w-36"
-              disabled={account.status == "trial_ended"}
+              disabled={account.status == "trial_ended" || disabled}
             >
               {account.status == "trial_ended"
                 ? "Trial ended"
-                : `+ Add Audio Input`}
+                : `+ Add Input`}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-40">
@@ -270,7 +276,7 @@ export default function NewAudio({ case_id }: NewAudioProps) {
 
               <HoverCardContent side="right" sideOffset={15}>
                 <div className="flex flex-col gap-1">
-                  <span>{`Tell Squire about the case using your PC's microphone`}</span>
+                  <span>{`Tell Squire about the patient using your PC's microphone`}</span>
                   <span className="text-xs text-muted-foreground">
                     {`Click 'Allow' when prompted.`}
                   </span>
@@ -338,8 +344,28 @@ export default function NewAudio({ case_id }: NewAudioProps) {
                 </div>
               </HoverCardContent>
             </HoverCard>
+            <HoverCard openDelay={500}>
+              <DialogTrigger asChild>
+              <DropdownMenuItem>
+                <ClipboardType className="w-4 h-4 mr-2" />
+                <span>Text</span>
+                <DropdownMenuShortcut>
+                  <HoverCardTrigger>
+                    <CircleHelp size={14} />
+                  </HoverCardTrigger>
+                </DropdownMenuShortcut>
+              </DropdownMenuItem>
+              </DialogTrigger>
+              <HoverCardContent side="right" sideOffset={15}>
+                <div className="flex flex-col gap-1">
+                  <span>{`Upload an audio file for Squire to listen to`}</span>
+                </div>
+              </HoverCardContent>
+            </HoverCard>
           </DropdownMenuContent>
         </DropdownMenu>
+        <TextInput case_id={case_id}/>
+        </Dialog>
       )}
     </>
   );

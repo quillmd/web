@@ -110,7 +110,7 @@ export async function postNote({
   });
 }
 
-export async function updateNote({
+export async function editNote({
   case_id,
   note_id,
   content,
@@ -129,9 +129,9 @@ export async function updateNote({
     data.content = content;
   }
   await fetch(
-    `${API_URL}/api/cases/${case_id}/notes/${note_id}`,
+    `${API_URL}/api/cases/${case_id}/notes/${note_id}/edit`,
     {
-      method: "PATCH",
+      method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",

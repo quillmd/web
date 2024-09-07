@@ -22,7 +22,6 @@ export default function CopyButton({ text, className }: NoteTextProps) {
     <Button
       className={className}
       variant={"outline"}
-      size={"sm"}
       onClick={handleCopyClick}
       aria-label="Copy"
     >

@@ -11,7 +11,7 @@ interface CaseCardProps extends React.HTMLAttributes<HTMLElement> {
 
 export default function TranscriptCard({ case_id, transcript }: CaseCardProps) {
   return (
-    <div className="flex items-center justify-between p-4">
+    <div className="flex items-center justify-between p-4 text-ellipsis">
       <div className="flex flex-col justify-center w-full">
         <div className="flex justify-between w-full">
           <h4 className="font-semibold tracking-tight scroll-m-20">
@@ -38,8 +38,8 @@ export default function TranscriptCard({ case_id, transcript }: CaseCardProps) {
             )}
           </Badge>
         </div>
-        <div className="flex justify-between">
-          <div className="flex flex-col">
+        <div className="grid grid-cols-4 justify-between">
+          <div className="col-span-3 flex flex-col">
             <LocalDateTime
               className="text-sm text-muted-foreground"
               isoString={transcript.inserted_at}

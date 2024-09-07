@@ -96,7 +96,7 @@ export default async function DashboardLayout({
               </ul>
             </nav>
           </header>
-          <div className="flex items-start max-w-screen-2xl mx-auto gap-2 p-2 max-h-[calc(100vh-18rem)]">
+          <div className="flex items-start mx-auto gap-2 p-2 max-h-[calc(100vh-18rem)]">
             <CasesSidebar
               initialCases={initialCases}
               initialFetchParams={initialFetchParams}
