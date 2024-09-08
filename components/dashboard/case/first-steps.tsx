@@ -85,8 +85,6 @@ export default function FirstSteps({
     }
   };
 
-  console.log(case_id);
-
   return (
     <Card
       className={cn(

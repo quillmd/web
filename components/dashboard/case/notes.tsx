@@ -125,8 +125,6 @@ export default function Notes({
     (scribe) => scribe.id == current_note?.scribe_id
   );
 
-  console.log(sidebarVisible)
-
   return (
     <div className="grid grid-cols-4 gap-3">
       <Card className={`relative flex flex-col overflow-hidden h-[calc(100vh-7.5rem)] transition-all duration-300 ease-in-out ${
