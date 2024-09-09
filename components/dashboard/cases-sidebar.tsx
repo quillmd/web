@@ -32,7 +32,6 @@ export default function CasesSidebar({
   const pathname = usePathname();
   const regexCasesPathname = /\/cases\/[^/]+/;
 
-  console.log(casesGroupedByDate?.[0][0]);
   return (
     <aside className="top-16 z-50 fixed hidden md:sticky md:block h-[calc(100vh-4.5rem)]">
       <ScrollArea className="bg-card h-full border rounded-lg p-2">

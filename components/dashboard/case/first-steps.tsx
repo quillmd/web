@@ -194,7 +194,7 @@ export default function FirstSteps({
                   </h2>
                 </div>
                 {case_id == undefined ? (
-                  <Button className="w-36" disabled>{`+ Add Input`}</Button>
+                  <Button className="w-36" disabled>{`+ New Note`}</Button>
                 ) : (
                   <NewNote
                     case_id={case_id}
