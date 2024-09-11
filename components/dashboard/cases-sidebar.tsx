@@ -1,4 +1,5 @@
 "use client";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -26,11 +27,28 @@ export default function CasesSidebar({
   initialCases,
   initialFetchParams,
 }: CasesSidebarProps) {
+  const [accordionValue, setAccordionValue] = useState<string[]>([])
   const { casesGroupedByDate, fetchParams, handleLoadMore, handleQuery } =
     useCases(initialCases, initialFetchParams);
 
   const pathname = usePathname();
   const regexCasesPathname = /\/cases\/[^/]+/;
+
+  const defaultOpenSection = useMemo(() => {
+    const currentCaseId = pathname.match(regexCasesPathname)?.[0].replace("/cases/", "");
+    if (currentCaseId && casesGroupedByDate?.length) {
+      for (const [date, casesForDate] of casesGroupedByDate) {
+        if (casesForDate.some(c => c.id === currentCaseId)) {
+          return [date];
+        }
+      }
+    }
+    return casesGroupedByDate?.length ? [casesGroupedByDate?.[0][0]] : [];
+  }, [pathname, casesGroupedByDate]);
+
+  useEffect(() => {
+    setAccordionValue(defaultOpenSection)
+  }, [defaultOpenSection])
 
   return (
     <aside className="top-16 z-50 fixed hidden md:sticky md:block h-[calc(100vh-4.5rem)]">
@@ -51,7 +69,8 @@ export default function CasesSidebar({
           {casesGroupedByDate && (
             <Accordion
               type="multiple"
-              defaultValue={[casesGroupedByDate[0][0]]}
+              value={accordionValue}
+              onValueChange={newValue => setAccordionValue(newValue)}
             >
               {casesGroupedByDate?.map(([date, casesForDate], i) => (
                 <AccordionItem key={date} value={date}>
@@ -105,6 +124,7 @@ function SidebarSectionTitle({ text }: { text: string }) {
     </div>
   );
 }
+
 function SidebarLabel({
   id,
   text,
@@ -116,10 +136,9 @@ function SidebarLabel({
   active: boolean;
   next_case_id?: string;
 }) {
-  const { theme } = useTheme();
   if (active) {
     return (
-      <div className="px-2 h-14 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full justify-between bg-primary text-primary-foreground hover:bg-primary/90">
+      <div className="px-2 h-14 inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full justify-between bg-primary text-primary-foreground hover:bg-primary/90">
         <NextLink
           className="w-full h-full items-center justify-start flex"
           href={`/cases/${id}`}
@@ -131,7 +150,7 @@ function SidebarLabel({
     );
   }
   return (
-    <div className="px-2 h-14 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full justify-between hover:bg-accent hover:text-accent-foreground">
+    <div className="px-2 h-14 inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full justify-between hover:bg-accent hover:text-accent-foreground">
       <NextLink
         className="w-full h-full items-center justify-start flex"
         href={`/cases/${id}`}

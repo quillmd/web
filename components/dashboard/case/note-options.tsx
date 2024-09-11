@@ -134,7 +134,7 @@ export default function NoteOptions({
             onValueChange={(scribe_id) => createNote(current_note.template_id, scribe_id)}
           >
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select a fruit" />
+              <SelectValue placeholder="Select a squire" />
             </SelectTrigger>
             <SelectContent>
               {scribesWithIcons.map((scribe) => (
@@ -142,7 +142,7 @@ export default function NoteOptions({
                   key={`rewrite-select-${scribe.id}`}
                   value={scribe.id}
                 >
-                  <div className="flex flex-row gap-1">
+                  <div className="flex flex-row gap-1 items-center">
                     <scribe.icon size={20} />
                     <span>{`${scribe.name} (${scribe.short_description})`}</span>
                   </div>

@@ -20,6 +20,7 @@ import CopyButton from "../copy-button";
 import Inputs from "./inputs";
 import NoteOptions from "./note-options";
 import ScribingEffect from "./scribing-effect";
+import NoteDisplay from "./note-display";
 
 const scribeIconMapping = {
   Lancelot: Sparkles,
@@ -29,7 +30,7 @@ const scribeIconMapping = {
 
 type ScribeName = keyof typeof scribeIconMapping;
 
-interface NotesDisplayProps {
+interface NotesProps {
   case_id: string;
   templates: Template[];
   notes: Note[];
@@ -43,7 +44,7 @@ export default function Notes({
   notes,
   transcripts,
   scribes,
-}: NotesDisplayProps) {
+}: NotesProps) {
   const [currentNoteIndex, setCurrentNoteIndex] = useState(0);
   const [sidebarVisible, setSidebarVisible] = useState("");
 
@@ -180,7 +181,7 @@ export default function Notes({
           <ScrollArea type="auto" className="p-4 h-[calc(100vh-16rem)]">
             <pre className="font-mono text-sm whitespace-pre-wrap">
               {current_note.status == "ready" ? (
-                noteContent
+                <NoteDisplay case_id={case_id} note={current_note} />
               ) : current_note.status == "processing" ? (
                 <ScribingEffect
                   text={`${
