@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Pricing() {
   return (
-    <div className="font-garamond">
+    <div className="font-heading">
       <main className="flex flex-col items-center justify-start pt-24 px-6 md:px-0 pt-24 pb-24 pl-6 pr-6">
         <div className="text-center max-w-xl">
           <h1 className="text-6xl font-bold mb-8">Pricing</h1>

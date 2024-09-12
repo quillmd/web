@@ -25,12 +25,12 @@ export default function CopyButton({ text, className }: NoteTextProps) {
       onClick={handleCopyClick}
       aria-label="Copy"
     >
-      {"Copy"}
       {copied ? (
-        <Check className={"ml-0.5"} size={16} />
+        <Check className={"mr-0.5"} size={16} />
       ) : (
-        <Clipboard className={"ml-0.5"} size={16} />
+        <Clipboard className={"mr-0.5"} size={16} />
       )}
+      {"Copy"}
     </Button>
   );
 }

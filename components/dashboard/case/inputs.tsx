@@ -14,7 +14,7 @@ export default function Inputs({ case_id, transcripts }: InputsProps) {
     <Card className="col-span-1 flex flex-col overflow-hidden h-[calc(100vh-7.5rem)]">
       <CardHeader className="px-8 py-6">
         <div className="mx-auto flex gap-2 items-center justify-center">
-          <CardTitle className="text-xl">Inputs</CardTitle>
+          <CardTitle>Note Inputs</CardTitle>
         </div>
       </CardHeader>
       <div className="relative flex-grow overflow-hidden flex flex-col items-center gap-6">

@@ -16,7 +16,7 @@ export default function Error({
   return (
     <div className="container max-w-lg">
       <div className="text-center w-full py-4 mb-4">
-        <h1 className="text-3xl md:text-5xl font-garamond">
+        <h1 className="text-3xl md:text-5xl font-heading">
           Something went wrong
         </h1>
       </div>
@@ -43,9 +43,11 @@ export default function Error({
         </CardContent>
         <CardFooter className="justify-center">
           <p className="text-xs text-muted-foreground">
-            If the problem persists, please <a href="/contactus" className="text-blue-500 hover:underline">
-            contact support
-          </a>.
+            If the problem persists, please{" "}
+            <a href="/contactus" className="text-blue-500 hover:underline">
+              contact support
+            </a>
+            .
           </p>
         </CardFooter>
       </Card>

@@ -13,6 +13,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { Case } from "@/lib/case";
 import { useAudioRecorder } from "@/lib/useAudioRecorder";
 import { useAudioUpload } from "@/lib/useAudioUpload";
 import { cn } from "@/lib/utils";
@@ -26,12 +27,11 @@ import {
   Mic,
   ScreenShare,
   Square,
-  UploadCloud
+  UploadCloud,
 } from "lucide-react";
 import Image from "next/image";
 import { useAccount } from "../account-provider";
 import TextInput from "./text-input";
-import { Case } from "@/lib/case";
 
 interface NewInputProps {
   case_id: Case["id"];
@@ -171,10 +171,7 @@ export default function NewInput({ case_id, disabled }: NewInputProps) {
         className="hidden"
       />
       {activeInput ? (
-        <Button
-          className="w-36 group z-50"
-          onClick={buttonContent?.onClick}
-        >
+        <Button className="w-36 group z-50" onClick={buttonContent?.onClick}>
           {buttonContent && (
             <>
               <buttonContent.Icon
@@ -222,149 +219,149 @@ export default function NewInput({ case_id, disabled }: NewInputProps) {
         </Button>
       ) : (
         <Dialog>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              className="w-36"
-              disabled={account.status == "trial_ended" || disabled}
-            >
-              {account.status == "trial_ended"
-                ? "Trial ended"
-                : `+ Add Input`}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-40">
-            <HoverCard openDelay={500}>
-              <DropdownMenuItem onClick={handleInterviewClick}>
-                <MessagesSquare className="w-4 h-4 mr-2" />
-                <span>Interview</span>
-                <DropdownMenuShortcut>
-                  <HoverCardTrigger>
-                    <CircleHelp size={14} />
-                  </HoverCardTrigger>
-                </DropdownMenuShortcut>
-              </DropdownMenuItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                className="w-36"
+                disabled={account.status == "trial_ended" || disabled}
+              >
+                {account.status == "trial_ended"
+                  ? "Trial ended"
+                  : `+ Add Input`}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-40">
+              <HoverCard openDelay={200}>
+                <DropdownMenuItem onClick={handleInterviewClick}>
+                  <MessagesSquare className="w-4 h-4 mr-2" />
+                  <span>Interview</span>
+                  <DropdownMenuShortcut>
+                    <HoverCardTrigger>
+                      <CircleHelp size={14} />
+                    </HoverCardTrigger>
+                  </DropdownMenuShortcut>
+                </DropdownMenuItem>
 
-              <HoverCardContent side="right" sideOffset={15}>
-                <div className="flex flex-col gap-1">
-                  <span>{`Squire will listen to the interview using your PC's microphone`}</span>
-                  <span className="text-xs text-muted-foreground">
-                    {`Position microphone to hear all speakers. Click 'Allow' when prompted.`}
-                  </span>
-                </div>
-                <div className="flex flex-col mt-2">
-                  <Image
-                    src="/allow-microphone.png"
-                    alt="Allow microphone"
-                    width={400}
-                    height={361}
-                  />
-                </div>
-              </HoverCardContent>
-            </HoverCard>
+                <HoverCardContent side="left" sideOffset={140}>
+                  <div className="flex flex-col gap-1">
+                    <span>{`Squire will listen to the interview using your PC's microphone`}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {`Position microphone to hear all speakers. Click 'Allow' when prompted.`}
+                    </span>
+                  </div>
+                  <div className="flex flex-col mt-2">
+                    <Image
+                      src="/allow-microphone.png"
+                      alt="Allow microphone"
+                      width={400}
+                      height={361}
+                    />
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
 
-            <HoverCard openDelay={500}>
-              <DropdownMenuItem onClick={handleNarrationClick}>
-                <Mic className="w-4 h-4 mr-2" />
-                <span>Narration</span>
-                <DropdownMenuShortcut>
-                  <HoverCardTrigger>
-                    <CircleHelp size={14} />
-                  </HoverCardTrigger>
-                </DropdownMenuShortcut>
-              </DropdownMenuItem>
+              <HoverCard openDelay={200}>
+                <DropdownMenuItem onClick={handleNarrationClick}>
+                  <Mic className="w-4 h-4 mr-2" />
+                  <span>Narration</span>
+                  <DropdownMenuShortcut>
+                    <HoverCardTrigger>
+                      <CircleHelp size={14} />
+                    </HoverCardTrigger>
+                  </DropdownMenuShortcut>
+                </DropdownMenuItem>
 
-              <HoverCardContent side="right" sideOffset={15}>
-                <div className="flex flex-col gap-1">
-                  <span>{`Tell Squire about the patient using your PC's microphone`}</span>
-                  <span className="text-xs text-muted-foreground">
-                    {`Click 'Allow' when prompted.`}
-                  </span>
-                </div>
-                <div className="flex flex-col mt-2">
-                  <Image
-                    src="/allow-microphone.png"
-                    alt="Allow microphone"
-                    width={400}
-                    height={361}
-                  />
-                </div>
-              </HoverCardContent>
-            </HoverCard>
+                <HoverCardContent side="left" sideOffset={140}>
+                  <div className="flex flex-col gap-1">
+                    <span>{`Tell Squire about the patient using your PC's microphone`}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {`Click 'Allow' when prompted.`}
+                    </span>
+                  </div>
+                  <div className="flex flex-col mt-2">
+                    <Image
+                      src="/allow-microphone.png"
+                      alt="Allow microphone"
+                      width={400}
+                      height={361}
+                    />
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
 
-            <HoverCard openDelay={500}>
-              <DropdownMenuItem onClick={handleShareClick}>
-                <ScreenShare className="w-4 h-4 mr-2" />
-                <span>Telehealth</span>
-                <DropdownMenuShortcut>
-                  <HoverCardTrigger>
-                    <CircleHelp size={14} />
-                  </HoverCardTrigger>
-                </DropdownMenuShortcut>
-              </DropdownMenuItem>
-              <HoverCardContent side="right" align="start" sideOffset={15}>
-                <div className="flex flex-col gap-1">
-                  <span>{`Share your screen with Squire and it will listen to the interview`}</span>
-                  <span className="text-xs text-muted-foreground">
-                    {`Squire will only listen to the conversation and does not record your screen`}
-                  </span>
-                </div>
-                <div className="flex flex-col mt-2">
-                  <Image
-                    src="/share-steps.png"
-                    alt="Share steps"
-                    width={400}
-                    height={361}
-                  />
-                  <span className="text-xs text-muted-foreground">
-                    {`1. Select only the telehealth app tab`}
-                  </span>
-                  <span className="text-xs text-muted-foreground">
-                    {`2. Make sure that audio is shared`}
-                  </span>
-                  <span className="text-xs text-muted-foreground">
-                    {`3. Click "Share" to start`}
-                  </span>
-                </div>
-              </HoverCardContent>
-            </HoverCard>
-            <HoverCard openDelay={500}>
-              <DropdownMenuItem onClick={handleUploadClick}>
-                <UploadCloud className="w-4 h-4 mr-2" />
-                <span>Upload</span>
-                <DropdownMenuShortcut>
-                  <HoverCardTrigger>
-                    <CircleHelp size={14} />
-                  </HoverCardTrigger>
-                </DropdownMenuShortcut>
-              </DropdownMenuItem>
-              <HoverCardContent side="right" sideOffset={15}>
-                <div className="flex flex-col gap-1">
-                  <span>{`Upload an audio file for Squire to listen to`}</span>
-                </div>
-              </HoverCardContent>
-            </HoverCard>
-            <HoverCard openDelay={500}>
-              <DialogTrigger asChild>
-              <DropdownMenuItem>
-                <ClipboardType className="w-4 h-4 mr-2" />
-                <span>Text</span>
-                <DropdownMenuShortcut>
-                  <HoverCardTrigger>
-                    <CircleHelp size={14} />
-                  </HoverCardTrigger>
-                </DropdownMenuShortcut>
-              </DropdownMenuItem>
-              </DialogTrigger>
-              <HoverCardContent side="right" sideOffset={15}>
-                <div className="flex flex-col gap-1">
-                  <span>{`Upload an audio file for Squire to listen to`}</span>
-                </div>
-              </HoverCardContent>
-            </HoverCard>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <TextInput case_id={case_id}/>
+              <HoverCard openDelay={200}>
+                <DropdownMenuItem onClick={handleShareClick}>
+                  <ScreenShare className="w-4 h-4 mr-2" />
+                  <span>Telehealth</span>
+                  <DropdownMenuShortcut>
+                    <HoverCardTrigger>
+                      <CircleHelp size={14} />
+                    </HoverCardTrigger>
+                  </DropdownMenuShortcut>
+                </DropdownMenuItem>
+                <HoverCardContent side="left" align="start" sideOffset={140}>
+                  <div className="flex flex-col gap-1">
+                    <span>{`Share your screen with Squire and it will listen to the interview`}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {`Squire will only listen to the conversation and does not record your screen`}
+                    </span>
+                  </div>
+                  <div className="flex flex-col mt-2">
+                    <Image
+                      src="/share-steps.png"
+                      alt="Share steps"
+                      width={400}
+                      height={361}
+                    />
+                    <span className="text-xs text-muted-foreground">
+                      {`1. Select only the telehealth app tab`}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {`2. Make sure that audio is shared`}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {`3. Click "Share" to start`}
+                    </span>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+              <HoverCard openDelay={200}>
+                <DropdownMenuItem onClick={handleUploadClick}>
+                  <UploadCloud className="w-4 h-4 mr-2" />
+                  <span>Upload</span>
+                  <DropdownMenuShortcut>
+                    <HoverCardTrigger>
+                      <CircleHelp size={14} />
+                    </HoverCardTrigger>
+                  </DropdownMenuShortcut>
+                </DropdownMenuItem>
+                <HoverCardContent side="left" sideOffset={140}>
+                  <div className="flex flex-col gap-1">
+                    <span>{`Upload an audio file for Squire to listen to`}</span>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+              <HoverCard openDelay={200}>
+                <DialogTrigger asChild>
+                  <DropdownMenuItem>
+                    <ClipboardType className="w-4 h-4 mr-2" />
+                    <span>Text</span>
+                    <DropdownMenuShortcut>
+                      <HoverCardTrigger>
+                        <CircleHelp size={14} />
+                      </HoverCardTrigger>
+                    </DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                </DialogTrigger>
+                <HoverCardContent side="left" sideOffset={140}>
+                  <div className="flex flex-col gap-1">
+                    <span>{`Upload an audio file for Squire to listen to`}</span>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <TextInput case_id={case_id} />
         </Dialog>
       )}
     </>

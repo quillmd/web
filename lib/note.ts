@@ -113,26 +113,22 @@ export async function postNote({
 export async function editNote({
   case_id,
   note_id,
-  content,
+  instructions,
 }: {
   case_id: Case["id"];
   note_id: Note["id"];
-  content?: Note["content"];
+  instructions: string;
 }) {
   const tags = [`notes-${case_id}`];
-  const data: Partial<Note> = {};
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);
-  }
-  if (content !== undefined) {
-    data.content = content;
   }
   await fetch(
     `${API_URL}/api/cases/${case_id}/notes/${note_id}/edit`,
     {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify({instructions}),
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${authToken}`,
@@ -152,7 +148,6 @@ export async function deleteNote({
   note_id: Note["id"];
 }) {
   const tags = [`notes-${case_id}`];
-  const data: Partial<Note> = {};
   const authToken = cookies().get("accessToken")?.value;
   if (!authToken) {
     redirect(`/login`);

@@ -1,27 +1,52 @@
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { EB_Garamond } from "next/font/google";
-import localFont from "next/font/local";
+import { IBM_Plex_Serif, Inter } from 'next/font/google'
+import { IBM_Plex_Sans } from 'next/font/google'
+import { IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+
+const fontHeading = IBM_Plex_Serif({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-heading',
+  weight: "700"
+})
+
+const fontBody = IBM_Plex_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-body',
+  weight: "500"
+})
+
+const fontMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-mono',
+  weight: "700"
+})
+
 
 export const metadata: Metadata = {
   title: "Squire",
   description: "AI Medical Scribe",
 };
 
-const garamond = EB_Garamond({ subsets: ["latin"], variable: "--font-garamond" });
-const sansFont = localFont({
-  src: "./IBMPlexSans-Medium.ttf",
-  variable: "--font-sans",
-});
-export default function RootLayout({
-  children,
-}: Readonly<{
+export default function RootLayout({ children }:Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn(sansFont.variable, garamond.variable)}>
-      {children}
+    <html lang="en">
+      <body 
+        className={cn(
+          'antialiased',
+          fontHeading.variable,
+          fontBody.variable,
+          fontMono.variable
+        )}
+      >
+        {children}
+      </body>
     </html>
-  );
+  )
 }

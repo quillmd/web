@@ -1,6 +1,6 @@
 export default function PrivacySecurity() {
   return (
-    <div className="font-garamond">
+    <div className="font-heading">
       <main className="flex flex-col items-center justify-start pt-24 px-6 md:px-0">
         <div className="max-w-3xl">
           <h1 className="text-4xl text-center font-bold mb-8">

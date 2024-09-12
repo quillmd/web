@@ -19,7 +19,7 @@ export default function NoteDeleteButton({
   return (
     <Button
       className="hover:text-destructive-foreground hover:bg-destructive/90 w-full"
-      variant="outline"
+      variant="ghost"
       onClick={handleDelete}
     >
       Delete note

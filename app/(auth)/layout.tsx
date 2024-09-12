@@ -8,7 +8,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <body>
+    <div>
       <header className="sticky top-0 z-50 bg-background p-2 px-16 mb-12">
         <nav className="flex justify-between items-center w-full">
           <NextLink href={"/"}>
@@ -23,6 +23,6 @@ export default function AuthLayout({
         </nav>
       </header>
       {children}
-    </body>
+    </div>
   );
 }

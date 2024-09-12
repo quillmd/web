@@ -13,9 +13,9 @@ const CasesSocket = () => {
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
   const [channel, setChannel] = useState<Channel | undefined>(undefined);
 
-  useEffect(()=> {
-    refreshToken().then()
-  }, [])
+  useEffect(() => {
+    refreshToken().then();
+  }, []);
 
   useEffect(() => {
     if (authToken && userId && !socket) {

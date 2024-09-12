@@ -1,4 +1,3 @@
-"use client";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -22,9 +22,9 @@ import { Note, postNote } from "@/lib/note";
 import { Scribe } from "@/lib/scribe";
 import { Template } from "@/lib/template";
 import { Eclipse, ShieldHalf, Sparkles } from "lucide-react";
+import MagicEdit from "./magic-edit";
 import NoteDeleteButton from "./note-delete-button";
-
-const pronounsButtons = ["She", "He", "They"];
+import PronounButtons from "./pronoun-buttons";
 
 const scribeIconMapping = {
   Lancelot: Sparkles,
@@ -89,7 +89,9 @@ export default function NoteOptions({
             value={current_note.template_id}
             defaultValue={current_note.template_id}
             disabled={!current_scribe}
-            onValueChange={(template_id) => current_scribe && createNote(template_id, current_note.scribe_id)}
+            onValueChange={(template_id) =>
+              current_scribe && createNote(template_id, current_note.scribe_id)
+            }
           >
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Select a template" />
@@ -131,7 +133,9 @@ export default function NoteOptions({
             value={current_scribe?.id}
             disabled={!current_scribe}
             defaultValue={current_scribe?.id}
-            onValueChange={(scribe_id) => createNote(current_note.template_id, scribe_id)}
+            onValueChange={(scribe_id) =>
+              createNote(current_note.template_id, scribe_id)
+            }
           >
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Select a squire" />
@@ -153,13 +157,15 @@ export default function NoteOptions({
         </div>
         <div className="space-y-1">
           <Label>Pronouns</Label>
-          <div className="flex gap-2">
-            {pronounsButtons.map((value) => (
-              <Button key={`pronouns-button-${value.toLowerCase()}`} variant={"outline"}>{value}</Button>
-            ))}
-          </div>
+          <PronounButtons case_id={case_id} note_id={current_note.id} />
         </div>
-        <Button className="w-full" variant={"outline"}>Magic Edit</Button>
+        <MagicEdit case_id={case_id} note={current_note}>
+          <DialogTrigger asChild>
+            <Button className="w-full" variant={"default"}>
+              Magic Edit
+            </Button>
+          </DialogTrigger>
+        </MagicEdit>
       </CardContent>
       <CardFooter>
         <NoteDeleteButton case_id={case_id} note_id={current_note.id} />

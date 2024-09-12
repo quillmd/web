@@ -8,9 +8,11 @@ import { Scribe } from "@/lib/scribe";
 import { Template } from "@/lib/template";
 import { Transcript } from "@/lib/transcript";
 import {
+  Bolt,
   ChevronLeft,
   ChevronRight,
   Eclipse,
+  FileSliders,
   ShieldHalf,
   Sparkles,
 } from "lucide-react";
@@ -18,9 +20,9 @@ import { DateTime } from "luxon";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import CopyButton from "../copy-button";
 import Inputs from "./inputs";
+import NoteDisplay from "./note-display";
 import NoteOptions from "./note-options";
 import ScribingEffect from "./scribing-effect";
-import NoteDisplay from "./note-display";
 
 const scribeIconMapping = {
   Lancelot: Sparkles,
@@ -109,7 +111,6 @@ export default function Notes({
     const endTag = "(end of note)";
     const startIndex = content.indexOf(startTag);
     const endIndex = content.lastIndexOf(endTag);
-
     if (startIndex !== -1 && endIndex !== -1 && startIndex < endIndex) {
       return content.slice(startIndex + startTag.length, endIndex).trim();
     }
@@ -118,7 +119,7 @@ export default function Notes({
 
   const disclaimer =
     "\n\nThe Squire clinical documentation tool was used in creating this documentation. Variations in content may occur, and healthcare providers must review and verify all information before making clinical decisions. ";
-  const noteContent = current_note?.content
+  const extractedContent = current_note?.content
     ? extractNoteContent(current_note.content) + disclaimer
     : "";
 
@@ -128,9 +129,11 @@ export default function Notes({
 
   return (
     <div className="grid grid-cols-4 gap-3">
-      <Card className={`relative flex flex-col overflow-hidden h-[calc(100vh-7.5rem)] transition-all duration-300 ease-in-out ${
-        sidebarVisible === "" ? "col-span-4" : "col-span-3"
-      }`}>
+      <Card
+        className={`relative flex flex-col overflow-hidden h-[calc(100vh-7.5rem)] transition-all duration-300 ease-in-out ${
+          sidebarVisible === "" ? "col-span-4" : "col-span-3"
+        }`}
+      >
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>
             {notes.length > 0
@@ -140,7 +143,7 @@ export default function Notes({
               : "Notes"}
           </CardTitle>
           {/* {isCurrentNoteOutdated && (
-              <HoverCard openDelay={500}>
+              <HoverCard openDelay={200}>
                 <HoverCardTrigger>
                   <TriangleAlert className="text-orange-500" />
                 </HoverCardTrigger>
@@ -151,53 +154,64 @@ export default function Notes({
                 </HoverCardContent>
               </HoverCard>
             )} */}
-          <div className="flex gap-1">
+          <div className="flex gap-2">
             {current_note.status == "ready" && (
-              <CopyButton className="bg-card" text={noteContent} />
+              <CopyButton className="w-24 bg-card" text={extractedContent} />
             )}
             <ToggleGroup
-              variant="outline"
+              className="gap-2"
               type="single"
+              variant={"outline"}
               value={sidebarVisible}
               onValueChange={(value) => {
-                setSidebarVisible(value)
-              }
-                
-              }
+                setSidebarVisible(value);
+              }}
             >
-              <ToggleGroupItem value="inputs" aria-label="Toggle input sidebar">
-                Inputs
+              <ToggleGroupItem
+                value="inputs"
+                aria-label="Toggle input sidebar"
+                className="w-24"
+              >
+                <FileSliders className={"mr-0.5"} size={16} />
+                {"Inputs"}
               </ToggleGroupItem>
               <ToggleGroupItem
                 value="options"
                 aria-label="Toggle options sidebar"
+                className="w-24"
               >
-                Options
+                <Bolt className={"mr-0.5"} size={16} />
+                {"Options"}
               </ToggleGroupItem>
             </ToggleGroup>
           </div>
         </CardHeader>
-        <div className="relative w-full">
-          <ScrollArea type="auto" className="p-4 h-[calc(100vh-16rem)]">
-            <pre className="font-mono text-sm whitespace-pre-wrap">
-              {current_note.status == "ready" ? (
-                <NoteDisplay case_id={case_id} note={current_note} />
-              ) : current_note.status == "processing" ? (
-                <ScribingEffect
-                  text={`${
-                    current_scribe?.name ?? "Your squire"
-                  } is scribing this note...`}
-                />
-              ) : current_note.status == "editing" ? (
-                <ScribingEffect
-                  text={`${
-                    current_scribe?.name ?? "Your squire"
-                  } is editing this note...`}
-                />
-              ) : (
-                "Error processing note"
-              )}
-            </pre>
+        <div className="relative w-full p-2 px-6">
+          <ScrollArea
+            type="auto"
+            className="p-2 border bg-background h-[calc(100vh-16.5rem)]"
+          >
+            {current_note.status == "ready" ? (
+              <NoteDisplay
+                case_id={case_id}
+                note={current_note}
+                extractedContent={extractedContent}
+              />
+            ) : current_note.status == "processing" ? (
+              <ScribingEffect
+                text={`${
+                  current_scribe?.name ?? "Your squire"
+                } is scribing this note...`}
+              />
+            ) : current_note.status == "editing" ? (
+              <ScribingEffect
+                text={`${
+                  current_scribe?.name ?? "Your squire"
+                } is editing this note...`}
+              />
+            ) : (
+              "Error processing note"
+            )}
           </ScrollArea>
           <div className="flex items-center justify-between mt-0.5">
             <Button
@@ -228,9 +242,7 @@ export default function Notes({
       </Card>
       <div
         className={`transition-all duration-300 ease-in-out ${
-          current_note && sidebarVisible === "options"
-            ? "col-span-1"
-            : "hidden"
+          current_note && sidebarVisible === "options" ? "col-span-1" : "hidden"
         }`}
       >
         <NoteOptions
@@ -244,9 +256,7 @@ export default function Notes({
       </div>
       <div
         className={`transition-all duration-300 ease-in-out ${
-          current_note && sidebarVisible === "inputs"
-            ? "col-span-1"
-            : "hidden"
+          current_note && sidebarVisible === "inputs" ? "col-span-1" : "hidden"
         }`}
       >
         <Inputs case_id={case_id} transcripts={transcripts} />

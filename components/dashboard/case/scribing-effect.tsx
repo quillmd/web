@@ -27,9 +27,9 @@ export default function ScribingEffect({
   }, [index, text, speed]);
 
   return (
-    <div className="font-mono text-sm">
+    <pre className="font-mono text-sm whitespace-pre-wrap">
       {displayText}
       <span className="animate-blink">|</span>
-    </div>
+    </pre>
   );
 }

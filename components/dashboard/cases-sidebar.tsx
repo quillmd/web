@@ -1,5 +1,4 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -9,9 +8,9 @@ import {
 import { Case } from "@/lib/case";
 import { CaseFetchParams, useCases } from "@/lib/useCases";
 import { Search } from "lucide-react";
-import { useTheme } from "next-themes";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { ScrollArea } from "../ui/scroll-area";
@@ -27,7 +26,7 @@ export default function CasesSidebar({
   initialCases,
   initialFetchParams,
 }: CasesSidebarProps) {
-  const [accordionValue, setAccordionValue] = useState<string[]>([])
+  const [accordionValue, setAccordionValue] = useState<string[]>([]);
   const { casesGroupedByDate, fetchParams, handleLoadMore, handleQuery } =
     useCases(initialCases, initialFetchParams);
 
@@ -35,10 +34,12 @@ export default function CasesSidebar({
   const regexCasesPathname = /\/cases\/[^/]+/;
 
   const defaultOpenSection = useMemo(() => {
-    const currentCaseId = pathname.match(regexCasesPathname)?.[0].replace("/cases/", "");
+    const currentCaseId = pathname
+      .match(regexCasesPathname)?.[0]
+      .replace("/cases/", "");
     if (currentCaseId && casesGroupedByDate?.length) {
       for (const [date, casesForDate] of casesGroupedByDate) {
-        if (casesForDate.some(c => c.id === currentCaseId)) {
+        if (casesForDate.some((c) => c.id === currentCaseId)) {
           return [date];
         }
       }
@@ -47,30 +48,30 @@ export default function CasesSidebar({
   }, [pathname, casesGroupedByDate]);
 
   useEffect(() => {
-    setAccordionValue(defaultOpenSection)
-  }, [defaultOpenSection])
+    setAccordionValue(defaultOpenSection);
+  }, [defaultOpenSection]);
 
   return (
     <aside className="top-16 z-50 fixed hidden md:sticky md:block h-[calc(100vh-4.5rem)]">
       <ScrollArea className="bg-card h-full border rounded-lg p-2">
         <div className="flex flex-col w-72">
           <div className="flex flex-col gap-2 mb-2">
-            <NewCaseButton variant={"ghost"} />
-            <div className="relative w-11/12 mx-auto">
-              <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+            <NewCaseButton variant={"secondary"} />
+            {/* <div className="relative w-full mx-auto bg-background">
+              <Search className="absolute left-2 top-3 h-4 w-4 text-muted-foreground" />
               <Input
                 value={fetchParams.query}
                 onChange={handleQuery}
                 placeholder="Search"
-                className="pl-8 border-hidden"
+                className="pl-8 h-10"
               />
-            </div>
+            </div> */}
           </div>
           {casesGroupedByDate && (
             <Accordion
               type="multiple"
               value={accordionValue}
-              onValueChange={newValue => setAccordionValue(newValue)}
+              onValueChange={(newValue) => setAccordionValue(newValue)}
             >
               {casesGroupedByDate?.map(([date, casesForDate], i) => (
                 <AccordionItem key={date} value={date}>
@@ -138,7 +139,7 @@ function SidebarLabel({
 }) {
   if (active) {
     return (
-      <div className="px-2 h-14 inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full justify-between bg-primary text-primary-foreground hover:bg-primary/90">
+      <div className="px-2 h-14 inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full justify-between bg-accent text-accent-foreground">
         <NextLink
           className="w-full h-full items-center justify-start flex"
           href={`/cases/${id}`}

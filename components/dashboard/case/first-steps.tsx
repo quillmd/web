@@ -94,7 +94,7 @@ export default function FirstSteps({
     >
       <div className="max-w-md mx-auto pb-48">
         <div className="flex flex-col items-center justify-center space-y-8 text-center">
-          <h1 className="text-4xl font-bold tracking-tight font-garamond">
+          <h1 className="text-4xl font-bold tracking-tight font-heading">
             {account.status !== "trial_ended"
               ? "Create a case to get started"
               : "Get Squire Unlimited to continue"}
@@ -116,6 +116,7 @@ export default function FirstSteps({
                 </div>
                 <div className="flex-grow text-left">
                   <Input
+                  className="bg-background"
                     disabled={case_id != undefined}
                     placeholder="Title this case"
                     value={newTitle}
@@ -130,13 +131,11 @@ export default function FirstSteps({
                     newTitle.length == 0 || loading || case_id != undefined
                   }
                 >
-                  {case_id != undefined ? (
-                    "Case Created"
-                  ) : !loading ? (
-                    "Create Case"
-                  ) : (
-                    "Loading"
-                  )}
+                  {case_id != undefined
+                    ? "Case Created"
+                    : !loading
+                    ? "Create Case"
+                    : "Loading"}
                 </Button>
               </div>
               <div className="flex items-center space-x-4 w-full">
