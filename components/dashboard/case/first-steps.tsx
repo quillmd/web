@@ -96,7 +96,7 @@ export default function FirstSteps({
         <div className="flex flex-col items-center justify-center space-y-8 text-center">
           <h1 className="text-4xl font-bold tracking-tight font-heading">
             {account.status !== "trial_ended"
-              ? "Create a case to get started"
+              ? "Follow these steps to start the case"
               : "Get Squire Unlimited to continue"}
           </h1>
           {account.status !== "trial_ended" ? (
@@ -118,7 +118,7 @@ export default function FirstSteps({
                   <Input
                   className="bg-background"
                     disabled={case_id != undefined}
-                    placeholder="Title this case"
+                    placeholder="Enter a title for this case"
                     value={newTitle}
                     onChange={(e) => setNewTitle(e.target.value)}
                     onKeyDown={handleKeyDown}

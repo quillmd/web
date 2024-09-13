@@ -85,7 +85,7 @@ export default function TextInput({
               <FormControl>
                 <Textarea
                   className="flex-grow min-h-[calc(100vh-18.5rem)] resize-none"
-                  placeholder="Enter information about the patient for your Squire to use when creating notes. This can include other notes, imaging, labs, etc."
+                  placeholder="Enter patient information, including notes, imaging results, and lab data, for your Squire to use in note creation"
                   {...field}
                   autoFocus={true}
                 />

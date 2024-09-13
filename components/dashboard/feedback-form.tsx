@@ -67,13 +67,13 @@ export default function FeedbackForm() {
             </DialogTrigger>
           </TooltipTrigger>
           <TooltipContent>
-            <span>Give us feedback</span>
+            <span>Share Your Thoughts</span>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Give us feedback</DialogTitle>
+          <DialogTitle>Share Your Thoughts</DialogTitle>
           <DialogDescription>
             {`We appreciate your thoughts about Squire! If you've encountered a problem, please include details like what you were trying to do, and what happened. We'll respond by email.`}
           </DialogDescription>

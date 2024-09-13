@@ -25,7 +25,7 @@ export default async function AccountScribesePage() {
       <CardHeader>
         <CardTitle>Choose Your Squire</CardTitle>
         <CardDescription>
-          Select a squire that best fits your note-taking needs
+          Select a Squire that matches your note writing style. You can change this selection anytime.
         </CardDescription>
       </CardHeader>
       <CardContent>

@@ -21,8 +21,8 @@ export default async function ScribeSelectionDialog({
         <AlertDialogHeader>
           <AlertDialogTitle>Choose Your Squire</AlertDialogTitle>
           <AlertDialogDescription>
-            Select a squire that best fits your note-taking needs. You can
-            switch at any time.
+            Select a Squire that matches your note writing style. You can change
+            this selection anytime.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <ScribeSelection scribes={scribes} />
