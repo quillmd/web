@@ -18,18 +18,20 @@ export default function Inputs({ case_id, transcripts }: InputsProps) {
         </div>
       </CardHeader>
       <div className="relative flex-grow overflow-hidden flex flex-col items-center gap-6">
-        <NewInput case_id={case_id} disabled={false}/>
+        <NewInput case_id={case_id} disabled={false} />
         <ScrollArea
           type="auto"
           className="w-full h-[calc(100vh-19.5rem)] border-t"
         >
-          {transcripts.map((transcript) => (
-            <TranscriptCard
-              key={`transcript-${transcript.id}`}
-              case_id={case_id}
-              transcript={transcript}
-            />
-          ))}
+          {transcripts
+            .filter((transcript) => transcript.type != "note_for_completion")
+            .map((transcript) => (
+              <TranscriptCard
+                key={`transcript-${transcript.id}`}
+                case_id={case_id}
+                transcript={transcript}
+              />
+            ))}
         </ScrollArea>
       </div>
     </Card>

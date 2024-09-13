@@ -14,7 +14,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="container max-w-lg">
+    <div className="container max-w-lg mx-auto my-auto">
       <div className="text-center w-full py-4 mb-4">
         <h1 className="text-3xl md:text-5xl font-heading">
           Something went wrong

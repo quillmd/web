@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -21,8 +22,11 @@ import {
 import { Note, postNote } from "@/lib/note";
 import { Scribe } from "@/lib/scribe";
 import { Template } from "@/lib/template";
+import { Transcript } from "@/lib/transcript";
 import { Eclipse, ShieldHalf, Sparkles } from "lucide-react";
+import { useState } from "react";
 import MagicEdit from "./magic-edit";
+import NoteCompletion from "./note-completion";
 import NoteDeleteButton from "./note-delete-button";
 import PronounButtons from "./pronoun-buttons";
 
@@ -37,9 +41,10 @@ type ScribeName = keyof typeof scribeIconMapping;
 interface NoteOptionsProps {
   case_id: string;
   current_note: Note;
-  current_scribe?: Scribe;
+  current_scribe: Scribe;
   scribes: Scribe[];
   templates: Template[];
+  transcripts: Transcript[];
   searchNoteByScribe: (
     template_id: Template["id"],
     scribe_id: Scribe["id"]
@@ -52,8 +57,11 @@ export default function NoteOptions({
   current_scribe,
   scribes,
   templates,
+  transcripts,
   searchNoteByScribe,
 }: NoteOptionsProps) {
+  const [isNoteCompletionOpen, setIsNoteCompletionOpen] = useState(false);
+
   const createNote = (template_id: string, scribe_id: string) => {
     !searchNoteByScribe(template_id, scribe_id) &&
       postNote({
@@ -62,17 +70,27 @@ export default function NoteOptions({
         scribe_id,
       }).then(() => {});
   };
+
+  const openNoteCompletion = (template_id: string, scribe_id: string) => {
+    !searchNoteByScribe(template_id, scribe_id) &&
+      setIsNoteCompletionOpen(true);
+  };
   const scribesWithIcons = scribes.map((scribe) => ({
     ...scribe,
     icon: scribeIconMapping[scribe.name as ScribeName],
   }));
 
   const defaultTemplates = templates.filter(
-    (template) => template.user_id == undefined
+    (template) =>
+      template.user_id == undefined && template.title !== "Note Completion"
   );
 
   const customTemplates = templates.filter(
     (template) => template.user_id != undefined
+  );
+
+  const noteCompletionTemplate = templates.find(
+    (template) => template.title == "Note Completion"
   );
 
   return (
@@ -89,16 +107,24 @@ export default function NoteOptions({
             value={current_note.template_id}
             defaultValue={current_note.template_id}
             disabled={!current_scribe}
-            onValueChange={(template_id) =>
-              current_scribe && createNote(template_id, current_note.scribe_id)
-            }
+            onValueChange={(template_id) => {
+              console.log(noteCompletionTemplate?.id);
+              if (template_id == noteCompletionTemplate?.id) {
+                openNoteCompletion(template_id, current_scribe.id);
+              } else if (
+                current_scribe &&
+                template_id !== noteCompletionTemplate?.id
+              ) {
+                createNote(template_id, current_note.scribe_id);
+              }
+            }}
           >
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Select a template" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Default tempaltes</SelectLabel>
+                <SelectLabel>Default templates</SelectLabel>
                 {defaultTemplates.map((template) => (
                   <SelectItem
                     key={`template-select-${template.id}`}
@@ -110,7 +136,7 @@ export default function NoteOptions({
               </SelectGroup>
               <SelectSeparator />
               <SelectGroup>
-                <SelectLabel>Custom tempaltes</SelectLabel>
+                <SelectLabel>Custom templates</SelectLabel>
                 {customTemplates.map((template) => (
                   <SelectItem
                     key={`template-select-${template.id}`}
@@ -124,8 +150,45 @@ export default function NoteOptions({
                   value={"create"}
                 >{`+ Create Custom Template`}</SelectItem>
               </SelectGroup>
+              
+              {noteCompletionTemplate && (
+                <>
+                <SelectSeparator />
+                <SelectGroup>
+                  <SelectLabel>Special</SelectLabel>
+                  <SelectItem
+                    key={`template-select-${noteCompletionTemplate.id}`}
+                    value={noteCompletionTemplate.id}
+                  >
+                    Note Completion
+                  </SelectItem>
+                </SelectGroup>
+                </>
+              )}
             </SelectContent>
           </Select>
+          <Dialog
+            open={isNoteCompletionOpen}
+            onOpenChange={setIsNoteCompletionOpen}
+          >
+            {noteCompletionTemplate && (
+              <NoteCompletion
+                case_id={case_id}
+                template_id={noteCompletionTemplate.id}
+                scribe_id={current_scribe.id}
+                transcript_id={
+                  transcripts.find(
+                    (transcript) => transcript.type == "note_for_completion"
+                  )?.id
+                }
+                initial_content={
+                  transcripts.find(
+                    (transcript) => transcript.type == "note_for_completion"
+                  )?.content
+                }
+              />
+            )}
+          </Dialog>
         </div>
         <div className="space-y-1">
           <Label>Change Squire</Label>

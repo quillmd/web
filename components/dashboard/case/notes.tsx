@@ -248,9 +248,10 @@ export default function Notes({
         <NoteOptions
           case_id={case_id}
           current_note={current_note}
-          current_scribe={current_scribe}
+          current_scribe={current_scribe || scribes[0]}
           scribes={scribes}
           templates={templates}
+          transcripts={transcripts}
           searchNoteByScribe={searchNoteByScribe}
         />
       </div>
