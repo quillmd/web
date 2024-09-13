@@ -105,7 +105,7 @@ export default function FirstSteps({
                 <div
                   className={`flex-shrink-0 w-8 h-8 rounded-full ${
                     case_id != undefined
-                      ? "bg-secondary text-muted-foreground"
+                      ? "bg-secondary text-secondary-foreground"
                       : "bg-primary text-primary-foreground"
                   } flex items-center justify-center`}
                 >
@@ -141,8 +141,10 @@ export default function FirstSteps({
               <div className="flex items-center space-x-4 w-full">
                 <div
                   className={`flex-shrink-0 w-8 h-8 rounded-full ${
-                    case_id == undefined || firstTranscript?.status == "ready"
-                      ? "bg-secondary text-muted-foreground"
+                    case_id == undefined?
+                      "bg-muted text-muted-foreground"
+                    : firstTranscript?.status == "ready"?
+                    "bg-secondary text-secondary-foreground"
                       : "bg-primary text-primary-foreground"
                   } flex items-center justify-center`}
                 >
@@ -177,7 +179,7 @@ export default function FirstSteps({
                   className={`flex-shrink-0 w-8 h-8 rounded-full ${
                     firstTranscript?.status === "ready"
                       ? "bg-primary text-primary-foreground"
-                      : "bg-secondary text-muted-foreground"
+                      : "bg-muted text-muted-foreground"
                   } flex items-center justify-center`}
                 >
                   {renderStepIndicator(3, firstNote?.status)}

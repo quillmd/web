@@ -355,7 +355,7 @@ export default function NewInput({ case_id, disabled }: NewInputProps) {
                 </DialogTrigger>
                 <HoverCardContent side="left" sideOffset={140}>
                   <div className="flex flex-col gap-1">
-                    <span>{`Upload an audio file for Squire to listen to`}</span>
+                    <span>{`Free text input of information you want your Squire to know`}</span>
                   </div>
                 </HoverCardContent>
               </HoverCard>

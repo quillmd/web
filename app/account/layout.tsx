@@ -40,7 +40,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
         <ul className="flex items-center gap-6 w-full justify-between">
           <li className="block">
             <NextLink href={"/home"}>
-              <Button variant="ghost" size={"icon"}>
+              <Button variant="secondary" size={"icon"}>
                 <ArrowLeft />
               </Button>
             </NextLink>
