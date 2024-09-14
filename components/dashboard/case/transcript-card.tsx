@@ -21,7 +21,15 @@ export default function TranscriptCard({ case_id, transcript }: CaseCardProps) {
                   .toUpperCase()}${transcript.type.slice(1)}`
               : `New Input`}
           </h4>
-          <Badge variant={"secondary"}>
+          <Badge
+            variant={
+              transcript.status == "ready"
+                ? "secondary"
+                : transcript.status == "error"
+                ? "destructive"
+                : "outline"
+            }
+          >
             {`${transcript.status
               .charAt(0)
               .toUpperCase()}${transcript.status.slice(1)}`}

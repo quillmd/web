@@ -42,7 +42,7 @@ export default function NewCaseButton({ variant, ...props }: ButtonProps) {
           {...props}
           disabled={account.status == "trial_ended"}
         >
-          + New Case
+          {account.status == "trial_ended" ? "Trial Ended" : `+ New Case`}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">

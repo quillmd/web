@@ -29,6 +29,7 @@ import MagicEdit from "./magic-edit";
 import NoteCompletion from "./note-completion";
 import NoteDeleteButton from "./note-delete-button";
 import PronounButtons from "./pronoun-buttons";
+import { useAccount } from "../account-provider";
 
 const scribeIconMapping = {
   Lancelot: Sparkles,
@@ -60,6 +61,7 @@ export default function NoteOptions({
   transcripts,
   searchNoteByScribe,
 }: NoteOptionsProps) {
+  const {account} = useAccount()
   const [isNoteCompletionOpen, setIsNoteCompletionOpen] = useState(false);
 
   const createNote = (template_id: string, scribe_id: string) => {
@@ -106,7 +108,7 @@ export default function NoteOptions({
           <Select
             value={current_note.template_id}
             defaultValue={current_note.template_id}
-            disabled={!current_scribe}
+            disabled={!current_scribe || account.status=="trial_ended"}
             onValueChange={(template_id) => {
               console.log(noteCompletionTemplate?.id);
               if (template_id == noteCompletionTemplate?.id) {
@@ -194,7 +196,7 @@ export default function NoteOptions({
           <Label>Change Squire</Label>
           <Select
             value={current_scribe?.id}
-            disabled={!current_scribe}
+            disabled={!current_scribe || account.status=="trial_ended"}
             defaultValue={current_scribe?.id}
             onValueChange={(scribe_id) =>
               createNote(current_note.template_id, scribe_id)
@@ -224,7 +226,7 @@ export default function NoteOptions({
         </div>
         <MagicEdit case_id={case_id} note={current_note}>
           <DialogTrigger asChild>
-            <Button className="w-full" variant={"default"}>
+            <Button className="w-full" variant={"default"} disabled={account.status=="trial_ended"}>
               Magic Edit
             </Button>
           </DialogTrigger>

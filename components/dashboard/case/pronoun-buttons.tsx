@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Case } from "@/lib/case";
 import { editNote, Note } from "@/lib/note";
+import { useAccount } from "../account-provider";
 
 const pronounsButtons = [
   { display: "She", gender: "female", pronouns: "she/her" },
@@ -18,6 +19,7 @@ export default function PronounButtons({
   case_id,
   note_id,
 }: PronounButtonProps) {
+  const {account} = useAccount()
   const handleChangePronouns = async (gender: string, pronouns: string) => {
     await editNote({
       case_id,
@@ -32,6 +34,7 @@ export default function PronounButtons({
           key={`pronouns-button-${value.display.toLowerCase()}`}
           variant={"default"}
           onClick={() => handleChangePronouns(value.gender, value.pronouns)}
+          disabled={account.status=="trial_ended"}
         >
           {value.display}
         </Button>

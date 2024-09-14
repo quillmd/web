@@ -1,9 +1,14 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Note } from "@/lib/note";
+import { Note, postNote } from "@/lib/note";
 import { Scribe } from "@/lib/scribe";
 import { Template } from "@/lib/template";
 import { Transcript } from "@/lib/transcript";
@@ -15,6 +20,7 @@ import {
   FileSliders,
   ShieldHalf,
   Sparkles,
+  TriangleAlert,
 } from "lucide-react";
 import { DateTime } from "luxon";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -106,9 +112,17 @@ export default function Notes({
     return false;
   };
 
+  const regenerateNote = async () => {
+    await postNote({
+      case_id,
+      template_id: current_note.template_id,
+      scribe_id: current_note.scribe_id,
+    });
+  };
+
   const extractNoteContent = (content: string) => {
-    const startTag = "(start of note)";
-    const endTag = "(end of note)";
+    const startTag = "<completed_note>";
+    const endTag = "</completed_note>";
     const startIndex = content.indexOf(startTag);
     const endIndex = content.lastIndexOf(endTag);
     if (startIndex !== -1 && endIndex !== -1 && startIndex < endIndex) {
@@ -135,25 +149,35 @@ export default function Notes({
         }`}
       >
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>
+          <CardTitle className="flex flex-row gap-2 items-center">
             {notes.length > 0
               ? `${current_note.template?.title || "Generic Note"} ${
                   current_note.version != 1 ? `${current_note.version}` : ``
                 }`
               : "Notes"}
-          </CardTitle>
-          {/* {isCurrentNoteOutdated && (
+            {isCurrentNoteOutdated && (
               <HoverCard openDelay={200}>
                 <HoverCardTrigger>
-                  <TriangleAlert className="text-orange-500" />
+                  <div className="flex flex-row items-center">
+                    <Button
+                      variant={"ghost"}
+                      className="text-secondary font-body font-semibold text-base"
+                      onClick={regenerateNote}
+                    >
+                      <TriangleAlert className="text-secondary mr-1" />
+                      Regenerate note
+                    </Button>
+                  </div>
                 </HoverCardTrigger>
-                <HoverCardContent>
+                <HoverCardContent className="text-base font-body font-normal">
                   {
-                    "One or more inputs have been added after this note was created. Create a new note to include all current inputs."
+                    "One or more inputs have been created or changed after this note was created. Regenerate the note include all current inputs."
                   }
                 </HoverCardContent>
               </HoverCard>
-            )} */}
+            )}
+          </CardTitle>
+
           <div className="flex gap-2">
             {current_note.status == "ready" && (
               <CopyButton className="w-24 bg-card" text={extractedContent} />
