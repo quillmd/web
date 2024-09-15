@@ -28,17 +28,17 @@ export const newSessionFormSchema = z.object({
 });
 
 export const textInputFormSchema = z.object({
-  content: z.string(),
+  content: z.string().min(1),
 });
 
 export const templateInputFormSchema = z.object({
-  title: z.string(),
+  title: z.string().min(1),
   instructions: z.string(),
   examples: z.string().array(),
 });
 
 export const contactUsSchema = z.object({
-  name: z.string(),
+  name: z.string().min(1),
   email: z.string().email({
     message: "Enter a valid email address",
   }),
