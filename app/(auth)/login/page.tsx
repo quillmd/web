@@ -2,7 +2,7 @@ import { LoginForm } from "@/components/auth/login-form";
 
 export default async function LoginPage() {
   return (
-    <div className="container max-w-lg">
+    <div className="container max-w-lg mx-auto flex flex-col items-center justify-center">
       <div className="text-center w-full py-4 mb-4">
         <h1 className="text-3xl md:text-5xl font-heading">
           Scribe excellent notes
