@@ -162,7 +162,9 @@ export async function deleteCase({ id }: { id: Case["id"] }) {
       Authorization: `Bearer ${authToken}`,
     },
   });
+  await revalidateCases();
 }
+
 
 export async function revalidateCase({ id }: { id: Case["id"] }) {
   const tags = [`case-${id}`, `notes-${id}`, `transcripts-${id}`];
