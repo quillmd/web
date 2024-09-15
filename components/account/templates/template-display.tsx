@@ -1,34 +1,35 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
-    TemplateInputFormSchema,
-    templateInputFormSchema,
+  TemplateInputFormSchema,
+  templateInputFormSchema,
 } from "@/lib/form-schema";
 import { Template, postTemplate, updateTemplate } from "@/lib/template";
-import { useDebounce } from "@/lib/useDebounce";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, Trash } from "lucide-react";
-import { DateTime } from "luxon";
+import { Loader2, Trash } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 export default function TemplateDisplay({ template }: { template?: Template }) {
-  const [updatedAt, setUpdatedAt] = useState<DateTime | undefined>();
+  const [loading, setLoading] = useState(false);
   const form = useForm<TemplateInputFormSchema>({
     resolver: zodResolver(templateInputFormSchema),
     defaultValues: {
       title: template?.title ?? "",
-      instructions: template?.instructions ?? `Example instructions:
+      instructions:
+        template?.instructions ??
+        `Example instructions:
 -'Subjective' section that describes the patient's symptoms and history.
 -'Objective' section (physical exam, vitals, labs, imaging, procedure findings, etc).
 -'Assessment and Plan' section divided by problem.
@@ -49,41 +50,51 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
       .map((example) => example.trim())
       .filter((example) => example.length > 0),
   };
-  function onSubmit(data: TemplateInputFormSchema) {
-    if (
-      template?.id != undefined &&
-      data.title.length > 0 &&
-      (data.instructions.length > 0 || data.examples[0]?.length > 0) &&
-      (data.title != template?.title ||
-        data.instructions != template?.instructions ||
-        data.examples != template?.examples)
-    ) {
-      updateTemplate({
-        template_id: template.id,
-        title: data.title,
-        instructions: data.instructions,
-        examples: data.examples,
-      }).then(() => {
-        setUpdatedAt(DateTime.now());
-      });
-    } else if (
-      data.title.length > 0 &&
-      (data.instructions.length > 0 || data.examples[0]?.length > 0) &&
-      (data.title != template?.title ||
-        data.instructions != template?.instructions ||
-        data.examples != template?.examples)
-    ) {
-      postTemplate({
-        title: data.title,
-        instructions: data.instructions,
-        examples: data.examples,
-      }).then(() => {
-        setUpdatedAt(DateTime.now());
-      });
+
+  async function onSubmit(data: TemplateInputFormSchema) {
+    setLoading(true);
+    try {
+      if (
+        template?.id != undefined &&
+        data.title.length > 0 &&
+        (data.instructions.length > 0 || data.examples[0]?.length > 0) &&
+        (data.title != template?.title ||
+          data.instructions != template?.instructions ||
+          data.examples != template?.examples)
+      ) {
+        await updateTemplate({
+          template_id: template.id,
+          title: formattedData.title,
+          instructions: formattedData.instructions,
+          examples: formattedData.examples,
+        });
+      } else if (
+        data.title.length > 0 &&
+        (data.instructions.length > 0 || data.examples[0]?.length > 0) &&
+        (data.title != template?.title ||
+          data.instructions != template?.instructions ||
+          data.examples != template?.examples)
+      ) {
+        await postTemplate({
+          title: formattedData.title,
+          instructions: formattedData.instructions,
+          examples: formattedData.examples,
+        });
+      }
+      form.reset();
+    } catch (error) {
+      console.error("Error saving template:", error);
+    } finally {
+      setLoading(false);
     }
   }
 
-  const onSubmitDebounced = useDebounce(() => onSubmit(formattedData), 1000);
+  const getButtonContent = () => {
+    if (loading) return <Loader2 className="w-4 h-4 animate-spin" />;
+    if (form.formState.isSubmitSuccessful && !form.formState.isDirty)
+      return "Saved";
+    return "Save";
+  };
 
   return (
     <div>
@@ -104,7 +115,6 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
                     {...field}
                     onChange={(e) => {
                       field.onChange(e);
-                      onSubmitDebounced();
                     }}
                   />
                 </FormControl>
@@ -118,7 +128,8 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Instructions - Tell Squire how you would like your note written
+                  Instructions - Tell Squire how you would like your note
+                  written
                 </FormLabel>
                 <FormControl>
                   <Textarea
@@ -126,7 +137,6 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
                     {...field}
                     onChange={(e) => {
                       field.onChange(e);
-                      onSubmitDebounced();
                     }}
                     rows={10}
                   />
@@ -141,7 +151,8 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Examples - Give Squire examples of notes that fit this template
+                  Examples - Give Squire examples of notes that fit this
+                  template
                 </FormLabel>
                 {field.value.map((example, i) => (
                   <FormField
@@ -155,14 +166,13 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
                             {...nestedField}
                             onChange={(e) => {
                               nestedField.onChange(e);
-                              onSubmitDebounced();
                             }}
                             placeholder="Example note goes here"
                             rows={10}
                           />
                         </FormControl>
                         <Button
-                        className="absolute right-1 -top-1 hover:text-destructive-foreground hover:bg-destructive/90"
+                          className="absolute right-1 -top-1 hover:text-destructive-foreground hover:bg-destructive/90"
                           type="button"
                           variant="ghost"
                           size={"icon"}
@@ -189,16 +199,17 @@ export default function TemplateDisplay({ template }: { template?: Template }) {
               </FormItem>
             )}
           />
+          <div className="flex items-center justify-end w-full gap-1">
+            <Button
+              type="submit"
+              disabled={!form.formState.isDirty || loading}
+              className="w-24 h-10"
+            >
+              {getButtonContent()}
+            </Button>
+          </div>
         </form>
       </Form>
-      {updatedAt && (
-        <div className="w-full flex justify-end items-center gap-2">
-          <Check size={12} />
-          <span className="text-sm text-muted-foreground">{`Saved ${updatedAt.toLocaleString(
-            DateTime.DATETIME_SHORT_WITH_SECONDS
-          )}`}</span>
-        </div>
-      )}
     </div>
   );
 }

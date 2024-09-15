@@ -15,7 +15,7 @@ export default function AccountButton() {
       <Tooltip>
         <TooltipTrigger asChild>
           <Nextlink href={"/account"}>
-            <Button variant="outline" size="icon">
+            <Button variant="outline" size="icon" className="bg-card">
               <User />
             </Button>
           </Nextlink>

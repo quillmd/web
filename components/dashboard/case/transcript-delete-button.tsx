@@ -18,7 +18,7 @@ export default function TranscriptDeleteButton({
 
   return (
     <Button
-      className="hover:text-destructive-foreground hover:bg-destructive/90"
+      className="hover:text-destructive-foreground hover:bg-destructive/90 justify-self-end"
       variant="ghost"
       size="icon"
       onClick={handleDelete}

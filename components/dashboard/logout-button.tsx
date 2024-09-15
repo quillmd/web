@@ -15,6 +15,7 @@ export default function LogoutButton() {
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
+          className="bg-card"
             variant="outline"
             size="icon"
             onClick={() => logout().then(() => console.log("logged out"))}

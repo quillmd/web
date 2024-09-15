@@ -1,6 +1,6 @@
 export default async function TermsPage() {
   return (
-    <div className="font-garamond">
+    <div className="font-heading">
       <main className="flex flex-col items-center justify-start p-24">
         <h1 className="text-3xl font-bold mb-4">
           {`SQUIRE TERMS OF USE AGREEMENT`}

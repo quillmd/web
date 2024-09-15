@@ -10,7 +10,7 @@ export default function HomepageLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="font-garamond">
+    <div className="font-heading">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background p-2 px-16 mb-12">
         <nav className="flex justify-between items-center w-full">
@@ -59,7 +59,7 @@ export default function HomepageLayout({
             </li>
             <li className="hidden md:block">
               <Button
-                variant={"outline"}
+                variant={"secondary"}
                 className="text-lg font-semibold"
                 size={"lg"}
                 asChild
@@ -77,7 +77,7 @@ export default function HomepageLayout({
       {/* Main */}
       {children}
       {/* Footer */}
-      <footer className="w-full font-garamond flex items-center justify-between p-2 px-8 mt-12">
+      <footer className="w-full font-heading flex items-center justify-between p-2 px-8 mt-12">
         <div className="w-1/4 hidden md:block">
           <Image src="/hippa.svg" alt="HIPAA" width={120} height={120} />
         </div>

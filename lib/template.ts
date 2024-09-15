@@ -8,7 +8,6 @@ import { API_URL } from "./api-config";
 export interface Template {
   id: string;
   user_id?: string;
-  type: string;
   title: string;
   instructions: string;
   examples: string[];

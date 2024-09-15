@@ -1,10 +1,14 @@
 "use client";
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormMessage,
+  DialogContent,
+  DialogHeader
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { Case } from "@/lib/case";
@@ -12,9 +16,11 @@ import { TextInputFormSchema, textInputFormSchema } from "@/lib/form-schema";
 import { Transcript, postTranscript, updateTranscript } from "@/lib/transcript";
 import { useDebounce } from "@/lib/useDebounce";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { DialogClose, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { CircleCheck, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
 
 export interface TextInputProps extends React.HTMLAttributes<HTMLElement> {
   case_id: Case["id"];
@@ -48,9 +54,9 @@ export default function TextInput({
     } else if (data.content != initial_content) {
       postTranscript({
         case_id: case_id,
-        type: "freetext",
+        type: "text",
         status: "ready",
-        description: "Freetext input",
+        description: "Text input",
         content: data.content,
       }).then(() => {
         setLoading(false);
@@ -61,6 +67,11 @@ export default function TextInput({
   const onSubmitDebounced = useDebounce(() => onSubmit(data), 1000);
 
   return (
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Text input</DialogTitle>
+          <DialogDescription></DialogDescription>
+        </DialogHeader>
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
@@ -74,13 +85,8 @@ export default function TextInput({
               <FormControl>
                 <Textarea
                   className="flex-grow min-h-[calc(100vh-18.5rem)] resize-none"
-                  placeholder="Enter information for Squire to use when creating notes"
+                  placeholder="Enter patient information, including notes, imaging results, and lab data, for your Squire to use in note creation"
                   {...field}
-                  onChange={(e) => {
-                    field.onChange(e);
-                    setLoading(true);
-                    onSubmitDebounced();
-                  }}
                   autoFocus={true}
                 />
               </FormControl>
@@ -90,18 +96,20 @@ export default function TextInput({
         />
         <div className="flex items-center justify-end w-full gap-1">
           {loading ? (
-            <>
+            <Button className="w-32" disabled>
               <span className="text-sm font-medium">Saving...</span>
-              <LoaderCircle size={16} className="animate-spin" />
-            </>
+              <LoaderCircle size={16} className="animate-spin ml-1" />
+            </Button>
           ) : (
-            <>
-              <span className="text-sm font-medium">Saved</span>
-              <CircleCheck size={16} />
-            </>
+            <DialogClose asChild>
+            <Button className="w-32" type={"submit"}>
+              <span className="text-sm font-medium">{form.formState.isDirty?`Submit`:`Cancel`}</span>
+            </Button>
+            </DialogClose>
           )}
         </div>
       </form>
     </Form>
+    </DialogContent>
   );
 }

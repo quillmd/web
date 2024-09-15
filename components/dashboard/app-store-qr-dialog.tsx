@@ -22,7 +22,7 @@ export default function AppStoreQrDialog() {
         <Tooltip>
           <TooltipTrigger asChild>
             <DialogTrigger asChild>
-              <Button variant="outline" size="icon">
+              <Button variant="outline" size="icon" className="bg-card">
                 <Smartphone />
               </Button>
             </DialogTrigger>

@@ -8,14 +8,14 @@ import CasesSidebar from "@/components/dashboard/cases-sidebar";
 import CasesSocket from "@/components/dashboard/cases-socket";
 import FeedbackForm from "@/components/dashboard/feedback-form";
 import LogoutButton from "@/components/dashboard/logout-button";
+import ThemeToggle from "@/components/dashboard/theme-toggle";
 import { Account, getAccount } from "@/lib/account";
 import { Case, getCases } from "@/lib/case";
 import { CaseFetchParams } from "@/lib/useCases";
 import Image from "next/image";
 import NextLink from "next/link";
-import ThemeToggle from "../../components/dashboard/theme-toggle";
-import logotypeLight from "../../public/logotype_green.webp";
-import logotypeDark from "../../public/logotype_white.webp";
+import logotypeLight from "../../public/logotype_blue.webp";
+import logotypeDark from "../../public/logotype_green.webp";
 import { ThemeProvider } from "../theme-provider";
 
 export const initialFetchParams = {
@@ -42,28 +42,28 @@ export default async function DashboardLayout({
   const { account, initialCases } = await getData(initialFetchParams);
 
   return (
-    <body>
-      <CasesSocket />
+    <div className="px-8">
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
         enableSystem
         disableTransitionOnChange
       >
+        <CasesSocket />
         <AccountProvider account={account}>
-          <header className="sticky top-0 z-50 p-2 px-16 bg-background">
+          <header className="sticky top-0 z-50 px-2 pt-3 pb-1 bg-background">
             <nav className="flex items-center justify-between w-full">
               <div className="flex gap-2 items-center">
                 <NextLink href={"/home"}>
                   <Image
-                    src={logotypeLight}
+                    src={logotypeDark}
                     width={120}
                     height={120}
                     alt="Logo"
                     className="cursor-pointer logo dark:hidden object-contain"
                   />
                   <Image
-                    src={logotypeDark}
+                    src={logotypeLight}
                     width={120}
                     height={120}
                     alt="Logo"
@@ -72,7 +72,7 @@ export default async function DashboardLayout({
                 </NextLink>
                 <AccountStatusBadge account={account} />
               </div>
-              <ul className="flex items-center gap-4">
+              <ul className="flex items-center gap-2">
                 {account.status != "active" && (
                   <li className="block">
                     <SubscribeDialog />
@@ -96,7 +96,7 @@ export default async function DashboardLayout({
               </ul>
             </nav>
           </header>
-          <div className="flex items-start max-w-screen-2xl mx-auto gap-2 p-2 max-h-[calc(100vh-18rem)]">
+          <div className="flex items-start mx-auto gap-3 p-2 max-h-[calc(100vh-18rem)]">
             <CasesSidebar
               initialCases={initialCases}
               initialFetchParams={initialFetchParams}
@@ -106,6 +106,6 @@ export default async function DashboardLayout({
         </AccountProvider>
         <ScribeSelectionDialog account={account} />
       </ThemeProvider>
-    </body>
+    </div>
   );
 }
