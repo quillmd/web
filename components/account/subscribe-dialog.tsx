@@ -29,7 +29,7 @@ export default function SubscribeDialog() {
         </DialogHeader>
         <div className="w-full grid grid-cols-3 items-center gap-4 py-1">
           <div className="flex justify-end items-baseline">
-            <span className="text-5xl">$99</span>
+            <span className="text-5xl">$20</span>
             <span className="text-muted-foreground">/mo</span>
           </div>
           <ul className="col-span-2 text-foreground">
