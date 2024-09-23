@@ -25,7 +25,7 @@ export default function HomepageLayout({
           </NextLink>
 
           <ul className="hidden md:flex md:items-center md:gap-6">
-            {/* <li>
+             {/* <li>
                   <NextLink
                     href={"/howsquireworks"}
                     className="text-lg font-semibold hover:underline"
@@ -40,7 +40,7 @@ export default function HomepageLayout({
                   >
                     Testimonials
                   </NextLink>
-                </li>
+                </li> */}
                 <li>
                   <NextLink
                     href={"/pricing"}
@@ -48,7 +48,7 @@ export default function HomepageLayout({
                   >
                     Pricing
                   </NextLink>
-                </li> */}
+                </li>
             <li>
               <NextLink
                 href={"/about"}

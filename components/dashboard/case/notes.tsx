@@ -125,8 +125,9 @@ export default function Notes({
     const endTag = "</completed_note>";
     const startIndex = content.indexOf(startTag);
     const endIndex = content.lastIndexOf(endTag);
+    const regex = /(\S.*\n)\n(Plan:)/g;
     if (startIndex !== -1 && endIndex !== -1 && startIndex < endIndex) {
-      return content.slice(startIndex + startTag.length, endIndex).trim();
+      return content.slice(startIndex + startTag.length, endIndex).trim().replace(regex, '$1$2');
     }
     return content;
   };

@@ -1,60 +1,102 @@
 import { Button } from "@/components/ui/button";
+import { CheckIcon } from "lucide-react";
+import NextLink from "next/link";
 
 export default function Pricing() {
   return (
     <div className="font-heading">
       <main className="flex flex-col items-center justify-start pt-24 px-6 md:px-0 pt-24 pb-24 pl-6 pr-6">
         <div className="text-center max-w-xl">
-          <h1 className="text-6xl font-bold mb-8">Pricing</h1>
+          <h1 className="text-5xl font-bold mb-8">
+            Simple, transparent pricing
+          </h1>
           <p className="text-xl mb-12">
-            At Squire, we believe in price transparency. Our mission is to
-            deliver the best product at the most affordable rate. If you find
-            lower prices from any of our competitors, please bring them to our
-            attention, and we will gladly match or beat their rate.
+            {
+              "Check out Squire for free, then unlock unlimited when you're ready."
+            }
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-          <div className="bg-white p-8 rounded shadow-md">
-            <h2 className="text-3xl font-bold mb-4">Free</h2>
-            <p className="text-lg mb-4">
-              Check out our product, no strings attached
-            </p>
-            <p className="text-4xl font-bold mb-4">$0 / month</p>
-            <ul className="text-lg mb-8">
-              <li>10 free visits</li>
-              <li>No credit card</li>
-            </ul>
-            <Button variant="outline" size="lg" className="w-full">
-              Try for Free
-            </Button>
-          </div>
-          <div className="bg-white p-8 rounded shadow-md">
-            <h2 className="text-3xl font-bold mb-4">Premium</h2>
-            <p className="text-lg mb-4">
-              For those who are happy with our product
-            </p>
-            <p className="text-4xl font-bold mb-4">$50 / month</p>
-            <ul className="text-lg mb-8">
-              <li>Unlimited visits</li>
-              <li>Cancel anytime</li>
-            </ul>
-            <Button variant="outline" size="lg" className="w-full">
-              Purchase Now
-            </Button>
-          </div>
-          <div className="bg-white p-8 rounded shadow-md">
-            <h2 className="text-3xl font-bold mb-4">Group</h2>
-            <p className="text-lg mb-4">
-              For larger groups that never want to chart again
-            </p>
-            <p className="text-4xl font-bold mb-4">$0.25 / note generated</p>
-            <ul className="text-lg mb-8">
-              <li>License management</li>
-              <li>Annual or monthly subscription</li>
-            </ul>
-            <Button variant="outline" size="lg" className="w-full">
-              Contact Us
-            </Button>
+        {/* Pricing section */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-2">
+            <div className="border rounded-lg shadow-sm divide-y">
+              <div className="p-6">
+                <h3 className="text-lg leading-6 font-medium">Try for free</h3>
+                <p className="mt-4 text-sm">
+                  See how Squire can help your workflow
+                </p>
+                <p className="mt-8">
+                  <span className="text-4xl font-extrabold">$0</span>
+                  <span className="text-base font-medium">/mo</span>
+                </p>
+                <NextLink href={"/login"}>
+                  <Button variant="outline" className="mt-8 w-full">
+                    Try Squire
+                  </Button>
+                </NextLink>
+              </div>
+              <div className="pt-6 pb-8 px-6">
+                <h4 className="text-sm font-medium tracking-wide uppercase">
+                  {"What's included"}
+                </h4>
+                <ul className="mt-6 space-y-4">
+                  <li className="flex space-x-3">
+                    <CheckIcon
+                      className="flex-shrink-0 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                    <span className="text-sm">10 notes</span>
+                  </li>
+                  <li className="flex space-x-3">
+                    <CheckIcon
+                      className="flex-shrink-0 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                    <span className="text-sm">All features</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="border rounded-lg shadow-sm divide-y">
+              <div className="p-6">
+                <h3 className="text-lg leading-6 font-medium">Squire Unlimited</h3>
+                <p className="mt-4 text-sm">
+                  For those who find Squire helpful
+                </p>
+                <p className="mt-8">
+                  <span className="text-4xl font-extrabold">$20</span>
+                  <span className="text-base font-medium">/mo</span>
+                </p>
+                <NextLink href={"/login"}>
+                  <Button className="mt-8 w-full">
+                    Login to unlock
+                  </Button>
+                </NextLink>
+              </div>
+              <div className="pt-6 pb-8 px-6">
+                <h4 className="text-sm font-mediumtracking-wide uppercase">
+                  {"What's included"}
+                </h4>
+                <ul className="mt-6 space-y-4">
+                  <li className="flex space-x-3">
+                    <CheckIcon
+                      className="flex-shrink-0 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                    <span className="text-sm">Unlimited notes</span>
+                  </li>
+                  <li className="flex space-x-3">
+                    <CheckIcon
+                      className="flex-shrink-0 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                    <span className="text-sm">
+                      Priority access during high traffic
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
         <p className="mt-12 text-lg text-center">
