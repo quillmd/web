@@ -6,7 +6,6 @@ export default function About() {
       name: "Andrea Chobrutskiy, MD",
       image: "/andrea.jpg",
     },
-    { name: "Saif Zaman, MD", image: "/saif.jpg" },
     {
       name: "Boris Chobrutskiy, MD",
       image: "/boris.jpg",
@@ -17,6 +16,7 @@ export default function About() {
   const bottomRowMembers = [
     { name: "Brandt Hill, BS", image: "/brandt.jpg" },
     { name: "Jeffrey Tynes, JD", image: "/garrett.jpg" },
+    { name: "Saif Zaman, MD", image: "/saif.jpg" },
   ];
 
   const FounderCard = ({ member }: { member: { name: string; image: string } }) => (
@@ -48,15 +48,15 @@ export default function About() {
         </p>
       </div>
 
-      <h2 className="text-3xl font-bold mb-8">Our Founders</h2>
+      <h2 className="text-3xl font-bold mb-8">Meet Our Team</h2>
 
       <div className="flex flex-col items-center max-w-5xl w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 mb-16">
           {topRowMembers.map((member, index) => (
             <FounderCard key={index} member={member} />
           ))}
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
           {bottomRowMembers.map((member, index) => (
             <FounderCard key={index} member={member} />
           ))}
