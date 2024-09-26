@@ -19,7 +19,7 @@ export default function About() {
     { name: "Jeffrey Tynes, JD", image: "/garrett.jpg" },
   ];
 
-  const FounderCard = ({ member }) => (
+  const FounderCard = ({ member }: { member: { name: string; image: string } }) => (
     <div className="flex flex-col items-center text-center">
       <div className="relative w-40 h-40 mb-4">
         <Image
