@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 export default function About() {
-  const teamMembers = [
+  const topRowMembers = [
     {
       name: "Andrea Chobrutskiy, MD",
       image: "/andrea.jpg",
@@ -11,9 +11,27 @@ export default function About() {
       name: "Boris Chobrutskiy, MD",
       image: "/boris.jpg",
     },
-    { name: "Brandt Hill, MS", image: "/brandt.jpg" },
+    { name: "Daniel Segarra, MD", image: "/daniel.jpg" },
+  ];
+
+  const bottomRowMembers = [
+    { name: "Brandt Hill, BS", image: "/brandt.jpg" },
     { name: "Jeffrey Tynes, JD", image: "/garrett.jpg" },
   ];
+
+  const FounderCard = ({ member }) => (
+    <div className="flex flex-col items-center text-center">
+      <div className="relative w-40 h-40 mb-4">
+        <Image
+          src={member.image}
+          alt={member.name}
+          fill={true}
+          className="rounded-full object-cover"
+        />
+      </div>
+      <h3 className="text-xl font-bold text-nowrap">{member.name}</h3>
+    </div>
+  );
 
   return (
     <main className="flex flex-col items-center justify-start px-8 py-16 min-h-screen">
@@ -32,21 +50,17 @@ export default function About() {
 
       <h2 className="text-3xl font-bold mb-8">Our Founders</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 max-w-5xl">
-        {teamMembers.map((member, index) => (
-          <div key={index} className="flex flex-col items-center text-center">
-            <div className="relative w-40 h-40 mb-4">
-              <Image
-                src={member.image}
-                alt={member.name}
-                fill={true}
-                className="rounded-full object-cover"
-              />
-            </div>
-            <h3 className="text-xl font-bold text-nowrap">{member.name}</h3>
-            {/* <p className="text-gray-600">{member.title}</p> */}
-          </div>
-        ))}
+      <div className="flex flex-col items-center max-w-5xl w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16">
+          {topRowMembers.map((member, index) => (
+            <FounderCard key={index} member={member} />
+          ))}
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+          {bottomRowMembers.map((member, index) => (
+            <FounderCard key={index} member={member} />
+          ))}
+        </div>
       </div>
     </main>
   );
