@@ -54,7 +54,7 @@ export default function Notes({
   scribes,
 }: NotesProps) {
   const [currentNoteIndex, setCurrentNoteIndex] = useState(0);
-  const [sidebarVisible, setSidebarVisible] = useState("");
+  const [sidebarVisible, setSidebarVisible] = useState("inputs");
 
   const current_note = notes[currentNoteIndex];
 
@@ -127,7 +127,10 @@ export default function Notes({
     const endIndex = content.lastIndexOf(endTag);
     const regex = /(\S.*\n)\n(Plan:)/g;
     if (startIndex !== -1 && endIndex !== -1 && startIndex < endIndex) {
-      return content.slice(startIndex + startTag.length, endIndex).trim().replace(regex, '$1$2');
+      return content
+        .slice(startIndex + startTag.length, endIndex)
+        .trim()
+        .replace(regex, "$1$2");
     }
     return content;
   };
