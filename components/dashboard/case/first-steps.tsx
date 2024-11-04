@@ -88,7 +88,7 @@ export default function FirstSteps({
   return (
     <Card
       className={cn(
-        "relative flex flex-col overflow-hidden justify-center",
+        "relative flex flex-col overflow-hidden justify-center h-full",
         className
       )}
     >

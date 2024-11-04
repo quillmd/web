@@ -1,5 +1,5 @@
 "use client";
-import { Button, ButtonProps } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -11,12 +11,13 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { SidebarMenuButton } from "@/components/ui/sidebar";
 import { postCase } from "@/lib/case";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAccount } from "../account-provider";
 
-export default function NewCaseButton({ variant, ...props }: ButtonProps) {
+export default function NewCaseButton() {
   const { account } = useAccount();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -36,14 +37,12 @@ export default function NewCaseButton({ variant, ...props }: ButtonProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
+        <SidebarMenuButton
           className="focus-visible:ring-0"
-          variant={variant}
-          {...props}
           disabled={account.status == "trial_ended"}
         >
           {account.status == "trial_ended" ? "Trial Ended" : `+ New Case`}
-        </Button>
+        </SidebarMenuButton>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>

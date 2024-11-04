@@ -145,7 +145,7 @@ export default function Notes({
   return (
     <div className="grid grid-cols-4 gap-3">
       <Card
-        className={`relative flex flex-col overflow-hidden h-[calc(100vh-7.5rem)] transition-all duration-300 ease-in-out ${
+        className={`relative flex flex-col overflow-hidden h-full transition-all duration-300 ease-in-out ${
           sidebarVisible === "" ? "col-span-4" : "col-span-3"
         }`}
       >
@@ -214,7 +214,7 @@ export default function Notes({
         <div className="relative w-full p-2 px-6">
           <ScrollArea
             type="auto"
-            className="p-2 border bg-background h-[calc(100vh-16.5rem)]"
+            className="p-2 border bg-background h-[calc(100vh-15.5rem)]"
           >
             {current_note.status == "ready" ? (
               <NoteDisplay

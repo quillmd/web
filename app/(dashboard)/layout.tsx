@@ -4,7 +4,7 @@ import SubscribeDialog from "@/components/account/subscribe-dialog";
 import AccountButton from "@/components/dashboard/account-button";
 import { AccountProvider } from "@/components/dashboard/account-provider";
 import AppStoreQrDialog from "@/components/dashboard/app-store-qr-dialog";
-import CasesSidebar from "@/components/dashboard/cases-sidebar";
+import CasesSidebar from "@/components/dashboard/sidebar/cases-sidebar";
 import CasesSocket from "@/components/dashboard/cases-socket";
 import FeedbackForm from "@/components/dashboard/feedback-form";
 import LogoutButton from "@/components/dashboard/logout-button";
@@ -42,7 +42,6 @@ export default async function DashboardLayout({
   const { account, initialCases } = await getData(initialFetchParams);
 
   return (
-    <div className="px-8">
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
@@ -51,7 +50,7 @@ export default async function DashboardLayout({
       >
         <CasesSocket />
         <AccountProvider account={account}>
-          <header className="sticky top-0 z-50 px-2 pt-3 pb-1 bg-background">
+          {/* <header className="sticky top-0 z-50 px-2 pt-3 pb-1 bg-background">
             <nav className="flex items-center justify-between w-full">
               <div className="flex gap-2 items-center">
                 <NextLink href={"/home"}>
@@ -95,17 +94,12 @@ export default async function DashboardLayout({
                 </li>
               </ul>
             </nav>
-          </header>
-          <div className="flex items-start mx-auto gap-3 p-2 max-h-[calc(100vh-18rem)]">
+          </header> */}
             <CasesSidebar
               initialCases={initialCases}
               initialFetchParams={initialFetchParams}
-            />
-            <div className="flex-1">{children}</div>
-          </div>
+            >{children}</CasesSidebar>
         </AccountProvider>
-        <ScribeSelectionDialog account={account} />
       </ThemeProvider>
-    </div>
   );
 }

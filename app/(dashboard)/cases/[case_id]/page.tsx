@@ -43,7 +43,6 @@ export default async function CasePage({
     <>
       {!isFirstTranscriptReady || !isFirstNoteReady ? (
         <FirstSteps
-          className={"h-[calc(100vh-4.5rem)]"}
           account={account}
           case_id={current_case.id}
           case_title={current_case.title}
@@ -52,7 +51,7 @@ export default async function CasePage({
           templates={templates}
         />
       ) : (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
           <CaseTitle
             case_id={current_case.id}
             initial_title={current_case.title}
