@@ -1,5 +1,6 @@
 import MobileMenu from "@/components/landing/mobile-menu";
 import { Button } from "@/components/ui/button";
+import { Lock } from "lucide-react";
 import Image from "next/image";
 import NextLink from "next/link";
 import logotype from "../../public/logotype_green.webp";
@@ -25,7 +26,7 @@ export default function HomepageLayout({
           </NextLink>
 
           <ul className="hidden md:flex md:items-center md:gap-6">
-             {/* <li>
+            {/* <li>
                   <NextLink
                     href={"/howsquireworks"}
                     className="text-lg font-semibold hover:underline"
@@ -41,14 +42,14 @@ export default function HomepageLayout({
                     Testimonials
                   </NextLink>
                 </li> */}
-                <li>
-                  <NextLink
-                    href={"/pricing"}
-                    className="text-lg font-semibold hover:underline"
-                  >
-                    Pricing
-                  </NextLink>
-                </li>
+            <li>
+              <NextLink
+                href={"/pricing"}
+                className="text-lg font-semibold hover:underline"
+              >
+                Pricing
+              </NextLink>
+            </li>
             <li>
               <NextLink
                 href={"/about"}
@@ -64,7 +65,10 @@ export default function HomepageLayout({
                 size={"lg"}
                 asChild
               >
-                <NextLink href={"/login"}>Login</NextLink>
+                <NextLink href={"/login"} className="flex items-center gap-2">
+                  <Lock className="w-5 h-5" />
+                  Secure Login
+                </NextLink>
               </Button>
             </li>
           </ul>

@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 export default function About() {
-  const topRowMembers = [
+  const founders = [
     {
       name: "Andrea Chobrutskiy, MD",
       image: "/andrea.jpg",
@@ -10,12 +10,9 @@ export default function About() {
       name: "Boris Chobrutskiy, MD",
       image: "/boris.jpg",
     },
-    { name: "Daniel Segarra, MD", image: "/daniel.jpg" },
-  ];
-
-  const bottomRowMembers = [
     { name: "Brandt Hill, BS", image: "/brandt.jpg" },
-    { name: "Jeffrey Tynes, JD", image: "/garrett.jpg" },
+    { name: "Jean Sabile, MD", image: "/jean.jpg" },
+    { name: "Daniel Segarra, MD", image: "/daniel.jpg" },
     { name: "Saif Zaman, MD", image: "/saif.jpg" },
   ];
 
@@ -51,13 +48,8 @@ export default function About() {
       <h2 className="text-3xl font-bold mb-8">Meet Our Team</h2>
 
       <div className="flex flex-col items-center max-w-5xl w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 mb-16">
-          {topRowMembers.map((member, index) => (
-            <FounderCard key={index} member={member} />
-          ))}
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-          {bottomRowMembers.map((member, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mb-16">
+          {founders.map((member, index) => (
             <FounderCard key={index} member={member} />
           ))}
         </div>
