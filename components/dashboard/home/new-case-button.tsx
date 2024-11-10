@@ -1,5 +1,5 @@
 "use client";
-import { Button, ButtonProps } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -11,12 +11,13 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { SidebarMenuButton } from "@/components/ui/sidebar";
 import { postCase } from "@/lib/case";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAccount } from "../account-provider";
 
-export default function NewCaseButton({ variant, ...props }: ButtonProps) {
+export default function NewCaseButton() {
   const { account } = useAccount();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -36,19 +37,17 @@ export default function NewCaseButton({ variant, ...props }: ButtonProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          className="focus-visible:ring-0"
-          variant={variant}
-          {...props}
+        <SidebarMenuButton
+          className="focus-visible:ring-0 bg-secondary text-secondary-foreground"
           disabled={account.status == "trial_ended"}
         >
-          {account.status == "trial_ended" ? "Trial Ended" : `+ New Case`}
-        </Button>
+          {account.status == "trial_ended" ? "Trial Ended" : `+ New Patient`}
+        </SidebarMenuButton>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>New Case</DialogTitle>
-          <DialogDescription>Enter a title for this case</DialogDescription>
+          <DialogTitle>New Patient</DialogTitle>
+          <DialogDescription>Enter a name for this encounter</DialogDescription>
         </DialogHeader>
         <div className="flex items-center space-x-2">
           <div className="grid flex-1 gap-2">

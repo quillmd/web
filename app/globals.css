@@ -24,6 +24,14 @@
     --input: 191 51.3% 15.3%;
     --ring: 15 72.6% 54.1%;
     --radius: 0.3rem;
+    --sidebar-background: 15 30% 92;
+    --sidebar-foreground: 15 5% 0%;
+    --sidebar-primary: 191 51.3% 15.3%;
+    --sidebar-primary-foreground: 15 95% 0%;
+    --sidebar-accent: 153 10% 80%;
+    --sidebar-accent-foreground: 35 5% 10%;
+    --sidebar-border: 191 51.3% 15.3%;
+    --sidebar-ring: 15 72.6% 54.1%;
   }
   .dark {
     --background: 33 5% 10%;
@@ -46,6 +54,14 @@
     --input: 182 20% 18%;
     --ring: 182 31.1% 64.1%;
     --radius: 0.3rem;
+    --sidebar-background: 33 5% 10%;
+    --sidebar-foreground: 33 0% 100%;
+    --sidebar-primary: 182 31.1% 64.1%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 144 10% 25%;
+    --sidebar-accent-foreground: 182 0% 95%;
+    --sidebar-border: 182 20% 18%;
+    --sidebar-ring: 182 31.1% 64.1%;
   }
 }
 
@@ -78,4 +94,13 @@
 
 .art {
   background-color: transparent;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }

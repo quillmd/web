@@ -5,7 +5,6 @@ export default async function HomePage() {
   const account = await getAccount();
   return (
     <FirstSteps
-      className={"h-[calc(100vh-4.5rem)]"}
       account={account}
       case_id={undefined}
       case_title={""}
