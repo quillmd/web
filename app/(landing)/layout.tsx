@@ -24,24 +24,7 @@ export default function HomepageLayout({
               className="cursor-pointer logo object-contain"
             />
           </NextLink>
-
           <ul className="hidden md:flex md:items-center md:gap-6">
-            {/* <li>
-                  <NextLink
-                    href={"/howsquireworks"}
-                    className="text-lg font-semibold hover:underline"
-                  >
-                    How Squire Works
-                  </NextLink>
-                </li>
-                <li>
-                  <NextLink
-                    href={"/testimonials"}
-                    className="text-lg font-semibold hover:underline"
-                  >
-                    Testimonials
-                  </NextLink>
-                </li> */}
             <li>
               <NextLink
                 href={"/pricing"}
@@ -77,7 +60,6 @@ export default function HomepageLayout({
           </div>
         </nav>
       </header>
-
       {/* Main */}
       {children}
       {/* Footer */}
