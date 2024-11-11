@@ -16,7 +16,9 @@ export default function SubscriptionPricingContent({
       <div className="w-full grid grid-cols-3 items-center gap-4 py-1">
         <div className="flex justify-end items-baseline">
           <span className="text-5xl">${price}</span>
-          <span className="text-muted-foreground">/{period == "monthly"?"mo":"yr"}</span>
+          <span className="text-muted-foreground">
+            /{period == "monthly" ? "mo" : "yr"}
+          </span>
         </div>
         <ul className="col-span-2 text-foreground">
           <li className="flex items-center gap-2">
@@ -42,7 +44,7 @@ export default function SubscriptionPricingContent({
         method="post"
       >
         <input type="hidden" name="authorization" value={authToken} />
-        <input type="hidden" name="plan_id" value={`squire-${period}`}/>
+        <input type="hidden" name="plan_id" value={`squire-${period}`} />
         <Button className="w-full mt-4" size="lg">
           Unlock Squire Unlimited
         </Button>

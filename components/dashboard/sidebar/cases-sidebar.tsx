@@ -60,7 +60,6 @@ export default function CasesSidebar({
   children,
 }: CasesSidebarProps) {
   const { account } = useAccount();
-  console.log(account);
   const [accordionValue, setAccordionValue] = useState<string[]>([]);
   const { casesGroupedByDate, fetchParams, handleLoadMore, handleQuery } =
     useCases(initialCases, initialFetchParams);
@@ -104,7 +103,9 @@ export default function CasesSidebar({
             </SidebarMenu>
           </SidebarGroup>
           <SidebarGroup>
-            <SidebarGroupLabel>Patients</SidebarGroupLabel>
+            {casesGroupedByDate?.length && (
+              <SidebarGroupLabel>Patients</SidebarGroupLabel>
+            )}
             <SidebarMenu>
               {casesGroupedByDate?.map(([date, casesForDate]) => (
                 <Collapsible

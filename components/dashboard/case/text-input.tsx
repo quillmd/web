@@ -1,7 +1,11 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import {
+  DialogClose,
   DialogContent,
-  DialogHeader
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import {
   Form,
@@ -16,11 +20,9 @@ import { TextInputFormSchema, textInputFormSchema } from "@/lib/form-schema";
 import { Transcript, postTranscript, updateTranscript } from "@/lib/transcript";
 import { useDebounce } from "@/lib/useDebounce";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { DialogClose, DialogDescription, DialogTitle } from "@/components/ui/dialog";
-import { CircleCheck, LoaderCircle } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
 
 export interface TextInputProps extends React.HTMLAttributes<HTMLElement> {
   case_id: Case["id"];
@@ -67,49 +69,51 @@ export default function TextInput({
   const onSubmitDebounced = useDebounce(() => onSubmit(data), 1000);
 
   return (
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Text input</DialogTitle>
-          <DialogDescription></DialogDescription>
-        </DialogHeader>
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col w-full gap-2 p-1"
-      >
-        <FormField
-          control={form.control}
-          name="content"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Textarea
-                  className="flex-grow min-h-[calc(100vh-18.5rem)] resize-none"
-                  placeholder="Enter patient information, including notes, imaging results, and lab data, for your Squire to use in note creation"
-                  {...field}
-                  autoFocus={true}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <div className="flex items-center justify-end w-full gap-1">
-          {loading ? (
-            <Button className="w-32" disabled>
-              <span className="text-sm font-medium">Saving...</span>
-              <LoaderCircle size={16} className="animate-spin ml-1" />
-            </Button>
-          ) : (
-            <DialogClose asChild>
-            <Button className="w-32" type={"submit"}>
-              <span className="text-sm font-medium">{form.formState.isDirty?`Submit`:`Cancel`}</span>
-            </Button>
-            </DialogClose>
-          )}
-        </div>
-      </form>
-    </Form>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Text input</DialogTitle>
+        <DialogDescription></DialogDescription>
+      </DialogHeader>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col w-full gap-2 p-1"
+        >
+          <FormField
+            control={form.control}
+            name="content"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Textarea
+                    className="flex-grow min-h-[calc(100vh-18.5rem)] resize-none"
+                    placeholder="Enter patient information, including notes, imaging results, and lab data, for your Squire to use in note creation"
+                    {...field}
+                    autoFocus={true}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="flex items-center justify-end w-full gap-1">
+            {loading ? (
+              <Button className="w-32" disabled>
+                <span className="text-sm font-medium">Saving...</span>
+                <LoaderCircle size={16} className="animate-spin ml-1" />
+              </Button>
+            ) : (
+              <DialogClose asChild>
+                <Button className="w-32" type={"submit"}>
+                  <span className="text-sm font-medium">
+                    {form.formState.isDirty ? `Submit` : `Cancel`}
+                  </span>
+                </Button>
+              </DialogClose>
+            )}
+          </div>
+        </form>
+      </Form>
     </DialogContent>
   );
 }

@@ -1,5 +1,5 @@
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { Settings, User } from "lucide-react";
+import { Settings } from "lucide-react";
 import Nextlink from "next/link";
 
 export default function AccountMenuItem() {
