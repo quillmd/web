@@ -1,5 +1,4 @@
 import { AccountSidebar } from "@/components/account/account-sidebar";
-import LogoutButton from "@/components/dashboard/logout-button";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import NextLink from "next/link";
@@ -37,16 +36,13 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
     disableTransitionOnChange
     >
       <header className="sticky top-0 z-50 bg-background p-2 px-8">
-        <ul className="flex items-center gap-6 w-full justify-between">
+        <ul className="flex items-center gap-6 w-full justify-start">
           <li className="block">
             <NextLink href={"/home"}>
-              <Button variant="secondary" size={"icon"}>
-                <ArrowLeft />
+              <Button variant="secondary">
+                <ArrowLeft className="mr-2" /> Back
               </Button>
             </NextLink>
-          </li>
-          <li className="block">
-            <LogoutButton />
           </li>
         </ul>
       </header>

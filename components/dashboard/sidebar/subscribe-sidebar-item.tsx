@@ -1,4 +1,5 @@
-"use client";
+import SubscriptionPricingContent from "@/components/account/subscription-pricing-content";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   DialogContent,
@@ -7,59 +8,43 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { getCookie } from "cookies-next";
-import { Check } from "lucide-react";
-import { useAccount } from "../account-provider";
-import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function SubscribeSidebarItem() {
-  const authToken = getCookie("accessToken");
   return (
     <>
       <DialogTrigger asChild>
-        <Button className="w-full" size={"sm"}>Unlock Squire Unlimited</Button>
+        <Button className="w-full" size="sm">
+          Unlock Squire Unlimited
+        </Button>
       </DialogTrigger>
-      <DialogContent className="font-sans">
+      <DialogContent className="font-sans max-w-lg">
         <DialogHeader>
           <DialogTitle>Squire Unlimited</DialogTitle>
           <DialogDescription>
             Simple, fair pricing to access Squire and support our mission.
           </DialogDescription>
         </DialogHeader>
-        <div className="w-full grid grid-cols-3 items-center gap-4 py-1">
-          <div className="flex justify-end items-baseline">
-            <span className="text-5xl">$20</span>
-            <span className="text-muted-foreground">/mo</span>
-          </div>
-          <ul className="col-span-2 text-foreground">
-            <li className="flex items-center gap-2">
-              <Check className="h-4 w-4 fill-black" />
-              Unlimited notes
-            </li>
-            <li className="flex items-center gap-2">
-              <Check className="h-4 w-4 fill-black" />
-              Most advanced analysis engine
-            </li>
-            <li className="flex items-center gap-2">
-              <Check className="h-4 w-4 fill-black" />
-              Priority access during high traffic
-            </li>
-            <li className="flex items-center gap-2">
-              <Check className="h-4 w-4 fill-black" />
-              First to use new features
-            </li>
-          </ul>
-        </div>
-        <form
-          action={`${process.env.NEXT_PUBLIC_API}/api/account/subscription/subscribe`}
-          method="post"
-        >
-          <input type="hidden" name="authorization" value={authToken} />
-          <input type="hidden" name="plan_id" value={"squire-monthly"} />
-          <Button className={"w-full"} size="lg">
-            Unlock Squire Unlimited
-          </Button>
-        </form>
+        <Tabs defaultValue="monthly" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="monthly">Monthly</TabsTrigger>
+            <TabsTrigger value="yearly" className="relative">
+              Yearly
+              <Badge
+                variant="secondary"
+                className="absolute -top-2 -right-2 px-1 py-0.5 text-xs"
+              >
+                Save $100
+              </Badge>
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="monthly">
+            <SubscriptionPricingContent price="50" period="monthly" />
+          </TabsContent>
+          <TabsContent value="yearly">
+            <SubscriptionPricingContent price="500" period="yearly" />
+          </TabsContent>
+        </Tabs>
       </DialogContent>
     </>
   );

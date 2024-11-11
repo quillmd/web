@@ -100,7 +100,7 @@ export default function CasesSidebar({
           <SidebarGroup>
             <SidebarMenu>
               <FeedbackSidebarItem />
-              <LearnSidebarItem />
+              <LearnSidebarItem active={pathname == `/learn`} />
             </SidebarMenu>
           </SidebarGroup>
           <SidebarGroup>

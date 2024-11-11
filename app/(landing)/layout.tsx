@@ -1,4 +1,3 @@
-import MobileMenu from "@/components/landing/mobile-menu";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import NextLink from "next/link";
@@ -12,7 +11,7 @@ export default function HomepageLayout({
   return (
     <div className="font-heading">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-background p-2 px-16 mb-12">
+      <header className="sticky top-0 z-50 bg-background p-2 px-4 md:px-16 sm:mb-12">
         <nav className="flex justify-between items-center w-full">
           <NextLink href={"/"}>
             <Image
@@ -24,31 +23,15 @@ export default function HomepageLayout({
             />
           </NextLink>
 
-          <ul className="hidden md:flex md:items-center md:gap-6">
-             {/* <li>
-                  <NextLink
-                    href={"/howsquireworks"}
-                    className="text-lg font-semibold hover:underline"
-                  >
-                    How Squire Works
-                  </NextLink>
-                </li>
-                <li>
-                  <NextLink
-                    href={"/testimonials"}
-                    className="text-lg font-semibold hover:underline"
-                  >
-                    Testimonials
-                  </NextLink>
-                </li> */}
-                <li>
-                  <NextLink
-                    href={"/pricing"}
-                    className="text-lg font-semibold hover:underline"
-                  >
-                    Pricing
-                  </NextLink>
-                </li>
+          <ul className="flex items-center gap-4 md:gap-6">
+            <li>
+              <NextLink
+                href={"/pricing"}
+                className="text-lg font-semibold hover:underline"
+              >
+                Pricing
+              </NextLink>
+            </li>
             <li>
               <NextLink
                 href={"/about"}
@@ -68,9 +51,6 @@ export default function HomepageLayout({
               </Button>
             </li>
           </ul>
-          <div className="md:hidden">
-            <MobileMenu />
-          </div>
         </nav>
       </header>
 

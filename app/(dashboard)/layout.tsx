@@ -1,21 +1,9 @@
-import AccountStatusBadge from "@/components/account/account-status-badge";
-import ScribeSelectionDialog from "@/components/account/scribe-selection-dialog";
-import SubscribeDialog from "@/components/account/subscribe-dialog";
-import AccountButton from "@/components/dashboard/account-button";
 import { AccountProvider } from "@/components/dashboard/account-provider";
-import AppStoreQrDialog from "@/components/dashboard/app-store-qr-dialog";
-import CasesSidebar from "@/components/dashboard/sidebar/cases-sidebar";
 import CasesSocket from "@/components/dashboard/cases-socket";
-import FeedbackForm from "@/components/dashboard/feedback-form";
-import LogoutButton from "@/components/dashboard/logout-button";
-import ThemeToggle from "@/components/dashboard/theme-toggle";
+import CasesSidebar from "@/components/dashboard/sidebar/cases-sidebar";
 import { Account, getAccount } from "@/lib/account";
 import { Case, getCases } from "@/lib/case";
 import { CaseFetchParams } from "@/lib/useCases";
-import Image from "next/image";
-import NextLink from "next/link";
-import logotypeLight from "../../public/logotype_blue.webp";
-import logotypeDark from "../../public/logotype_green.webp";
 import { ThemeProvider } from "../theme-provider";
 
 export const initialFetchParams = {
@@ -42,64 +30,21 @@ export default async function DashboardLayout({
   const { account, initialCases } = await getData(initialFetchParams);
 
   return (
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
-        <CasesSocket />
-        <AccountProvider account={account}>
-          {/* <header className="sticky top-0 z-50 px-2 pt-3 pb-1 bg-background">
-            <nav className="flex items-center justify-between w-full">
-              <div className="flex gap-2 items-center">
-                <NextLink href={"/home"}>
-                  <Image
-                    src={logotypeDark}
-                    width={120}
-                    height={120}
-                    alt="Logo"
-                    className="cursor-pointer logo dark:hidden object-contain"
-                  />
-                  <Image
-                    src={logotypeLight}
-                    width={120}
-                    height={120}
-                    alt="Logo"
-                    className="cursor-pointer logo hidden dark:block object-contain"
-                  />
-                </NextLink>
-                <AccountStatusBadge account={account} />
-              </div>
-              <ul className="flex items-center gap-2">
-                {account.status != "active" && (
-                  <li className="block">
-                    <SubscribeDialog />
-                  </li>
-                )}
-                <li className="block">
-                  <AppStoreQrDialog />
-                </li>
-                <li className="block">
-                  <FeedbackForm />
-                </li>
-                <li className="block">
-                  <AccountButton />
-                </li>
-                <li className="block">
-                  <ThemeToggle />
-                </li>
-                <li className="block">
-                  <LogoutButton />
-                </li>
-              </ul>
-            </nav>
-          </header> */}
-            <CasesSidebar
-              initialCases={initialCases}
-              initialFetchParams={initialFetchParams}
-            >{children}</CasesSidebar>
-        </AccountProvider>
-      </ThemeProvider>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <CasesSocket />
+      <AccountProvider account={account}>
+        <CasesSidebar
+          initialCases={initialCases}
+          initialFetchParams={initialFetchParams}
+        >
+          {children}
+        </CasesSidebar>
+      </AccountProvider>
+    </ThemeProvider>
   );
 }

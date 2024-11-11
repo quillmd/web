@@ -96,7 +96,7 @@ export default function NoteOptions({
   );
 
   return (
-    <Card className="col-span-1 relative flex flex-col overflow-hidden h-[calc(100vh-7.5rem)]">
+    <Card className="col-span-1 relative flex flex-col overflow-hidden h-full">
       <CardHeader>
         <div className="mx-auto flex gap-2 items-center justify-center">
           <CardTitle>{"Note Options"}</CardTitle>
@@ -224,13 +224,13 @@ export default function NoteOptions({
           <Label>Pronouns</Label>
           <PronounButtons case_id={case_id} note_id={current_note.id} />
         </div>
-        <MagicEdit case_id={case_id} note={current_note}>
+        {/* <MagicEdit case_id={case_id} note={current_note}>
           <DialogTrigger asChild>
             <Button className="w-full" variant={"default"} disabled={account.status=="trial_ended"}>
               Magic Edit
             </Button>
           </DialogTrigger>
-        </MagicEdit>
+        </MagicEdit> */}
       </CardContent>
       <CardFooter>
         <NoteDeleteButton case_id={case_id} note_id={current_note.id} />

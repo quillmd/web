@@ -1,150 +1,186 @@
 import ContactUsForm from "@/components/landing/contact-us-form";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import NextLink from "next/link";
 
-export default async function Landing() {
+export default function Landing() {
   return (
-    <main className="px-8 flex flex-col gap-48">
-      <section className="w-full h-svh flex flex-col-reverse items-center md:flex-row justify-center gap-4 pb-24">
-        <div className="flex flex-col gap-2 md:gap-6 max-w-2xl text-center md:text-left">
-          <h1 className="text-3xl md:text-6xl font-bold">Introducing Squire:</h1>
-          <h1 className="text-3xl md:text-6xl font-bold">
-            Effortless Documentation for the Modern Physician
-          </h1>
-          <span className="text-xl md:text-3xl">
-            Squire is an AI scribe that listens to doctor-patient interactions
-            and writes accurate, complete notes. Replace the computer and
-            keyboard with better conversations and more time.
-          </span>
-          <span className="text-xl md:text-3xl">
-            Built by doctors, for doctors.
-          </span>
-          <div className="flex justify-center md:justify-start">
+    <main className="min-h-screen bg-gradient-to-b from-background to-secondary/10">
+      <div className="container mx-auto px-4 py-0 sm:py-16 space-y-32">
+        {/* Hero Section */}
+        <section className="">
+          <div className="flex flex-col-reverse md:flex-row items-center justify-between sm:gap-12">
+            <div className="flex-1 space-y-6 text-center md:text-left max-w-3xl">
+              <h1>
+                <span className="text-4xl md:text-6xl font-bold leading-tight">
+                  {"Introducing "}
+                </span>
+                <span className="text-4xl md:text-6xl font-bold leading-tight text-primary">
+                  Squire
+                </span>
+              </h1>
+              <span className="text-2xl md:text-6xl font-bold leading-tight">
+                An Advanced Dictation Tool for the Modern Clinician
+              </span>
+              <p className="text-lg md:text-2xl text-muted-foreground">
+                Squire listens to your clinical narrative and writes precice,
+                complete notes. Spend less time in front of your computer and
+                more time with your patients.
+              </p>
+              <p className="text-lg md:text-2xl font-semibold">
+                Built by doctors, for doctors.
+              </p>
+            </div>
+            <div className="flex-1 relative w-[200px] aspect-square max-w-md mx-auto">
+              <Image
+                src="/doctor.svg"
+                alt="Doctor using Squire"
+                fill
+                style={{ objectFit: "contain" }}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </div>
+          </div>
+          <div className="w-full flex justify-center mt-6">
             <Button
-              className="text-lg md:text-2xl font-semibold"
-              size={"lg"}
+              size="lg"
               asChild
+              className="flex sm:hidden text-lg font-semibold px-8 py-6"
             >
-              <NextLink href={"/login"}>Try Squire</NextLink>
+              <NextLink href="https://apps.apple.com/us/app/squire-for-clinicians/id6642666864">
+                Try Squire Now
+              </NextLink>
+            </Button>
+            <Button
+              size="lg"
+              asChild
+              className="hidden sm:flex text-lg font-semibold px-8 py-6"
+            >
+              <NextLink href="/login">Try Squire Now</NextLink>
             </Button>
           </div>
-        </div>
-        <div className="relative w-full h-1/3 md:h-full max-w-md">
-          <Image src="/doctor.svg" alt="Mascot" layout="fill" />
-        </div>
-      </section>
-      <section className="w-full flex flex-col justify-center gap-8">
-        <h2 className="text-2xl md:text-4xl font-bold text-center">
-          How Squire Works
-        </h2>
-        <div className="flex flex-col md:grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <div>
-            <h3 className="text-xl md:text-3xl font-bold mb-2">1. Consent</h3>
-            <p className="text-base md:text-2xl">
-              Squire is introduced and everyone in the room agrees to let it
-              scribe. Like a human scribe, Squire listens and doesn&apos;t save
-              audio.
-            </p>
+        </section>
+
+        {/* How It Works Section */}
+        <section className="space-y-12 max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-5xl font-bold text-center">
+            How Squire Works
+          </h2>
+          <div className="mx-auto max-w-">
+            <AspectRatio ratio={16 / 9}>
+              <iframe
+                src="https://www.youtube.com/embed/tUklOgcj_1U?si=-go_VPMLmCm_rWRX"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </AspectRatio>
           </div>
-          <div>
-            <h3 className="text-xl md:text-3xl font-bold mb-2">2. Listen</h3>
-            <p className="text-base md:text-2xl">
-              Squire listens to the conversation and writes the draft based on
-              the selected template. No changes need to be made to your
-              interviewing style.
-            </p>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              {
+                title: "1. Present",
+                description:
+                  "Squire turns your spoken clinical information into structured notes without storing any audio. Can be used by the clinician alone or during live encounters or telehealth visits.",
+              },
+              {
+                title: "2. Review",
+                description:
+                  "Access your structured note instantly on Squire's web or mobile platform. Simply review, edit if needed, and copy into your EMR.",
+              },
+            ].map((step, index) => (
+              <Card key={index} className="bg-background/50 backdrop-blur">
+                <CardContent className="p-6 space-y-4">
+                  <h3 className="text-2xl md:text-3xl font-bold">
+                    {step.title}
+                  </h3>
+                  <p className="text-lg md:text-xl text-muted-foreground">
+                    {step.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-          <div>
-            <h3 className="text-xl md:text-3xl font-bold mb-2">3. Verify</h3>
-            <p className="text-base md:text-2xl">
-              The scribed note draft is available on the Squire website. Copy and
-              paste from the website to your EMR, review and edit where
-              appropriate.
-            </p>
-          </div>
-        </div>
-        {/* <div className="w-full flex justify-center col-span-3">
-          <Image
-            src={"/multiple_inputs.png"}
-            alt="Multiple Inputs"
-            width={800}
-            height={500}
-          />
-        </div> */}
-      </section>
-      <section className="w-full md:text-center flex flex-col justify-center gap-8">
-        <div className="max-w-6xl mx-auto flex flex-col gap-8">
-          <h2 className="text-2xl md:text-4xl font-bold text-center">
+        </section>
+
+        {/* Why Squire Section */}
+        <section className="space-y-12">
+          <h2 className="text-3xl md:text-5xl font-bold text-center">
             Why Squire?
           </h2>
-          <div className="w-full">
-            <table className="divide-y divide-gray-200 mx-auto">
-              <tbody className="divide-y divide-gray-200">
-                <tr>
-                  <td className="px-4 md:px-6 py-4 text-lg md:text-xl font-medium text-gray-900">
-                    Robust Privacy and Security
-                  </td>
-                  <td className="px-4 md:px-6 py-4">
-                    <ul className="text-left list-disc pl-5 text-base md:text-lg">
-                      <li>No audio is saved. No PHI included in notes.</li>
-                      <li>Gold-standard encryption and data handling</li>
-                      <li>HIPAA compliant</li>
-                    </ul>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-4 md:px-6 py-4 text-lg md:text-xl font-medium text-gray-900">
-                    Intuitive and User-Friendly
-                  </td>
-                  <td className="px-4 md:px-6 py-4 text-base md:text-lg">
-                    <ul className="text-left list-disc pl-5">
-                      <li>Entire system designed by doctors to be intuitive</li>
-                      <li>Seamless integration into existing workflows</li>
-                      <li>No new hardware</li>
-                    </ul>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-4 md:px-6 py-4 text-lg md:text-xl font-medium text-gray-900">
-                    AI Superpowers
-                  </td>
-                  <td className="px-4 md:px-6 py-4">
-                    <ul className="text-left list-disc pl-5 text-base md:text-lg">
-                      <li>Consistent and familiar documentation</li>
-                      <li>Proven in noisy, fast-paced environments</li>
-                      <li>Accurate over very long documents</li>
-                    </ul>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-4 md:px-6 py-4 text-lg md:text-xl font-medium text-gray-900">
-                    More time for...
-                  </td>
-                  <td className="px-4 md:px-6 py-4">
-                    <ul className="text-left list-disc pl-5 text-base md:text-lg">
-                      <li>Better conversations</li>
-                      <li>Trust and connection</li>
-                      <li>Patient and physician wellness</li>
-                    </ul>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              {
+                title: "Robust Privacy and Security",
+                features: [
+                  "No audio is saved. No PHI included in notes.",
+                  "Gold-standard encryption and data handling",
+                  "HIPAA compliant",
+                ],
+              },
+              {
+                title: "Intuitive and User-Friendly",
+                features: [
+                  "Entire system designed by doctors to be intuitive",
+                  "Seamless integration into existing workflows",
+                  "No new hardware",
+                ],
+              },
+              {
+                title: "AI Superpowers",
+                features: [
+                  "Consistent and familiar documentation",
+                  "Proven in noisy, fast-paced environments",
+                  "Accurate over very long documents",
+                ],
+              },
+              {
+                title: "More time for...",
+                features: [
+                  "Better conversations",
+                  "Trust and connection",
+                  "Patient and physician wellness",
+                ],
+              },
+            ].map((feature, index) => (
+              <Card key={index} className="bg-background/50 backdrop-blur">
+                <CardContent className="p-6 space-y-4">
+                  <h3 className="text-xl md:text-2xl font-bold">
+                    {feature.title}
+                  </h3>
+                  <ul className="list-disc pl-5 space-y-2">
+                    {feature.features.map((item, i) => (
+                      <li
+                        key={i}
+                        className="text-base md:text-lg text-muted-foreground"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-        </div>
-      </section>
-      <section className="w-full h-svh md:h-96 flex flex-col md:flex-row flex-wrap justify-center items-center gap-8 md:mb-48">
-        <div className="space-y-2 max-w-md">
-          <h2 className="text-2xl md:text-4xl font-bold">Drop us a line</h2>
-          <p className="text-base md:text-2xl">
-            {`Have a new feature idea or want to know something about the project? Know someone who could benefit from Squire? Tell us.`}
-          </p>
-        </div>
-        <div>
-          <ContactUsForm />
-        </div>
-      </section>
+        </section>
+
+        {/* Contact Section */}
+        <section className="flex flex-col md:flex-row items-center justify-between gap-12 bg-primary/5 rounded-3xl p-8 md:p-12">
+          <div className="space-y-4 max-w-md">
+            <h2 className="text-3xl md:text-4xl font-bold">Drop us a line</h2>
+            <p className="text-lg md:text-xl text-muted-foreground">
+              Have a new feature idea or want to know something about the
+              project? Know someone who could benefit from Squire? Tell us.
+            </p>
+          </div>
+          <div className="w-full md:w-auto">
+            <ContactUsForm />
+          </div>
+        </section>
+      </div>
     </main>
   );
 }

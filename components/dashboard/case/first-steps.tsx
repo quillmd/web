@@ -37,13 +37,13 @@ const renderStepIndicator = (step: number, status?: string) => {
 
 const renderInputText = (status?: string) => {
   if (status == "processing") {
-    return "Processing input...";
+    return "Processing...";
   } else if (status == "ready") {
     return "Processing complete";
   } else if (status == "error") {
     return "There was an error with your input";
   }
-  return "Add the first input";
+  return "Have your Squire listen";
 };
 
 const renderNoteText = (status?: string) => {
@@ -66,7 +66,8 @@ export default function FirstSteps({
   templates,
   className,
 }: FirstStepsProps) {
-  const firstTranscript = transcripts?.[0];
+  const transcriptStatuses = transcripts.map(t => t.status)
+  const transcriptStatus = transcriptStatuses.length==0?"idle":transcriptStatuses.includes("error")?"error":transcriptStatuses.includes("processing")?"processing":transcriptStatuses.every(s => s=="ready")?"ready":"idle"
   const firstNote = notes?.[0];
 
   const router = useRouter();
@@ -92,11 +93,11 @@ export default function FirstSteps({
         className
       )}
     >
-      <div className="max-w-md mx-auto pb-48">
+      <div className="max-w-lg mx-auto pb-48">
         <div className="flex flex-col items-center justify-center space-y-8 text-center">
           <h1 className="text-4xl font-bold tracking-tight font-heading">
             {account.status !== "trial_ended"
-              ? "Follow these steps to start the case"
+              ? "Your Squire is ready to scribe"
               : "Get Squire Unlimited to continue"}
           </h1>
           {account.status !== "trial_ended" ? (
@@ -118,7 +119,7 @@ export default function FirstSteps({
                   <Input
                   className="bg-background"
                     disabled={case_id != undefined}
-                    placeholder="Enter a title for this case"
+                    placeholder="Name this encounter"
                     value={newTitle}
                     onChange={(e) => setNewTitle(e.target.value)}
                     onKeyDown={handleKeyDown}
@@ -132,9 +133,9 @@ export default function FirstSteps({
                   }
                 >
                   {case_id != undefined
-                    ? "Case Created"
+                    ? "Patient Created"
                     : !loading
-                    ? "Create Case"
+                    ? "Create Patient"
                     : "Loading"}
                 </Button>
               </div>
@@ -143,33 +144,34 @@ export default function FirstSteps({
                   className={`flex-shrink-0 w-8 h-8 rounded-full ${
                     case_id == undefined?
                       "bg-muted text-muted-foreground"
-                    : firstTranscript?.status == "ready"?
+                    : transcriptStatus == "ready"?
                     "bg-secondary text-secondary-foreground"
                       : "bg-primary text-primary-foreground"
                   } flex items-center justify-center`}
                 >
-                  {renderStepIndicator(2, firstTranscript?.status)}
+                  {renderStepIndicator(2, transcriptStatus)}
                 </div>
                 <div
                   className={`flex-grow text-left ${
                     (case_id == undefined ||
-                      firstTranscript?.status == "ready") &&
+                      transcriptStatus == "ready") &&
                     "text-muted-foreground"
                   }`}
                 >
                   <h2 className="text-lg font-semibold">
-                    {renderInputText(firstTranscript?.status)}
+                    {renderInputText(transcriptStatus)}
                   </h2>
                 </div>
                 {case_id == undefined ? (
-                  <Button className="w-36" disabled>{`+ Add Input`}</Button>
+                  <Button className="w-36" disabled>{`Listen`}</Button>
                 ) : (
                   <NewInput
                     case_id={case_id}
+                    idle_text={transcriptStatus === "ready"?"Listen More":"Listen"}
                     disabled={
-                      firstTranscript?.status === "ready" ||
                       case_id === undefined ||
-                      firstTranscript?.status === "processing"
+                      transcriptStatus === "processing" ||
+                      firstNote?.status == "processing"
                     }
                   />
                 )}
@@ -177,7 +179,7 @@ export default function FirstSteps({
               <div className="flex items-start space-x-4 w-full">
                 <div
                   className={`flex-shrink-0 w-8 h-8 rounded-full ${
-                    firstTranscript?.status === "ready"
+                    transcriptStatus === "ready"
                       ? "bg-primary text-primary-foreground"
                       : "bg-muted text-muted-foreground"
                   } flex items-center justify-center`}
@@ -186,7 +188,7 @@ export default function FirstSteps({
                 </div>
                 <div
                   className={`flex-grow text-left ${
-                    firstTranscript?.status != "ready" &&
+                    transcriptStatus != "ready" &&
                     "text-muted-foreground"
                   }`}
                 >
@@ -201,7 +203,7 @@ export default function FirstSteps({
                     case_id={case_id}
                     templates={templates}
                     disabled={
-                      firstTranscript?.status != "ready" ||
+                      transcriptStatus != "ready" ||
                       firstNote?.status == "processing"
                     }
                   />
