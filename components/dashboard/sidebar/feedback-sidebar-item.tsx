@@ -16,13 +16,8 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { feedback } from "@/lib/contact";
 import { FeedbackSchema, feedbackSchema } from "@/lib/form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -30,7 +25,7 @@ import { Check, LoaderCircle, MessageCircleCode } from "lucide-react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-export default function FeedbackForm() {
+export default function FeedbackSidebarItem() {
   const defaultValues = {
     name: "",
     email: "",
@@ -57,25 +52,19 @@ export default function FeedbackForm() {
 
   return (
     <Dialog>
-      <TooltipProvider delayDuration={250}>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <DialogTrigger asChild>
-              <Button variant="outline" size="icon" className="bg-card">
-                <MessageCircleCode />
-              </Button>
-            </DialogTrigger>
-          </TooltipTrigger>
-          <TooltipContent>
-            <span>Share Your Thoughts</span>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <DialogTrigger asChild>
+        <SidebarMenuItem>
+          <SidebarMenuButton>
+            <MessageCircleCode />
+            Feedback
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Share Your Thoughts</DialogTitle>
           <DialogDescription>
-            {`We appreciate your thoughts about Squire! If you've encountered a problem, please include details like what you were trying to do, and what happened. We'll respond by email.`}
+            {`We’d love to hear what went well or how we can improve Squire. We'll respond by email.`}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

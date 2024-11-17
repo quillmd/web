@@ -38,16 +38,16 @@ export default function NewCaseButton() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <SidebarMenuButton
-          className="focus-visible:ring-0"
+          className="focus-visible:ring-0 bg-secondary text-secondary-foreground"
           disabled={account.status == "trial_ended"}
         >
-          {account.status == "trial_ended" ? "Trial Ended" : `+ New Case`}
+          {account.status == "trial_ended" ? "Trial Ended" : `+ New Patient`}
         </SidebarMenuButton>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>New Case</DialogTitle>
-          <DialogDescription>Enter a title for this case</DialogDescription>
+          <DialogTitle>New Patient</DialogTitle>
+          <DialogDescription>Enter a name for this encounter</DialogDescription>
         </DialogHeader>
         <div className="flex items-center space-x-2">
           <div className="grid flex-1 gap-2">

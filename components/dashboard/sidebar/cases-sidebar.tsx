@@ -1,5 +1,6 @@
 "use client";
 
+import { accountStatusText } from "@/components/account/account-status-badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,11 +8,11 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { Dialog } from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -21,6 +22,7 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarInset,
   SidebarMenu,
@@ -32,23 +34,20 @@ import {
 } from "@/components/ui/sidebar";
 import { Case } from "@/lib/case";
 import { CaseFetchParams, useCases } from "@/lib/useCases";
-import {
-  BadgeCheck,
-  Bell,
-  ChevronRight,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
-} from "lucide-react";
+import { ChevronRight, ChevronsUpDown, User } from "lucide-react";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { useAccount } from "../account-provider";
 import CaseDeleteButton from "../case/case-delete-button";
 import NewCaseButton from "../home/new-case-button";
-import ThemeMenuItem from "./theme-menu-item";
+import AccountMenuItem from "./account-menu-item";
 import AppStoreMenuItem from "./app-store-menu-item";
-import { Dialog } from "@/components/ui/dialog";
+import FeedbackSidebarItem from "./feedback-sidebar-item";
+import LearnSidebarItem from "./learn-sidebar-item";
+import LogoutMenuItem from "./logout-menu-item";
+import SubscribeSidebarItem from "./subscribe-sidebar-item";
+import ThemeMenuItem from "./theme-menu-item";
 
 interface CasesSidebarProps extends React.HTMLAttributes<HTMLElement> {
   initialCases: Case[];
@@ -60,6 +59,7 @@ export default function CasesSidebar({
   initialFetchParams,
   children,
 }: CasesSidebarProps) {
+  const { account } = useAccount();
   const [accordionValue, setAccordionValue] = useState<string[]>([]);
   const { casesGroupedByDate, fetchParams, handleLoadMore, handleQuery } =
     useCases(initialCases, initialFetchParams);
@@ -97,6 +97,15 @@ export default function CasesSidebar({
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup>
+            <SidebarMenu>
+              <FeedbackSidebarItem />
+              <LearnSidebarItem active={pathname == `/learn`} />
+            </SidebarMenu>
+          </SidebarGroup>
+          <SidebarGroup>
+            {casesGroupedByDate?.length && (
+              <SidebarGroupLabel>Patients</SidebarGroupLabel>
+            )}
             <SidebarMenu>
               {casesGroupedByDate?.map(([date, casesForDate]) => (
                 <Collapsible
@@ -159,56 +168,78 @@ export default function CasesSidebar({
           </SidebarGroup>
         </SidebarContent>
         <SidebarFooter>
-        <Dialog>
           <SidebarMenu>
             <SidebarMenuItem>
-            
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <SidebarMenuButton
-                    size="lg"
-                    className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                  >
-                    <Avatar className="h-8 w-8 rounded-lg">
-                      <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-                    </Avatar>
-                    <div className="grid flex-1 text-left text-sm leading-tight">
-                      <span className="truncate font-semibold">test</span>
-                      <span className="truncate text-xs">test3</span>
-                    </div>
-                    <ChevronsUpDown className="ml-auto size-4" />
-                  </SidebarMenuButton>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-                  side="bottom"
-                  align="end"
-                  sideOffset={4}
-                >
-                  <DropdownMenuLabel className="p-0 font-normal">
-                    <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+              <Dialog defaultOpen={account.status == "trial_ended"}>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <SidebarMenuButton
+                      size="lg"
+                      className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                    >
                       <Avatar className="h-8 w-8 rounded-lg">
                         <AvatarFallback className="rounded-lg">
-                          CN
+                          {" "}
+                          <User />
                         </AvatarFallback>
                       </Avatar>
                       <div className="grid flex-1 text-left text-sm leading-tight">
-                        <span className="truncate font-semibold">test</span>
-                        <span className="truncate text-xs">test2</span>
+                        <span className="truncate font-semibold">
+                          {account.email}
+                        </span>
+                        <span className="truncate text-xs">
+                          {accountStatusText(account)}
+                        </span>
                       </div>
-                    </div>
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuGroup>
-                 <ThemeMenuItem/>
-                 <AppStoreMenuItem/>
-                 </DropdownMenuGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              
+                      <ChevronsUpDown className="ml-auto size-4" />
+                    </SidebarMenuButton>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+                    side="bottom"
+                    align="end"
+                    sideOffset={4}
+                  >
+                    <DropdownMenuLabel className="p-0 font-normal flex flex-col gap-1.5 px-1 py-1.5">
+                      <div className="flex items-center gap-2  text-left text-sm">
+                        <Avatar className="h-8 w-8 rounded-lg">
+                          <AvatarFallback className="rounded-lg">
+                            {" "}
+                            <User />
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="grid flex-1 text-left text-sm leading-tight">
+                          <span className="truncate font-semibold">
+                            {account.email}
+                          </span>
+                          <span className="truncate text-xs">
+                            {accountStatusText(account)}
+                          </span>
+                        </div>
+                      </div>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    {account.status != "active" && (
+                      <DropdownMenuGroup>
+                        <SubscribeSidebarItem />
+                        <DropdownMenuSeparator />
+                      </DropdownMenuGroup>
+                    )}
+                    <AccountMenuItem />
+                    {/* <DropdownMenuSeparator /> */}
+                    <DropdownMenuGroup>
+                      <ThemeMenuItem />
+                      <AppStoreMenuItem />
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                      <LogoutMenuItem />
+                    </DropdownMenuGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </Dialog>
             </SidebarMenuItem>
           </SidebarMenu>
-          </Dialog>
         </SidebarFooter>
       </Sidebar>
       <SidebarInset className="shadow-none">{children}</SidebarInset>

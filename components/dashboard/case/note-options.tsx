@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -25,11 +24,10 @@ import { Template } from "@/lib/template";
 import { Transcript } from "@/lib/transcript";
 import { Eclipse, ShieldHalf, Sparkles } from "lucide-react";
 import { useState } from "react";
-import MagicEdit from "./magic-edit";
+import { useAccount } from "../account-provider";
 import NoteCompletion from "./note-completion";
 import NoteDeleteButton from "./note-delete-button";
 import PronounButtons from "./pronoun-buttons";
-import { useAccount } from "../account-provider";
 
 const scribeIconMapping = {
   Lancelot: Sparkles,
@@ -61,7 +59,7 @@ export default function NoteOptions({
   transcripts,
   searchNoteByScribe,
 }: NoteOptionsProps) {
-  const {account} = useAccount()
+  const { account } = useAccount();
   const [isNoteCompletionOpen, setIsNoteCompletionOpen] = useState(false);
 
   const createNote = (template_id: string, scribe_id: string) => {
@@ -96,7 +94,7 @@ export default function NoteOptions({
   );
 
   return (
-    <Card className="col-span-1 relative flex flex-col overflow-hidden h-[calc(100vh-7.5rem)]">
+    <Card className="col-span-1 relative flex flex-col overflow-hidden h-full">
       <CardHeader>
         <div className="mx-auto flex gap-2 items-center justify-center">
           <CardTitle>{"Note Options"}</CardTitle>
@@ -108,9 +106,8 @@ export default function NoteOptions({
           <Select
             value={current_note.template_id}
             defaultValue={current_note.template_id}
-            disabled={!current_scribe || account.status=="trial_ended"}
+            disabled={!current_scribe || account.status == "trial_ended"}
             onValueChange={(template_id) => {
-              console.log(noteCompletionTemplate?.id);
               if (template_id == noteCompletionTemplate?.id) {
                 openNoteCompletion(template_id, current_scribe.id);
               } else if (
@@ -152,19 +149,19 @@ export default function NoteOptions({
                   value={"create"}
                 >{`+ Create Custom Template`}</SelectItem>
               </SelectGroup>
-              
+
               {noteCompletionTemplate && (
                 <>
-                <SelectSeparator />
-                <SelectGroup>
-                  <SelectLabel>Special</SelectLabel>
-                  <SelectItem
-                    key={`template-select-${noteCompletionTemplate.id}`}
-                    value={noteCompletionTemplate.id}
-                  >
-                    Note Completion
-                  </SelectItem>
-                </SelectGroup>
+                  <SelectSeparator />
+                  <SelectGroup>
+                    <SelectLabel>Special</SelectLabel>
+                    <SelectItem
+                      key={`template-select-${noteCompletionTemplate.id}`}
+                      value={noteCompletionTemplate.id}
+                    >
+                      Note Completion
+                    </SelectItem>
+                  </SelectGroup>
                 </>
               )}
             </SelectContent>
@@ -196,7 +193,7 @@ export default function NoteOptions({
           <Label>Change Squire</Label>
           <Select
             value={current_scribe?.id}
-            disabled={!current_scribe || account.status=="trial_ended"}
+            disabled={!current_scribe || account.status == "trial_ended"}
             defaultValue={current_scribe?.id}
             onValueChange={(scribe_id) =>
               createNote(current_note.template_id, scribe_id)
@@ -224,13 +221,13 @@ export default function NoteOptions({
           <Label>Pronouns</Label>
           <PronounButtons case_id={case_id} note_id={current_note.id} />
         </div>
-        <MagicEdit case_id={case_id} note={current_note}>
+        {/* <MagicEdit case_id={case_id} note={current_note}>
           <DialogTrigger asChild>
             <Button className="w-full" variant={"default"} disabled={account.status=="trial_ended"}>
               Magic Edit
             </Button>
           </DialogTrigger>
-        </MagicEdit>
+        </MagicEdit> */}
       </CardContent>
       <CardFooter>
         <NoteDeleteButton case_id={case_id} note_id={current_note.id} />

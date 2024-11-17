@@ -36,12 +36,19 @@ import TextInput from "./text-input";
 interface NewInputProps {
   case_id: Case["id"];
   disabled: boolean;
+  idle_text: string;
 }
 const Overlay = () => (
-  <div className="fixed inset-0 bg-black bg-opacity-50 z-50" />
+  <div className="fixed h-screen w-screen z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50" />
+  </div>
 );
 
-export default function NewInput({ case_id, disabled }: NewInputProps) {
+export default function NewInput({
+  case_id,
+  disabled,
+  idle_text,
+}: NewInputProps) {
   const { account } = useAccount();
   const {
     startRecording: startMicRecording,
@@ -225,41 +232,10 @@ export default function NewInput({ case_id, disabled }: NewInputProps) {
                 className="w-36"
                 disabled={account.status == "trial_ended" || disabled}
               >
-                {account.status == "trial_ended"
-                  ? "Trial ended"
-                  : `+ Add Input`}
+                {account.status == "trial_ended" ? "Trial ended" : idle_text}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-40">
-              <HoverCard openDelay={200}>
-                <DropdownMenuItem onClick={handleInterviewClick}>
-                  <MessagesSquare className="w-4 h-4 mr-2" />
-                  <span>Interview</span>
-                  <DropdownMenuShortcut>
-                    <HoverCardTrigger>
-                      <CircleHelp size={14} />
-                    </HoverCardTrigger>
-                  </DropdownMenuShortcut>
-                </DropdownMenuItem>
-
-                <HoverCardContent side="left" sideOffset={140}>
-                  <div className="flex flex-col gap-1">
-                    <span>{`Squire will listen to the interview using your PC's microphone`}</span>
-                    <span className="text-xs text-muted-foreground">
-                      {`Position microphone to hear all speakers. Click 'Allow' when prompted.`}
-                    </span>
-                  </div>
-                  <div className="flex flex-col mt-2">
-                    <Image
-                      src="/allow-microphone.png"
-                      alt="Allow microphone"
-                      width={400}
-                      height={361}
-                    />
-                  </div>
-                </HoverCardContent>
-              </HoverCard>
-
               <HoverCard openDelay={200}>
                 <DropdownMenuItem onClick={handleNarrationClick}>
                   <Mic className="w-4 h-4 mr-2" />
@@ -276,6 +252,35 @@ export default function NewInput({ case_id, disabled }: NewInputProps) {
                     <span>{`Tell Squire about the patient using your PC's microphone`}</span>
                     <span className="text-xs text-muted-foreground">
                       {`Click 'Allow' when prompted.`}
+                    </span>
+                  </div>
+                  <div className="flex flex-col mt-2">
+                    <Image
+                      src="/allow-microphone.png"
+                      alt="Allow microphone"
+                      width={400}
+                      height={361}
+                    />
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+
+              <HoverCard openDelay={200}>
+                <DropdownMenuItem onClick={handleInterviewClick}>
+                  <MessagesSquare className="w-4 h-4 mr-2" />
+                  <span>Interview</span>
+                  <DropdownMenuShortcut>
+                    <HoverCardTrigger>
+                      <CircleHelp size={14} />
+                    </HoverCardTrigger>
+                  </DropdownMenuShortcut>
+                </DropdownMenuItem>
+
+                <HoverCardContent side="left" sideOffset={140}>
+                  <div className="flex flex-col gap-1">
+                    <span>{`Squire will listen to the interview using your PC's microphone`}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {`Position microphone to hear all speakers. Click 'Allow' when prompted.`}
                     </span>
                   </div>
                   <div className="flex flex-col mt-2">

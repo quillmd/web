@@ -127,7 +127,10 @@ export default function Notes({
     const endIndex = content.lastIndexOf(endTag);
     const regex = /(\S.*\n)\n(Plan:)/g;
     if (startIndex !== -1 && endIndex !== -1 && startIndex < endIndex) {
-      return content.slice(startIndex + startTag.length, endIndex).trim().replace(regex, '$1$2');
+      return content
+        .slice(startIndex + startTag.length, endIndex)
+        .trim()
+        .replace(regex, "$1$2");
     }
     return content;
   };

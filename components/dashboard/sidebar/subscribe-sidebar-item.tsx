@@ -2,7 +2,6 @@ import SubscriptionPricingContent from "@/components/account/subscription-pricin
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -11,15 +10,15 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export default function SubscribeDialog() {
+export default function SubscribeSidebarItem() {
   return (
-    <Dialog>
+    <>
       <DialogTrigger asChild>
         <Button className="w-full" size="sm">
           Unlock Squire Unlimited
         </Button>
       </DialogTrigger>
-      <DialogContent className="font-sans sm:max-w-lg">
+      <DialogContent className="font-sans max-w-lg">
         <DialogHeader>
           <DialogTitle>Squire Unlimited</DialogTitle>
           <DialogDescription>
@@ -47,6 +46,6 @@ export default function SubscribeDialog() {
           </TabsContent>
         </Tabs>
       </DialogContent>
-    </Dialog>
+    </>
   );
 }
