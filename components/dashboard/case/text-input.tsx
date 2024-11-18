@@ -21,7 +21,7 @@ import { Transcript, postTranscript, updateTranscript } from "@/lib/transcript";
 import { useDebounce } from "@/lib/useDebounce";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 export interface TextInputProps extends React.HTMLAttributes<HTMLElement> {
@@ -43,6 +43,8 @@ export default function TextInput({
     },
     mode: "onChange",
   });
+  const { reset } = form;
+const { isSubmitSuccessful } = form.formState;
   const data = form.watch();
   function onSubmit(data: TextInputFormSchema) {
     if (transcript_id != undefined && data.content != initial_content) {
@@ -65,6 +67,10 @@ export default function TextInput({
       });
     }
   }
+
+  useEffect(() => {
+    isSubmitSuccessful && reset()
+  }, [isSubmitSuccessful, reset])
 
   const onSubmitDebounced = useDebounce(() => onSubmit(data), 1000);
 

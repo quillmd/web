@@ -51,7 +51,7 @@ export default function NewNote({
 
   return (
     <Dialog>
-      <DropdownMenu>
+      <DropdownMenu modal={false}>
         <Button
           className="w-36"
           disabled={disabled || account.status == "trial_ended"}

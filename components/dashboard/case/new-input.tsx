@@ -226,7 +226,7 @@ export default function NewInput({
         </Button>
       ) : (
         <Dialog>
-          <DropdownMenu>
+          <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <Button
                 className="w-36"

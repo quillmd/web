@@ -61,7 +61,7 @@ export default function CasesSidebar({
 }: CasesSidebarProps) {
   const { account } = useAccount();
   const [accordionValue, setAccordionValue] = useState<string[]>([]);
-  const { casesGroupedByDate, fetchParams, handleLoadMore, handleQuery } =
+  const { casesGroupedByDate, fetchParams, handleLoadMore } =
     useCases(initialCases, initialFetchParams);
 
   const pathname = usePathname();
@@ -103,9 +103,10 @@ export default function CasesSidebar({
             </SidebarMenu>
           </SidebarGroup>
           <SidebarGroup>
-            {casesGroupedByDate?.length && (
-              <SidebarGroupLabel>Patients</SidebarGroupLabel>
-            )}
+            {casesGroupedByDate?.length !== undefined &&
+              casesGroupedByDate?.length > 0 && (
+                <SidebarGroupLabel>Patients</SidebarGroupLabel>
+              )}
             <SidebarMenu>
               {casesGroupedByDate?.map(([date, casesForDate]) => (
                 <Collapsible
@@ -171,7 +172,7 @@ export default function CasesSidebar({
           <SidebarMenu>
             <SidebarMenuItem>
               <Dialog defaultOpen={account.status == "trial_ended"}>
-                <DropdownMenu>
+                <DropdownMenu modal={false}>
                   <DropdownMenuTrigger asChild>
                     <SidebarMenuButton
                       size="lg"
