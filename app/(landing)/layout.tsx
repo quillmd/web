@@ -43,7 +43,7 @@ export default function HomepageLayout({
             <li className="hidden md:block">
               <Button
                 variant={"secondary"}
-                className="text-lg font-semibold"
+                className="text-lg font-semibol px-6"
                 size={"lg"}
                 asChild
               >
