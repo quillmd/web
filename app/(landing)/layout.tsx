@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Lock } from "lucide-react";
 import Image from "next/image";
 import NextLink from "next/link";
 import logotype from "../../public/logotype_green.webp";
@@ -22,7 +23,6 @@ export default function HomepageLayout({
               className="cursor-pointer logo object-contain"
             />
           </NextLink>
-
           <ul className="flex items-center gap-4 md:gap-6">
             <li>
               <NextLink
@@ -43,17 +43,19 @@ export default function HomepageLayout({
             <li className="hidden md:block">
               <Button
                 variant={"secondary"}
-                className="text-lg font-semibold"
+                className="text-lg font-semibol px-6"
                 size={"lg"}
                 asChild
               >
-                <NextLink href={"/login"}>Login</NextLink>
+                <NextLink href={"/login"} className="flex items-center gap-2">
+                  <Lock className="w-5 h-5" />
+                  Secure Login
+                </NextLink>
               </Button>
             </li>
           </ul>
         </nav>
       </header>
-
       {/* Main */}
       {children}
       {/* Footer */}
