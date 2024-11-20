@@ -11,8 +11,8 @@ interface QRProps {
 export function QRLogin({authChannel, authChannelCode}: QRProps) {
   return (
     <div className="flex flex-col justify-center items-center gap-6">
-      <CardDescription className="text-lg text-foreground text-center font-heading">
-        Scan the code below with the Squire mobile app
+      <CardDescription className="w-72 text-lg text-foreground text-center font-heading">
+        Scan the code below with the Squire mobile app to log in instantly
       </CardDescription>
       <QRCodeSVG
         value={JSON.stringify({ channel: authChannel, code: authChannelCode })}
