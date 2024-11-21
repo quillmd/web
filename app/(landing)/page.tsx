@@ -71,7 +71,7 @@ export default function Landing() {
           <div className="mx-auto max-w-">
             <AspectRatio ratio={16 / 9}>
               <iframe
-                src="https://www.youtube.com/embed/tUklOgcj_1U?si=-go_VPMLmCm_rWRX"
+                src="https://www.youtube.com/embed/sEvfa_ayQFQ?si=d45ukpwv1p8mfSMd"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="w-full h-full"
