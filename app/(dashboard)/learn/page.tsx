@@ -11,7 +11,7 @@ export default function LearnPage() {
     {
       title: "Introduction to Squire",
       description: "Learn the basics of Squire and get ready for your quest.",
-      src: "https://www.youtube.com/embed/tUklOgcj_1U?si=-go_VPMLmCm_rWRX",
+      src: "https://www.youtube.com/embed/sEvfa_ayQFQ?si=d45ukpwv1p8mfSMd",
     },
   ];
 
