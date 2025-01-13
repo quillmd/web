@@ -30,7 +30,6 @@ export default function AuthSocket({ authChannel, authChannelCode }: AuthSocketP
       newChannel
         .join()
         .receive("ok", (resp) => {
-          console.log("Joined successfully", resp)
           setChannel(newChannel)
         })
         .receive("error", (resp) => {
@@ -39,7 +38,6 @@ export default function AuthSocket({ authChannel, authChannelCode }: AuthSocketP
 
       newChannel.on("grant_approved", async (payload) => {
         const { email, otp } = payload
-        console.log(payload)
         try {
           const responseData = await validateAuth(email, otp)
           if (responseData.error) {

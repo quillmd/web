@@ -73,7 +73,6 @@ export async function requestQRAuth(channel_id: string, code: string): Promise<s
   const encodedCode = encodeURIComponent(code)
   const qrCodeUrl = `${API_URL}/auth/qr_channel?channel=${encodedChannel}&code=${encodedCode}`
   
-  console.log(qrCodeUrl)
   const response = await fetch(qrCodeUrl, {
     method: 'GET',
   })

@@ -232,7 +232,7 @@ export default function NewInput({
                 className="w-36"
                 disabled={account.status == "trial_ended" || disabled}
               >
-                {account.status == "trial_ended" ? "Trial ended" : idle_text}
+                {account.status == "trial_ended" ? "Daily limit reached" : idle_text}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-40">

@@ -20,9 +20,9 @@ export function accountStatusText(account:Account){
     return "Squire Unlimited"
   }
   else if (account.status == "trial_ended") {
-    return("Trial ended")
+    return("Daily note limit reached")
   }
   else {
-    return(`Trial - ${10 - (account.note_count || 0)} notes remaining`)
+    return(`${account.note_credits} notes remaining today`)
   }
 }

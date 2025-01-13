@@ -17,7 +17,7 @@ export interface Account {
   scribe?: Scribe;
   subscription_exempt: boolean;
   subscription?: Subscription;
-  note_count?: number;
+  note_credits?: number;
   status: AccountStatus;
 }
 
@@ -42,7 +42,7 @@ export async function getAccount(): Promise<Account> {
   const accountStatus =
     data.subscription !== undefined || data.subscription_exempt
       ? "active"
-      : data.note_count !== undefined && data.note_count < 10
+      : data.note_credits !== undefined && data.note_credits > 0
       ? "trial"
       : "trial_ended";
   data.status = accountStatus;

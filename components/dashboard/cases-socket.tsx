@@ -36,49 +36,40 @@ const CasesSocket = () => {
       });
 
       newChannel.on("case_edited", (payload) => {
-        console.log("Case edited:", payload);
         revalidateCase({ id: payload.id });
       });
 
       newChannel.on("case_deleted", (payload) => {
-        console.log("Case deleted:", payload);
         revalidateCase({ id: payload.id });
       });
 
       newChannel.on("note_created", (payload) => {
-        console.log("Note created:", payload);
         revalidateNotes({ case_id: payload.case_id });
       });
 
       newChannel.on("note_edited", (payload) => {
-        console.log("Note edited:", payload);
         revalidateNotes({ case_id: payload.case_id });
       });
 
       newChannel.on("note_deleted", (payload) => {
-        console.log("Note deleted:", payload);
         revalidateNotes({ case_id: payload.case_id });
       });
 
       newChannel.on("transcript_created", (payload) => {
-        console.log("Transcript created:", payload);
         revalidateTranscripts({ case_id: payload.case_id });
       });
 
       newChannel.on("transcript_edited", (payload) => {
-        console.log("Transcript edited:", payload);
         revalidateTranscripts({ case_id: payload.case_id });
       });
 
       newChannel.on("transcript_deleted", (payload) => {
-        console.log("Transcript deleted:", payload);
         revalidateTranscripts({ case_id: payload.case_id });
       });
 
       newChannel
         .join()
         .receive("ok", (resp) => {
-          console.log("Joined successfully", resp);
           setChannel(newChannel);
         })
         .receive("error", (resp) => {

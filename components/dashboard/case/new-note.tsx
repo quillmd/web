@@ -58,7 +58,7 @@ export default function NewNote({
           asChild
         >
           <DropdownMenuTrigger>
-            {account.status == "trial_ended" ? "Trial ended" : `+ New Note`}
+            {account.status == "trial_ended" ? "Daily limit reached" : `+ New Note`}
           </DropdownMenuTrigger>
         </Button>
         <DropdownMenuContent>

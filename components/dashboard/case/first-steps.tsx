@@ -93,12 +93,12 @@ export default function FirstSteps({
         className
       )}
     >
-      <div className="max-w-lg mx-auto pb-48">
+      <div className="max-w-xl mx-auto pb-48">
         <div className="flex flex-col items-center justify-center space-y-8 text-center">
           <h1 className="text-4xl font-bold tracking-tight font-heading">
             {account.status !== "trial_ended"
               ? "Your Squire is ready to scribe"
-              : "Get Squire Unlimited to continue"}
+              : "Need more notes? Get Squire Unlimited to remove the daily note limit"}
           </h1>
           {account.status !== "trial_ended" ? (
             <>

@@ -41,7 +41,7 @@ export default function NewCaseButton() {
           className="focus-visible:ring-0 bg-secondary text-secondary-foreground"
           disabled={account.status == "trial_ended"}
         >
-          {account.status == "trial_ended" ? "Trial Ended" : `+ New Patient`}
+          {account.status == "trial_ended" ? "Daily limit reached" : `+ New Patient`}
         </SidebarMenuButton>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
