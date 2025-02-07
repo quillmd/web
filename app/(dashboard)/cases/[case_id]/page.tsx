@@ -4,6 +4,7 @@ import Notes from "@/components/dashboard/case/notes";
 import { Account, getAccount } from "@/lib/account";
 import { Case, getCase } from "@/lib/case";
 import { Note, getNotes } from "@/lib/note";
+import { Qa, getQas } from "@/lib/qa";
 import { Scribe, getScribes } from "@/lib/scribe";
 import { Template, getTemplates } from "@/lib/template";
 import { Transcript, getTranscripts } from "@/lib/transcript";
@@ -16,6 +17,7 @@ async function getData(case_id: string) {
     getTranscripts({ case_id: case_id }),
     getTemplates(),
     getScribes(),
+    getQas({ case_id: case_id }),
   ];
   const results = await Promise.all(promiseArray);
   return {
@@ -25,6 +27,7 @@ async function getData(case_id: string) {
     transcripts: results[3] as Transcript[],
     templates: results[4] as Template[],
     scribes: results[5] as Scribe[],
+    qas: results[6] as Qa[],
   };
 }
 
@@ -33,7 +36,7 @@ export default async function CasePage({
 }: {
   params: { case_id: string };
 }) {
-  const { account, current_case, notes, transcripts, templates, scribes } =
+  const { account, current_case, notes, transcripts, templates, scribes, qas } =
     await getData(case_id);
   const isFirstTranscriptReady =
     transcripts.find((transcript) => transcript.status == "ready") != undefined;
@@ -62,6 +65,7 @@ export default async function CasePage({
             notes={notes}
             transcripts={transcripts}
             scribes={scribes}
+            qas={qas}
           />
         </div>
       )}

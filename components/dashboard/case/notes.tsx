@@ -9,6 +9,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Note, postNote } from "@/lib/note";
+import { Qa } from "@/lib/qa";
 import { Scribe } from "@/lib/scribe";
 import { Template } from "@/lib/template";
 import { Transcript } from "@/lib/transcript";
@@ -18,13 +19,16 @@ import {
   ChevronRight,
   Eclipse,
   FileSliders,
+  LoaderCircle,
   ShieldHalf,
   Sparkles,
+  Telescope,
   TriangleAlert,
 } from "lucide-react";
 import { DateTime } from "luxon";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import CopyButton from "../copy-button";
+import Explore from "./explore";
 import Inputs from "./inputs";
 import NoteDisplay from "./note-display";
 import NoteOptions from "./note-options";
@@ -44,6 +48,7 @@ interface NotesProps {
   notes: Note[];
   transcripts: Transcript[];
   scribes: Scribe[];
+  qas: Qa[];
 }
 
 export default function Notes({
@@ -52,6 +57,7 @@ export default function Notes({
   notes,
   transcripts,
   scribes,
+  qas,
 }: NotesProps) {
   const [currentNoteIndex, setCurrentNoteIndex] = useState(0);
   const [sidebarVisible, setSidebarVisible] = useState("");
@@ -184,7 +190,10 @@ export default function Notes({
 
           <div className="flex gap-2">
             {current_note.status == "ready" && (
-              <CopyButton className="w-24 bg-card" text={extractedContent} />
+              <CopyButton
+                className="w-24 bg-card gap-0"
+                text={extractedContent}
+              />
             )}
             <ToggleGroup
               className="gap-2"
@@ -200,7 +209,7 @@ export default function Notes({
                 aria-label="Toggle input sidebar"
                 className="w-24"
               >
-                <FileSliders className={"mr-0.5"} size={16} />
+                <FileSliders className={"mr-1"} size={16} />
                 {"Inputs"}
               </ToggleGroupItem>
               <ToggleGroupItem
@@ -208,8 +217,21 @@ export default function Notes({
                 aria-label="Toggle options sidebar"
                 className="w-24"
               >
-                <Bolt className={"mr-0.5"} size={16} />
+                <Bolt className={"mr-1"} size={16} />
                 {"Options"}
+              </ToggleGroupItem>
+              <ToggleGroupItem
+                value="explore"
+                aria-label="Toggle explore sidebar"
+                className="w-24"
+                disabled={qas.length === 0}
+              >
+                {qas.length === 0 ? (
+                  <LoaderCircle size={16} className={`animate-spin mr-1`} />
+                ) : (
+                  <Telescope className={"mr-1"} size={16} />
+                )}
+                {"Explore"}
               </ToggleGroupItem>
             </ToggleGroup>
           </div>
@@ -282,6 +304,13 @@ export default function Notes({
           transcripts={transcripts}
           searchNoteByScribe={searchNoteByScribe}
         />
+      </div>
+      <div
+        className={`transition-all duration-300 ease-in-out ${
+          current_note && sidebarVisible === "explore" ? "col-span-1" : "hidden"
+        }`}
+      >
+        <Explore case_id={case_id} note_id={current_note.id} qas={qas || []} />
       </div>
       <div
         className={`transition-all duration-300 ease-in-out ${

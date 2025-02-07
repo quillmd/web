@@ -2,6 +2,7 @@
 import { refreshToken } from "@/lib/auth";
 import { revalidateCase, revalidateCases } from "@/lib/case";
 import { revalidateNotes } from "@/lib/note";
+import { revalidateQas } from "@/lib/qa";
 import { revalidateTranscripts } from "@/lib/transcript";
 import { getCookie } from "cookies-next";
 import { Channel, Socket } from "phoenix";
@@ -65,6 +66,10 @@ const CasesSocket = () => {
 
       newChannel.on("transcript_deleted", (payload) => {
         revalidateTranscripts({ case_id: payload.case_id });
+      });
+
+      newChannel.on("qas_added", (payload) => {
+        revalidateQas({ case_id: payload.case_id });
       });
 
       newChannel

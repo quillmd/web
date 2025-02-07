@@ -86,16 +86,13 @@ export async function getCase({ id }: { id: Case["id"] }): Promise<Case> {
   if (!authToken) {
     redirect(`/login`);
   }
-  const response = await fetch(
-    `${API_URL}/api/cases/${id}`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-      next: { tags },
-    }
-  );
+  const response = await fetch(`${API_URL}/api/cases/${id}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+    next: { tags },
+  });
   const data = await response.json();
   return data as Case;
 }
@@ -164,7 +161,6 @@ export async function deleteCase({ id }: { id: Case["id"] }) {
   });
   await revalidateCases();
 }
-
 
 export async function revalidateCase({ id }: { id: Case["id"] }) {
   const tags = [`case-${id}`, `notes-${id}`, `transcripts-${id}`];
