@@ -1,5 +1,5 @@
 import { getCookie } from "cookies-next";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { revalidateTranscripts } from "./transcript";
 
 type RecorderStatus = "idle" | "recording" | "uploading" | "success" | "error";
@@ -22,12 +22,42 @@ export function useAudioRecorder({
   const [recorder, setRecorder] = useState<MediaRecorder | null>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [recordType, setRecordType] = useState<string | null>(null);
+  const wakeLockRef = useRef<WakeLockSentinel | null>(null);
+
+  // Request a wake lock to prevent the computer from going to sleep
+  const requestWakeLock = async () => {
+    if ("wakeLock" in navigator) {
+      try {
+        wakeLockRef.current = await (navigator as any).wakeLock.request(
+          "screen"
+        );
+      } catch (err) {
+        console.error("Failed to acquire wake lock:", err);
+      }
+    }
+  };
+
+  // Release the wake lock when recording stops
+  const releaseWakeLock = async () => {
+    if (wakeLockRef.current) {
+      try {
+        await wakeLockRef.current.release();
+        wakeLockRef.current = null;
+      } catch (err) {
+        console.error("Failed to release wake lock:", err);
+      }
+    }
+  };
 
   const startRecording = async (type: string) => {
     const [stream, recorder] = await requestRecorder(mode);
     setStream(stream);
     setRecorder(recorder);
     setRecordType(type);
+
+    // Request wake lock to keep the screen active during recording
+    await requestWakeLock();
+
     recorder.start();
     setRecorderStatus("recording");
   };
@@ -38,6 +68,8 @@ export function useAudioRecorder({
       stream.getTracks().forEach((track) => track.stop());
       setStream(null);
     }
+    // Release the wake lock when recording stops
+    releaseWakeLock();
   };
 
   useEffect(() => {
@@ -62,9 +94,7 @@ export function useAudioRecorder({
   }, [recorder]);
 
   const uploadAudio = async (audioBlob: Blob) => {
-    // Determine the supported MIME type based on the browser.
     const supportedMimeType = getSupportedMimeType();
-    // Adjust the file extension based on the MIME type.
     const fileExtension = supportedMimeType === "audio/mp4" ? "mp4" : "opus";
     const audio_file = new File([audioBlob], `audio.${fileExtension}`, {
       type: supportedMimeType,
@@ -126,7 +156,9 @@ async function requestRecorder(
       monitorTypeSurfaces: "exclude",
     };
     const audioContext = new AudioContext();
-    const micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const micStream = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+    });
     const micAudioTrack = micStream.getAudioTracks()[0];
     const shareStream = await navigator.mediaDevices.getDisplayMedia(
       displayMediaOptions
