@@ -17,7 +17,6 @@ import type { Case } from "@/lib/case";
 import type { Note } from "@/lib/note";
 import { editNote } from "@/lib/note";
 import { postQa, revalidateQas } from "@/lib/qa";
-import { FlaskConical } from "lucide-react";
 import NextLink from "next/link";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
@@ -217,11 +216,8 @@ export default function Explore({ qas, case_id, note_id }: ExploreProps) {
       <CardHeader className="px-8 py-6">
         <div className="mx-auto flex gap-2 items-center justify-center">
           <CardTitle className="flex flex-col items-center gap-2">
-            <div className="flex items-center gap-1">
-              Explore
-              <FlaskConical className="h-5 w-5 text-secondary" />
-            </div>
-            <span className="text-sm text-muted-foreground text-center">
+            <div className="flex items-center gap-1">Explore</div>
+            <span className="text-sm text-muted-foreground text-center text-balance font-body">
               This is an experimental feature. Please verify all information
               independently before use.
             </span>
