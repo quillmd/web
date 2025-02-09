@@ -249,15 +249,11 @@ export default function Notes({
               />
             ) : current_note.status == "processing" ? (
               <ScribingEffect
-                text={`${
-                  current_scribe?.name ?? "Your squire"
-                } is scribing this note...`}
+                text={`Squire is scribing this note...`}
               />
             ) : current_note.status == "editing" ? (
               <ScribingEffect
-                text={`${
-                  current_scribe?.name ?? "Your squire"
-                } is editing this note...`}
+                text={`Squire is editing this note...`}
               />
             ) : (
               "Error processing note"

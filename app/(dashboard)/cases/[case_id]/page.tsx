@@ -41,7 +41,7 @@ export default async function CasePage({
   const isFirstTranscriptReady =
     transcripts.find((transcript) => transcript.status == "ready") != undefined;
   const isFirstNoteReady =
-    notes.find((note) => note.status == "ready") != undefined;
+    notes.find((note) => note.status == "ready" || note.status == "editing") != undefined;
   return (
     <>
       {!isFirstTranscriptReady || !isFirstNoteReady ? (

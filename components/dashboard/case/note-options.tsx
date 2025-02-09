@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -22,9 +23,11 @@ import { Note, postNote } from "@/lib/note";
 import { Scribe } from "@/lib/scribe";
 import { Template } from "@/lib/template";
 import { Transcript } from "@/lib/transcript";
+import { DialogTrigger } from "@radix-ui/react-dialog";
 import { Eclipse, ShieldHalf, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { useAccount } from "../account-provider";
+import MagicEdit from "./magic-edit";
 import NoteCompletion from "./note-completion";
 import NoteDeleteButton from "./note-delete-button";
 import PronounButtons from "./pronoun-buttons";
@@ -221,13 +224,17 @@ export default function NoteOptions({
           <Label>Pronouns</Label>
           <PronounButtons case_id={case_id} note_id={current_note.id} />
         </div>
-        {/* <MagicEdit case_id={case_id} note={current_note}>
+        <MagicEdit case_id={case_id} note={current_note}>
           <DialogTrigger asChild>
-            <Button className="w-full" variant={"default"} disabled={account.status=="trial_ended"}>
+            <Button
+              className="w-full"
+              variant={"default"}
+              disabled={account.status == "trial_ended"}
+            >
               Magic Edit
             </Button>
           </DialogTrigger>
-        </MagicEdit> */}
+        </MagicEdit>
       </CardContent>
       <CardFooter>
         <NoteDeleteButton case_id={case_id} note_id={current_note.id} />
