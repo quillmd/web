@@ -62,13 +62,17 @@ export function useAudioRecorder({
   }, [recorder]);
 
   const uploadAudio = async (audioBlob: Blob) => {
-    const audio_file = new File([audioBlob], "audio.opus", {
-      type: "audio/webm",
+    // Determine the supported MIME type based on the browser.
+    const supportedMimeType = getSupportedMimeType();
+    // Adjust the file extension based on the MIME type.
+    const fileExtension = supportedMimeType === "audio/mp4" ? "mp4" : "opus";
+    const audio_file = new File([audioBlob], `audio.${fileExtension}`, {
+      type: supportedMimeType,
     });
 
     setRecorderStatus("uploading");
     const formData = new FormData();
-    formData.append("file", audio_file, "audio.opus");
+    formData.append("file", audio_file, `audio.${fileExtension}`);
     formData.append("case_id", case_id.toString());
     formData.append("type", recordType || "");
     await fetch(
@@ -88,10 +92,28 @@ export function useAudioRecorder({
   return { recorderStatus, startRecording, stopRecording };
 }
 
+/**
+ * Detects if the current browser is Safari and returns a MIME type that is supported.
+ * For Safari, we use "audio/mp4" as "audio/webm" is not supported.
+ */
+function getSupportedMimeType(): string {
+  let mimeType = "audio/webm";
+  if (typeof navigator !== "undefined" && navigator.userAgent) {
+    // This regular expression detects Safari by checking that "Safari" is present
+    // but excluding Chrome and Android browsers.
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    if (isSafari) {
+      mimeType = "audio/mp4";
+    }
+  }
+  return mimeType;
+}
+
 async function requestRecorder(
   mode: string
 ): Promise<[MediaStream, MediaRecorder]> {
-  if (mode == "share") {
+  const mimeType = getSupportedMimeType();
+  if (mode === "share") {
     const displayMediaOptions = {
       video: {
         displaySurface: "browser",
@@ -104,9 +126,7 @@ async function requestRecorder(
       monitorTypeSurfaces: "exclude",
     };
     const audioContext = new AudioContext();
-    const micStream = await navigator.mediaDevices.getUserMedia({
-      audio: true,
-    });
+    const micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
     const micAudioTrack = micStream.getAudioTracks()[0];
     const shareStream = await navigator.mediaDevices.getDisplayMedia(
       displayMediaOptions
@@ -128,10 +148,10 @@ async function requestRecorder(
 
     return [
       finalAudioStream,
-      new MediaRecorder(finalAudioStream, { mimeType: "audio/webm" }),
+      new MediaRecorder(finalAudioStream, { mimeType: mimeType }),
     ];
   } else {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    return [stream, new MediaRecorder(stream, { mimeType: "audio/webm" })];
+    return [stream, new MediaRecorder(stream, { mimeType: mimeType })];
   }
 }
