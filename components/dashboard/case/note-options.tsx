@@ -24,7 +24,7 @@ import { Scribe } from "@/lib/scribe";
 import { Template } from "@/lib/template";
 import { Transcript } from "@/lib/transcript";
 import { DialogTrigger } from "@radix-ui/react-dialog";
-import { Eclipse, ShieldHalf, Sparkles } from "lucide-react";
+import { Eclipse, ShieldHalf, Sparkles, WandSparkles } from "lucide-react";
 import { useState } from "react";
 import { useAccount } from "../account-provider";
 import MagicEdit from "./magic-edit";
@@ -103,7 +103,18 @@ export default function NoteOptions({
           <CardTitle>{"Note Options"}</CardTitle>
         </div>
       </CardHeader>
-      <CardContent className="flex flex-col gap-8 h-full">
+      <CardContent className="flex flex-col gap-8 h-full pt-4">
+        <MagicEdit case_id={case_id} note={current_note}>
+          <DialogTrigger asChild>
+            <Button
+              className="w-full"
+              variant={"default"}
+              disabled={account.status == "trial_ended"}
+            >
+              <WandSparkles/>Magic Edit
+            </Button>
+          </DialogTrigger>
+        </MagicEdit>
         <div className="space-y-1">
           <Label>Template</Label>
           <Select
@@ -224,17 +235,6 @@ export default function NoteOptions({
           <Label>Pronouns</Label>
           <PronounButtons case_id={case_id} note_id={current_note.id} />
         </div>
-        <MagicEdit case_id={case_id} note={current_note}>
-          <DialogTrigger asChild>
-            <Button
-              className="w-full"
-              variant={"default"}
-              disabled={account.status == "trial_ended"}
-            >
-              Magic Edit
-            </Button>
-          </DialogTrigger>
-        </MagicEdit>
       </CardContent>
       <CardFooter>
         <NoteDeleteButton case_id={case_id} note_id={current_note.id} />

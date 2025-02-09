@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Case } from "@/lib/case";
 import { editNote, Note } from "@/lib/note";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { WandSparkles } from "lucide-react";
 import React, { useState } from "react";
 
 interface MagicEditProps extends React.HTMLAttributes<HTMLElement> {
@@ -31,30 +32,37 @@ export default function MagicEdit({
 }: MagicEditProps) {
   const [editInstructions, setEditInstructions] = useState("");
   const hasTextSelection = text_selection?.length && text_selection?.length > 0;
+
   const formatSelection = () => {
     if (!text_selection || !extractedContent) return "";
-  
+
     const startIndex = extractedContent.indexOf(text_selection);
     const endIndex = startIndex + text_selection.length;
-  
+
     let formattedSelection = text_selection;
-  
-    if (startIndex > 0 && extractedContent[startIndex - 1] !== '\n') {
+
+    if (startIndex > 0 && extractedContent[startIndex - 1] !== "\n") {
       formattedSelection = `...${formattedSelection}`;
     }
-  
-    if (endIndex < extractedContent.length && extractedContent[endIndex] !== '\n') {
+
+    if (
+      endIndex < extractedContent.length &&
+      extractedContent[endIndex] !== "\n"
+    ) {
       formattedSelection = `${formattedSelection}...`;
     }
-  
+
     return formattedSelection;
   };
 
   const handleSubmitTextEdit = async () => {
+    if (editInstructions.trim() === "") return;
+
     const instructions = hasTextSelection
       ? `${text_selection}\n\nPlease edit this part of the note in the following way:\n\n${editInstructions}`
       : editInstructions;
     await editNote({ case_id, note_id: note.id, instructions });
+    setEditInstructions("");
   };
 
   return (
@@ -78,13 +86,24 @@ export default function MagicEdit({
           id="edit-instructions"
           value={editInstructions}
           onChange={(e) => setEditInstructions(e.target.value)}
-          onKeyDown={(e) => e.key == "Enter" && handleSubmitTextEdit()}
+          onKeyDown={(e) => {
+            // Check if the Enter key is pressed (without Shift to allow newlines)
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              handleSubmitTextEdit();
+            }
+          }}
           placeholder="Enter edit instructions"
           className="bg-background"
         />
         <DialogFooter>
           <DialogClose>
-            <Button onClick={handleSubmitTextEdit}>Confirm</Button>
+            <Button
+              onClick={handleSubmitTextEdit}
+              disabled={editInstructions.trim() === ""}
+            >
+              <WandSparkles /> Edit
+            </Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

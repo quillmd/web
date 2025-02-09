@@ -111,9 +111,9 @@ export default function NoteDisplay({
                 selectedParagraphIndex !== null ? `Section` : `Selection`
               }`}
             </DropdownMenuItem>
-            {/* <DialogTrigger asChild>
+            <DialogTrigger asChild>
               <DropdownMenuItem>Magic Edit</DropdownMenuItem>
-            </DialogTrigger> */}
+            </DialogTrigger>
           </DropdownMenuContent>
         </DropdownMenu>
       </MagicEdit>
