@@ -6,18 +6,12 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import type { Case } from "@/lib/case";
 import type { Note } from "@/lib/note";
 import { editNote } from "@/lib/note";
 import { postQa, revalidateQas } from "@/lib/qa";
-import NextLink from "next/link";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 
@@ -30,11 +24,6 @@ interface ExploreProps {
 interface Qa {
   question: string;
   answer: string;
-}
-
-interface Citation {
-  text: string;
-  links: string[];
 }
 
 function isValidUrl(url: string): boolean {
@@ -50,6 +39,8 @@ function ParsedCitationText({ text }: { text: string }) {
   const nodes: React.ReactNode[] = [];
   let idx = 0;
   let citationCount = 1;
+  // Map to track already used links and their marker numbers
+  const dedupLinks = new Map<string, number>();
 
   while (idx < text.length) {
     const markerStart = text.indexOf("^(", idx);
@@ -83,87 +74,43 @@ function ParsedCitationText({ text }: { text: string }) {
       .substring(markerStart + 2, markerEnd - 1)
       .trim();
 
-    const links: string[] = [];
-    const linkRegex = /\[([^\]]+)\]/g;
-    let match: RegExpExecArray | null;
-    while ((match = linkRegex.exec(citationContent)) !== null) {
-      links.push(match[1].trim());
+    // Try to extract a URL from square brackets, if present.
+    const linkRegex = /\[([^\]]+)\]/;
+    const match = linkRegex.exec(citationContent);
+    let url = "";
+    if (match && isValidUrl(match[1].trim())) {
+      url = match[1].trim();
+    } else if (isValidUrl(citationContent)) {
+      url = citationContent;
     }
 
-    const citationText = citationContent.replace(linkRegex, "").trim();
-
-    const validLinks = links.filter((link) => isValidUrl(link));
-
-    if (validLinks.length === 0) {
-      nodes.push(citationText);
-    } else {
-      const citation: Citation = {
-        text: citationText,
-        links: validLinks,
-      };
-
+    if (url) {
+      // Check if this URL was already encountered.
+      let markerNumber = dedupLinks.get(url);
+      if (!markerNumber) {
+        markerNumber = citationCount;
+        dedupLinks.set(url, markerNumber);
+        citationCount++;
+      }
       nodes.push(
-        <CitationMarker
-          key={`citation-${citationCount}`}
-          index={citationCount}
-          citation={citation}
-        />
+        <a
+          key={`citation-${idx}-${markerNumber}`}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-secondary hover:text-primary/80 transition-colors"
+        >
+          [{markerNumber}]
+        </a>
       );
-      citationCount++;
+    } else {
+      nodes.push(citationContent);
     }
 
     idx = markerEnd;
   }
 
   return <span>{nodes}</span>;
-}
-
-function CitationMarker({
-  index,
-  citation,
-}: {
-  index: number;
-  citation: Citation;
-}) {
-  const firstLink = citation.links[0] || "#";
-
-  return (
-    <HoverCard>
-      <HoverCardTrigger asChild>
-        <NextLink
-          href={firstLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-secondary hover:text-primary/80 transition-colors"
-        >
-          [{index}]
-        </NextLink>
-      </HoverCardTrigger>
-      <HoverCardContent side="left" align="start" className="w-80 p-4">
-        <div className="space-y-2">
-          <p className="text-sm text-muted-foreground">{citation.text}</p>
-          <div className="flex flex-wrap gap-2">
-            {citation.links
-              .filter((link) => link.toLowerCase() != "internet")
-              .map(
-                (link, idx) =>
-                  idx === 0 && (
-                    <NextLink
-                      key={idx}
-                      href={link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs text-secondary hover:text-primary/80 underline transition-colors"
-                    >
-                      {"[link]"}
-                    </NextLink>
-                  )
-              )}
-          </div>
-        </div>
-      </HoverCardContent>
-    </HoverCard>
-  );
 }
 
 export default function Explore({ qas, case_id, note_id }: ExploreProps) {
