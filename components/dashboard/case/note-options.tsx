@@ -203,7 +203,7 @@ export default function NoteOptions({
             )}
           </Dialog>
         </div>
-        <div className="space-y-1">
+        {/* <div className="space-y-1">
           <Label>Change Squire</Label>
           <Select
             value={current_scribe?.id}
@@ -230,7 +230,7 @@ export default function NoteOptions({
               ))}
             </SelectContent>
           </Select>
-        </div>
+        </div> */}
         <div className="space-y-1">
           <Label>Pronouns</Label>
           <PronounButtons case_id={case_id} note_id={current_note.id} />
