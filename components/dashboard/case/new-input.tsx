@@ -171,7 +171,7 @@ export default function NewInput({
       <input
         id="file-upload"
         type="file"
-        accept="audio/*"
+        accept="audio/*, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain"
         onChange={(e) => {
           handleUpload(e);
         }}
